@@ -5,7 +5,7 @@
 		<p class="mb-0">Dili · Ataúro · Oecusse</p>
 	</div>
 	{% for a in announcements %}
-		<div class="alert alert-warning"><strong>{{ a.title }}</strong><br>{{ a.body|linebreaksbr }}</div>
+		<div class="alert alert-warning"><strong>{{ a.display_title }}</strong><br>{{ a.display_body|linebreaksbr }}</div>
 	{% endfor %}
 	<h4 class="section-title">{% trans "Viajen tuir mai" %}</h4>
 	<div class="row">

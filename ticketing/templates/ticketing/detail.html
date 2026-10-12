@@ -21,10 +21,12 @@
 						{% if obj.plate_number %}<tr><th>{% trans "Nú. plaka" %}</th><td>{{ obj.plate_number }}</td></tr>{% endif %}
 						<tr><th>USD</th><td><strong>${{ obj.total }}</strong></td></tr>
 						<tr><th>{% trans "Pagamentu" %}</th><td>{{ obj.get_payment_method_display }}{% if obj.transfer_reference %} · {{ obj.transfer_reference }}{% endif %}</td></tr>
+						{% if obj.cancelled_at %}<tr class="text-danger"><th>{% trans "Kansela" %}</th><td>{{ obj.cancelled_at|date:"d/m/Y H:i" }} · {{ obj.cancelled_by|default:"—" }} — {{ obj.cancel_reason }}</td></tr>{% endif %}
 						<tr><th>{% trans "Faan husi" %}</th><td>{{ obj.sold_by|default:"—" }} · {{ obj.created_at|date:"d/m/Y H:i" }}</td></tr>
 					</table>
 					<div class="mt-3">
 						<a class="btn btn-info" href="{% url 'ticket-print' obj.pk %}" target="_blank"><i class="fa fa-print"></i> {% trans "Imprime" %}</a>
+						{% if obj.status == 'issued' %}{% if perms.ticketing.cancel_ticket or perms.ticketing.refund_ticket %}<a class="btn btn-outline-danger" href="{% url 'ticket-cancel' obj.pk %}"><i class="fa fa-times"></i> {% trans "Kansela bilhete" %}</a>{% endif %}{% endif %}
 						{% if perms.ticketing.view_documents %}
 							{% if obj.document_photo %}<a class="btn btn-outline-secondary" href="{% url 'ticket-document' obj.pk %}" target="_blank"><i class="fa fa-id-card-o"></i> {% trans "Foto dokumentu" %}</a>{% elif obj.document_deleted_at %}<span class="text-muted small">{% trans "Foto dokumentu hamoos ona (30 loron)." %}</span>{% endif %}
 							{% if obj.transfer_proof %}<a class="btn btn-outline-secondary" href="{% url 'ticket-proof' obj.pk %}" target="_blank"><i class="fa fa-file-image-o"></i> {% trans "Prova transferénsia" %}</a>{% endif %}

@@ -27,6 +27,7 @@ class Sailing(models.Model):
     status = models.CharField(max_length=10, choices=Status.choices, default=Status.SCHEDULED)
     sales_close_minutes = models.PositiveSmallIntegerField(default=60)
     note = models.CharField(max_length=255, blank=True)
+    original_departure = models.DateTimeField(null=True, blank=True)
     replaced_by = models.ForeignKey("self", null=True, blank=True, on_delete=models.SET_NULL, related_name="replaces")
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL, related_name="+")
     created_at = models.DateTimeField(auto_now_add=True)
@@ -124,6 +125,7 @@ class Ticket(models.Model):
     boarded_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL, related_name="+")
     cancelled_at = models.DateTimeField(null=True, blank=True)
     cancel_reason = models.CharField(max_length=255, blank=True)
+    cancelled_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL, related_name="+")
 
     class Meta:
         ordering = ["-created_at"]
@@ -176,8 +178,12 @@ class Ticket(models.Model):
 
 
 class Announcement(models.Model):
-    title = models.CharField(max_length=150)
-    body = models.TextField()
+    """Public notice. Auto-generated ones keep (kind, data) so they render in the viewer's language."""
+
+    title = models.CharField(max_length=150, blank=True)
+    body = models.TextField(blank=True)
+    kind = models.CharField(max_length=30, blank=True)
+    data = models.JSONField(default=dict, blank=True)
     sailing = models.ForeignKey(Sailing, null=True, blank=True, on_delete=models.SET_NULL, related_name="announcements")
     is_public = models.BooleanField(default=True)
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL, related_name="+")
@@ -187,4 +193,36 @@ class Announcement(models.Model):
         ordering = ["-created_at"]
 
     def __str__(self):
-        return self.title
+        return self.title or self.kind
+
+    def _rendered(self):
+        from .messages import render
+
+        return render(self.kind, self.data) if self.kind else (self.title, self.body)
+
+    @property
+    def display_title(self):
+        return self._rendered()[0]
+
+    @property
+    def display_body(self):
+        return self._rendered()[1]
+
+
+class Notification(models.Model):
+    """In-app notice for staff (schedule changes). Rendered in the viewer's language."""
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="notifications")
+    kind = models.CharField(max_length=30)
+    data = models.JSONField(default=dict, blank=True)
+    sailing = models.ForeignKey(Sailing, null=True, blank=True, on_delete=models.CASCADE, related_name="+")
+    created_at = models.DateTimeField(auto_now_add=True)
+    read_at = models.DateTimeField(null=True, blank=True, db_index=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def text(self):
+        from .messages import render
+
+        return render(self.kind, self.data)

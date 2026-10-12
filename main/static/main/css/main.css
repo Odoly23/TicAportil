@@ -106,3 +106,13 @@ body.sb-open .page-wrapper, body.sb-open footer { margin-left: var(--sb-w); }
 .hero { background: linear-gradient(135deg, var(--navy-dk), var(--navy)); color: #fff; padding: 28px 20px; }
 .hero h1 { font-size: clamp(1.5rem, 5vw, 2.2rem); margin: 0 0 4px; }
 .section-title { color: var(--navy); margin: 24px 0 12px; }
+
+.sb-body ul li a { position: relative; }
+.sb-badge { position: absolute; top: 4px; right: 8px; font-size: .55rem; }
+
+/* Tablet/small laptop: tighter menu so 8 items fit between brand and user menu */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .nav-links li a { padding: 8px 7px; font-size: .78rem; gap: 5px; }
+  .brand img { height: 40px; }
+  .nav-links .av + * , .nav-links .dropdown-toggle .av { display: none; }
+}

@@ -1,6 +1,6 @@
 from django.urls import path
 
-from . import views
+from . import views, views_sched as sched
 
 urlpatterns = [
 	path('sell/', views.SellSailings, name='sell-sailings'),
@@ -10,4 +10,17 @@ urlpatterns = [
 	path('tickets/<int:pk>/print/', views.TicketPrint, name='ticket-print'),
 	path('tickets/<int:pk>/document/', views.TicketDocument, name='ticket-document'),
 	path('tickets/<int:pk>/proof/', views.TicketProof, name='ticket-proof'),
+	path('sailings/', sched.SailingList, name='sailing-list'),
+	path('sailings/add/', sched.SailingAdd, name='sailing-add'),
+	path('sailings/<int:pk>/', sched.SailingDetail, name='sailing-detail'),
+	path('sailings/<int:pk>/edit/', sched.SailingEdit, name='sailing-edit'),
+	path('sailings/<int:pk>/delay/', sched.SailingDelay, name='sailing-delay'),
+	path('sailings/<int:pk>/cancel/', sched.SailingCancel, name='sailing-cancel'),
+	path('sailings/<int:pk>/move/', sched.SailingMove, name='sailing-move'),
+	path('sailings/<int:pk>/<str:action>/', sched.SailingStatus, name='sailing-status'),
+	path('announcements/', sched.AnnouncementList, name='announcement-list'),
+	path('announcements/add/', sched.AnnouncementAdd, name='announcement-add'),
+	path('announcements/<int:pk>/delete/', sched.AnnouncementDelete, name='announcement-delete'),
+	path('notifications/', sched.NotificationList, name='notifications'),
+	path('tickets/<int:pk>/cancel/', sched.TicketCancel, name='ticket-cancel'),
 ]

@@ -24,7 +24,7 @@ def landing(request):
 		"title": "Horáriu",
 		"sailings": sailings,
 		"fares": fares,
-		"announcements": Announcement.objects.filter(is_public=True)[:5],
+		"announcements": Announcement.objects.filter(is_public=True, created_at__gte=timezone.now() - timedelta(days=7))[:5],
 	})
 
 

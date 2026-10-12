@@ -22,7 +22,7 @@
 
 		<ul class="nav-links">
 			{% for m in menu %}
-				<li><a href="{% url m.url %}" class="{% if m.active %}active{% endif %}"><i class="fa {{ m.icon }}"></i> {{ m.label }}</a></li>
+				<li><a href="{% url m.url %}" class="{% if m.active %}active{% endif %}"><i class="fa {{ m.icon }}"></i> {{ m.label }}{% if m.badge %} <span class="badge badge-danger">{{ m.badge }}</span>{% endif %}</a></li>
 			{% endfor %}
 			{% if user.is_authenticated %}
 				{% if role == 'admin' %}<li><a href="/admin/"><i class="fa fa-cog"></i> {% trans "Jestaun" %}</a></li>{% endif %}
@@ -53,7 +53,7 @@
 	<div class="sb-body">
 		<ul>
 			{% for m in menu %}
-				<li class="{% if m.active %}sb-on{% endif %}"><a href="{% url m.url %}"><i class="fa {{ m.icon }}"></i>{{ m.label }}</a></li>
+				<li class="{% if m.active %}sb-on{% endif %}"><a href="{% url m.url %}"><i class="fa {{ m.icon }}"></i>{{ m.label }}{% if m.badge %}<span class="badge badge-danger sb-badge">{{ m.badge }}</span>{% endif %}</a></li>
 			{% endfor %}
 			{% if role == 'admin' %}<li><a href="/admin/"><i class="fa fa-cog"></i>{% trans "Jestaun" %}</a></li>{% endif %}
 		</ul>

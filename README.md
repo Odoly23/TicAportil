@@ -32,5 +32,13 @@ Teks sumber = Tetun. Tambah di `scripts/translations.py`, lalu `python scripts/b
 `python manage.py purge_documents` — harian; hapus foto dokumen > 30 hari.
 
 ## Status
-Fase 1 (fondasi) selesai. Berikut: penjualan loket + cetak 80mm, scan QR PWA offline, jadwal/kuota/pengumuman,
-refund medis, email laporan, deploy.
+- Fase 1: fondasi, login aman, multibahasa, grup/izin, laporan contoh.
+- Fase 2: penjualan tiket di loket (foto dokumen, tunai/transfer + bukti, cetak 80mm + QR HMAC).
+- Fase 3: **jadwal** — kelola pelayaran + kuota (admin & per operator), tunda/batal, pemindahan tiket otomatis
+  (semua-atau-tidak-sama-sekali, cek kuota), pengumuman publik 4 bahasa, notifikasi sistem + email,
+  batal/refund tiket (refund hanya alasan kesehatan, izin khusus), audit log.
+- Berikut: scan QR Inspector (PWA offline), email laporan harian/bulanan/tahunan + dashboard pendapatan,
+  kelola pengguna/tarif (UI), WhatsApp, deploy.
+
+Email dikirim lewat SMTP APORTIL (`EMAIL_*` di `.env`); jika SMTP gagal, perubahan jadwal tetap tersimpan
+dan kegagalan dicatat di audit log (`email_failed`).
