@@ -83,7 +83,7 @@ class MenuTests(TestCase):
 		return [m["url"] for m in self.client.get(reverse("home")).context["menu"]]
 
 	def test_menu_per_role(self):
-		self.assertEqual(self._menu_for("inspector"), ["home"])
+		self.assertEqual(self._menu_for("inspector"), ["home", "scan"])
 		self.assertEqual(self._menu_for("resepsionista"), ["home", "sell-sailings", "ticket-list"])
 
 	def test_admin_and_operator_see_reports(self):
