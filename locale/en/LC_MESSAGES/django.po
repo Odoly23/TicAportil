@@ -29,13 +29,57 @@ msgstr "Identity Card (BI)"
 msgid "Bilhete Loron-loron (loron 30 ikus)"
 msgstr "Tickets per day (last 30 days)"
 
+#: ticketing/templates/ticketing/print.html
+msgid "Bilhete Ró"
+msgstr "Ferry Ticket"
+
 #: main/templates/home/home.html
 msgid "Bilhete sosa deit iha loket portu. La presiza konta."
 msgstr "Tickets are sold only at the port ticket office. No account needed."
 
+#: ticketing/templates/ticketing/list.html
+msgid "Buka"
+msgstr "Show"
+
+#: ticketing/forms.py
+msgid "Data Moris"
+msgstr "Date of birth"
+
+#: ticketing/forms.py
+msgid "Data moris la los."
+msgstr "Invalid date of birth."
+
+#: ticketing/templates/ticketing/print.html
+msgid "Detallu"
+msgstr "Details"
+
+#: ticketing/templates/ticketing/detail.html
+msgid "Dokumentu"
+msgstr "Document"
+
+#: ticketing/forms.py
+msgid "Email (opsionál)"
+msgstr "Email (optional)"
+
 #: ticketing/models.py
 msgid "Emite ona"
 msgstr "Issued"
+
+#: ticketing/forms.py
+msgid "Faan bilhete ba viajen ne'e taka ona."
+msgstr "Ticket sales for this sailing are closed."
+
+#: ticketing/templates/ticketing/detail.html
+msgid "Faan husi"
+msgstr "Sold by"
+
+#: ticketing/templates/ticketing/sell_sailings.html
+msgid "Faan taka ona"
+msgstr "Sales closed"
+
+#: ticketing/forms.py
+msgid "Ficheiru la'ós imajen válidu."
+msgstr "The file is not a valid image."
 
 #: main/templates/home/500.html
 msgid "Fila ba pájina inisiál"
@@ -45,9 +89,33 @@ msgstr "Back to home page"
 msgid "Fila fali osan"
 msgstr "Refunded"
 
+#: ticketing/forms.py
+msgid "Foto dokumentu"
+msgstr "Document photo"
+
+#: ticketing/templates/ticketing/detail.html
+msgid "Foto dokumentu hamoos ona (30 loron)."
+msgstr "Document photo deleted (30 days)."
+
+#: ticketing/forms.py
+msgid "Foto dokumentu obrigatóriu."
+msgstr "Document photo is required."
+
 #: main/templates/home/home.html
 msgid "Horáriu Ró-Laran"
 msgstr "Ferry Schedule"
+
+#: ticketing/forms.py
+msgid "Idade pasajeiru (%(a)d) la tuir kategoria ne'e."
+msgstr "The passenger's age (%(a)d) does not fit this category."
+
+#: ticketing/forms.py
+msgid "Imajen boot liu (maximu 10 MB)."
+msgstr "Image too large (max 10 MB)."
+
+#: ticketing/templates/ticketing/detail.html
+msgid "Imprime"
+msgstr "Print"
 
 #: main/templates/main/navbar.html
 msgid "Jestaun"
@@ -61,6 +129,26 @@ msgstr "Cancelled"
 msgid "Kartaun Eleitorál"
 msgstr "Voter Card"
 
+#: ticketing/forms.py
+msgid "Kategoria ne'e ba estranjeiru ho pasaporte de'it."
+msgstr "This category is for foreigners with a passport only."
+
+#: ticketing/forms.py
+msgid "Kuantidade"
+msgstr "Quantity"
+
+#: ticketing/forms.py
+msgid "Kuota la to'o. Sobra: %(n)d."
+msgstr "Not enough quota. Remaining: %(n)d."
+
+#: ticketing/views.py
+msgid "Kuota la to'o. Tenta fali."
+msgstr "Not enough quota. Please try again."
+
+#: ticketing/templates/ticketing/sell_form.html
+msgid "Kuota sobra"
+msgstr "Remaining quota"
+
 #: users/forms.py
 msgid "Liafuan-pase"
 msgstr "Password"
@@ -68,6 +156,10 @@ msgstr "Password"
 #: users/models.py
 msgid "Lian"
 msgstr "Language"
+
+#: main/context_processors.py
+msgid "Lista Bilhete"
+msgstr "Ticket list"
 
 #: main/templates/main/navbar.html
 msgid "Login"
@@ -85,6 +177,10 @@ msgstr "Modules (ticket sales, scanning, reports) come in the next phases."
 msgid "Naran"
 msgstr "Name"
 
+#: ticketing/forms.py
+msgid "Naran kompletu"
+msgstr "Full name"
+
 #: users/forms.py
 msgid "Naran uza-na'in"
 msgstr "Username"
@@ -92,6 +188,34 @@ msgstr "Username"
 #: users/forms.py
 msgid "Naran uza-na'in ka liafuan-pase la los. Tenta fali."
 msgstr "Incorrect username or password. Please try again."
+
+#: ticketing/forms.py
+msgid "Nasionalidade"
+msgstr "Nationality"
+
+#: ticketing/forms.py
+msgid "Nú. dokumentu"
+msgstr "Document no."
+
+#: ticketing/forms.py
+msgid "Nú. plaka"
+msgstr "Plate number"
+
+#: ticketing/forms.py
+msgid "Nú. plaka obrigatóriu."
+msgstr "Plate number is required."
+
+#: ticketing/forms.py
+msgid "Nú. referénsia transferénsia"
+msgstr "Transfer reference no."
+
+#: ticketing/forms.py
+msgid "Obrigatóriu."
+msgstr "Required."
+
+#: ticketing/forms.py
+msgid "Observasaun"
+msgstr "Notes"
 
 #: users/models.py
 msgid "Operadór"
@@ -101,9 +225,17 @@ msgstr "Operator"
 msgid "Osan kontante"
 msgstr "Cash"
 
+#: ticketing/forms.py
+msgid "Pagamentu"
+msgstr "Payment"
+
 #: main/context_processors.py
 msgid "Painel"
 msgstr "Dashboard"
+
+#: ticketing/templates/ticketing/print.html
+msgid "Partida"
+msgstr "Departure"
 
 #: ticketing/models.py
 msgid "Partida ona"
@@ -125,6 +257,14 @@ msgstr "Passengers: minimum age"
 msgid "Pasaporte"
 msgstr "Passport"
 
+#: ticketing/forms.py
+msgid "Pasaporte uza kategoria estranjeiru."
+msgstr "A passport requires the foreigner category."
+
+#: ticketing/templates/ticketing/print.html
+msgid "Plaka"
+msgstr "Plate"
+
 #: main/templates/home/login.html
 msgid "Portal Sistema Bilheteira"
 msgstr "Ticketing System Portal"
@@ -133,9 +273,21 @@ msgstr "Ticketing System Portal"
 msgid "Presu bilhete"
 msgstr "Ticket prices"
 
+#: ticketing/forms.py
+msgid "Prova transferénsia"
+msgstr "Transfer proof"
+
+#: ticketing/forms.py
+msgid "Prova transferénsia obrigatóriu."
+msgstr "Transfer proof is required."
+
 #: main/templates/home/404.html
 msgid "Pájina la hetan"
 msgstr "Page not found"
+
+#: ticketing/templates/ticketing/sell_form.html
+msgid "Rai no imprime"
+msgstr "Save and print"
 
 #: main/context_processors.py
 msgid "Relatóriu"
@@ -149,6 +301,10 @@ msgstr "Completed"
 msgid "Rota"
 msgstr "Route"
 
+#: ticketing/templates/ticketing/print.html
+msgid "Ró"
+msgstr "Vessel"
+
 #: main/templates/main/navbar.html
 msgid "Sai"
 msgstr "Logout"
@@ -157,13 +313,17 @@ msgstr "Logout"
 msgid "Sasán / Animál"
 msgstr "Goods / Animals"
 
-#: main/templates/home/home.html
+#: ticketing/templates/ticketing/sell_sailings.html
 msgid "Seidauk iha viajen agendadu."
 msgstr "No sailings scheduled yet."
 
 #: ticketing/models.py
 msgid "Seluk"
 msgstr "Other"
+
+#: ticketing/templates/ticketing/list.html
+msgid "Serial"
+msgstr "Serial"
 
 #: ticketing/models.py
 msgid "Sertifikadu Batismu"
@@ -177,9 +337,29 @@ msgstr "RDTL Certificate"
 msgid "Sesaun taka automátiku wainhira la uza ba minutu 30."
 msgstr "The session closes automatically after 30 minutes of inactivity."
 
+#: ticketing/forms.py
+msgid "Sexu"
+msgstr "Sex"
+
 #: main/templates/home/500.html
 msgid "Sistema iha problema"
 msgstr "The system has a problem"
+
+#: main/context_processors.py
+msgid "Sosa Bilhete"
+msgstr "Sell ticket"
+
+#: ticketing/templates/ticketing/sell_sailings.html
+msgid "Sosa bilhete"
+msgstr "Sell ticket"
+
+#: ticketing/templates/ticketing/print.html
+msgid "Sosa seluk"
+msgstr "Sell another"
+
+#: ticketing/templates/ticketing/print.html
+msgid "Stampel"
+msgstr "Stamp"
 
 #: main/templates/home/login.html
 msgid "Tama"
@@ -197,9 +377,21 @@ msgstr "Phone"
 msgid "Tentativa barak liu. Hein minutu %(m)d ho tenta fali."
 msgstr "Too many attempts. Wait %(m)d minutes and try again."
 
-#: main/templates/home/home.html
+#: ticketing/templates/ticketing/list.html
 msgid "Tipu"
 msgstr "Type"
+
+#: ticketing/forms.py
+msgid "Tipu bilhete"
+msgstr "Ticket type"
+
+#: ticketing/forms.py
+msgid "Tipu dokumentu"
+msgstr "Document type"
+
+#: ticketing/templates/ticketing/list.html
+msgid "Total"
+msgstr "Total"
 
 #: ticketing/models.py
 msgid "Transferénsia banku"
@@ -213,6 +405,14 @@ msgstr "Operator users only see their own operator's data."
 msgid "Veíkulu"
 msgstr "Vehicle"
 
+#: ticketing/templates/ticketing/list.html
+msgid "Viajen"
+msgstr "Sailing"
+
 #: main/templates/home/home.html
 msgid "Viajen tuir mai"
 msgstr "Upcoming sailings"
+
+#: ticketing/forms.py
+msgid "WhatsApp (opsionál)"
+msgstr "WhatsApp (optional)"

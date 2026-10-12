@@ -29,13 +29,57 @@ msgstr "Kartu Identitas (BI)"
 msgid "Bilhete Loron-loron (loron 30 ikus)"
 msgstr "Tiket per hari (30 hari terakhir)"
 
+#: ticketing/templates/ticketing/print.html
+msgid "Bilhete Ró"
+msgstr "Tiket Kapal"
+
 #: main/templates/home/home.html
 msgid "Bilhete sosa deit iha loket portu. La presiza konta."
 msgstr "Tiket hanya dijual di loket pelabuhan. Tidak perlu akun."
 
+#: ticketing/templates/ticketing/list.html
+msgid "Buka"
+msgstr "Tampilkan"
+
+#: ticketing/forms.py
+msgid "Data Moris"
+msgstr "Tanggal lahir"
+
+#: ticketing/forms.py
+msgid "Data moris la los."
+msgstr "Tanggal lahir tidak valid."
+
+#: ticketing/templates/ticketing/print.html
+msgid "Detallu"
+msgstr "Detail"
+
+#: ticketing/templates/ticketing/detail.html
+msgid "Dokumentu"
+msgstr "Dokumen"
+
+#: ticketing/forms.py
+msgid "Email (opsionál)"
+msgstr "Email (opsional)"
+
 #: ticketing/models.py
 msgid "Emite ona"
 msgstr "Diterbitkan"
+
+#: ticketing/forms.py
+msgid "Faan bilhete ba viajen ne'e taka ona."
+msgstr "Penjualan tiket untuk pelayaran ini sudah ditutup."
+
+#: ticketing/templates/ticketing/detail.html
+msgid "Faan husi"
+msgstr "Dijual oleh"
+
+#: ticketing/templates/ticketing/sell_sailings.html
+msgid "Faan taka ona"
+msgstr "Penjualan ditutup"
+
+#: ticketing/forms.py
+msgid "Ficheiru la'ós imajen válidu."
+msgstr "Berkas bukan gambar yang valid."
 
 #: main/templates/home/500.html
 msgid "Fila ba pájina inisiál"
@@ -45,9 +89,33 @@ msgstr "Kembali ke beranda"
 msgid "Fila fali osan"
 msgstr "Dikembalikan dananya"
 
+#: ticketing/forms.py
+msgid "Foto dokumentu"
+msgstr "Foto dokumen"
+
+#: ticketing/templates/ticketing/detail.html
+msgid "Foto dokumentu hamoos ona (30 loron)."
+msgstr "Foto dokumen sudah dihapus (30 hari)."
+
+#: ticketing/forms.py
+msgid "Foto dokumentu obrigatóriu."
+msgstr "Foto dokumen wajib diisi."
+
 #: main/templates/home/home.html
 msgid "Horáriu Ró-Laran"
 msgstr "Jadwal Kapal"
+
+#: ticketing/forms.py
+msgid "Idade pasajeiru (%(a)d) la tuir kategoria ne'e."
+msgstr "Usia penumpang (%(a)d) tidak sesuai kategori ini."
+
+#: ticketing/forms.py
+msgid "Imajen boot liu (maximu 10 MB)."
+msgstr "Gambar terlalu besar (maks. 10 MB)."
+
+#: ticketing/templates/ticketing/detail.html
+msgid "Imprime"
+msgstr "Cetak"
 
 #: main/templates/main/navbar.html
 msgid "Jestaun"
@@ -61,6 +129,26 @@ msgstr "Dibatalkan"
 msgid "Kartaun Eleitorál"
 msgstr "Kartu Pemilih"
 
+#: ticketing/forms.py
+msgid "Kategoria ne'e ba estranjeiru ho pasaporte de'it."
+msgstr "Kategori ini hanya untuk orang asing dengan paspor."
+
+#: ticketing/forms.py
+msgid "Kuantidade"
+msgstr "Jumlah"
+
+#: ticketing/forms.py
+msgid "Kuota la to'o. Sobra: %(n)d."
+msgstr "Kuota tidak cukup. Sisa: %(n)d."
+
+#: ticketing/views.py
+msgid "Kuota la to'o. Tenta fali."
+msgstr "Kuota tidak cukup. Coba lagi."
+
+#: ticketing/templates/ticketing/sell_form.html
+msgid "Kuota sobra"
+msgstr "Sisa kuota"
+
 #: users/forms.py
 msgid "Liafuan-pase"
 msgstr "Kata sandi"
@@ -68,6 +156,10 @@ msgstr "Kata sandi"
 #: users/models.py
 msgid "Lian"
 msgstr "Bahasa"
+
+#: main/context_processors.py
+msgid "Lista Bilhete"
+msgstr "Daftar tiket"
 
 #: main/templates/main/navbar.html
 msgid "Login"
@@ -86,6 +178,10 @@ msgstr ""
 msgid "Naran"
 msgstr "Nama"
 
+#: ticketing/forms.py
+msgid "Naran kompletu"
+msgstr "Nama lengkap"
+
 #: users/forms.py
 msgid "Naran uza-na'in"
 msgstr "Nama pengguna"
@@ -93,6 +189,34 @@ msgstr "Nama pengguna"
 #: users/forms.py
 msgid "Naran uza-na'in ka liafuan-pase la los. Tenta fali."
 msgstr "Nama pengguna atau kata sandi salah. Coba lagi."
+
+#: ticketing/forms.py
+msgid "Nasionalidade"
+msgstr "Kewarganegaraan"
+
+#: ticketing/forms.py
+msgid "Nú. dokumentu"
+msgstr "No. dokumen"
+
+#: ticketing/forms.py
+msgid "Nú. plaka"
+msgstr "Nomor plat"
+
+#: ticketing/forms.py
+msgid "Nú. plaka obrigatóriu."
+msgstr "Nomor plat wajib diisi."
+
+#: ticketing/forms.py
+msgid "Nú. referénsia transferénsia"
+msgstr "No. referensi transfer"
+
+#: ticketing/forms.py
+msgid "Obrigatóriu."
+msgstr "Wajib diisi."
+
+#: ticketing/forms.py
+msgid "Observasaun"
+msgstr "Catatan"
 
 #: users/models.py
 msgid "Operadór"
@@ -102,9 +226,17 @@ msgstr "Operator"
 msgid "Osan kontante"
 msgstr "Tunai"
 
+#: ticketing/forms.py
+msgid "Pagamentu"
+msgstr "Pembayaran"
+
 #: main/context_processors.py
 msgid "Painel"
 msgstr "Dasbor"
+
+#: ticketing/templates/ticketing/print.html
+msgid "Partida"
+msgstr "Keberangkatan"
 
 #: ticketing/models.py
 msgid "Partida ona"
@@ -126,6 +258,14 @@ msgstr "Penumpang: usia minimum"
 msgid "Pasaporte"
 msgstr "Paspor"
 
+#: ticketing/forms.py
+msgid "Pasaporte uza kategoria estranjeiru."
+msgstr "Paspor memakai kategori orang asing."
+
+#: ticketing/templates/ticketing/print.html
+msgid "Plaka"
+msgstr "Plat"
+
 #: main/templates/home/login.html
 msgid "Portal Sistema Bilheteira"
 msgstr "Portal Sistem Tiket"
@@ -134,9 +274,21 @@ msgstr "Portal Sistem Tiket"
 msgid "Presu bilhete"
 msgstr "Harga tiket"
 
+#: ticketing/forms.py
+msgid "Prova transferénsia"
+msgstr "Bukti transfer"
+
+#: ticketing/forms.py
+msgid "Prova transferénsia obrigatóriu."
+msgstr "Bukti transfer wajib diisi."
+
 #: main/templates/home/404.html
 msgid "Pájina la hetan"
 msgstr "Halaman tidak ditemukan"
+
+#: ticketing/templates/ticketing/sell_form.html
+msgid "Rai no imprime"
+msgstr "Simpan dan cetak"
 
 #: main/context_processors.py
 msgid "Relatóriu"
@@ -150,6 +302,10 @@ msgstr "Selesai"
 msgid "Rota"
 msgstr "Rute"
 
+#: ticketing/templates/ticketing/print.html
+msgid "Ró"
+msgstr "Kapal"
+
 #: main/templates/main/navbar.html
 msgid "Sai"
 msgstr "Keluar"
@@ -158,13 +314,17 @@ msgstr "Keluar"
 msgid "Sasán / Animál"
 msgstr "Barang / Hewan"
 
-#: main/templates/home/home.html
+#: ticketing/templates/ticketing/sell_sailings.html
 msgid "Seidauk iha viajen agendadu."
 msgstr "Belum ada pelayaran terjadwal."
 
 #: ticketing/models.py
 msgid "Seluk"
 msgstr "Lainnya"
+
+#: ticketing/templates/ticketing/list.html
+msgid "Serial"
+msgstr "Serial"
 
 #: ticketing/models.py
 msgid "Sertifikadu Batismu"
@@ -178,9 +338,29 @@ msgstr "Sertifikat RDTL"
 msgid "Sesaun taka automátiku wainhira la uza ba minutu 30."
 msgstr "Sesi berakhir otomatis setelah 30 menit tidak aktif."
 
+#: ticketing/forms.py
+msgid "Sexu"
+msgstr "Jenis kelamin"
+
 #: main/templates/home/500.html
 msgid "Sistema iha problema"
 msgstr "Sistem mengalami masalah"
+
+#: main/context_processors.py
+msgid "Sosa Bilhete"
+msgstr "Jual tiket"
+
+#: ticketing/templates/ticketing/sell_sailings.html
+msgid "Sosa bilhete"
+msgstr "Jual tiket"
+
+#: ticketing/templates/ticketing/print.html
+msgid "Sosa seluk"
+msgstr "Jual lagi"
+
+#: ticketing/templates/ticketing/print.html
+msgid "Stampel"
+msgstr "Stempel"
 
 #: main/templates/home/login.html
 msgid "Tama"
@@ -198,9 +378,21 @@ msgstr "Telepon"
 msgid "Tentativa barak liu. Hein minutu %(m)d ho tenta fali."
 msgstr "Terlalu banyak percobaan. Tunggu %(m)d menit lalu coba lagi."
 
-#: main/templates/home/home.html
+#: ticketing/templates/ticketing/list.html
 msgid "Tipu"
 msgstr "Jenis"
+
+#: ticketing/forms.py
+msgid "Tipu bilhete"
+msgstr "Jenis tiket"
+
+#: ticketing/forms.py
+msgid "Tipu dokumentu"
+msgstr "Jenis dokumen"
+
+#: ticketing/templates/ticketing/list.html
+msgid "Total"
+msgstr "Total"
 
 #: ticketing/models.py
 msgid "Transferénsia banku"
@@ -214,6 +406,14 @@ msgstr "Pengguna operator hanya melihat data operatornya sendiri."
 msgid "Veíkulu"
 msgstr "Kendaraan"
 
+#: ticketing/templates/ticketing/list.html
+msgid "Viajen"
+msgstr "Pelayaran"
+
 #: main/templates/home/home.html
 msgid "Viajen tuir mai"
 msgstr "Pelayaran mendatang"
+
+#: ticketing/forms.py
+msgid "WhatsApp (opsionál)"
+msgstr "WhatsApp (opsional)"

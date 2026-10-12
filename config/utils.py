@@ -56,3 +56,20 @@ def document_photo(instance, filename):
 def transfer_proof(instance, filename):
 	"""Bank transfer proof image."""
 	return _private_name('proofs', filename)
+
+
+def shrink_image(upload, max_px=1600, quality=80):
+	"""Downscale a phone photo to a JPEG (max_px on the long side) so storage stays small."""
+	from io import BytesIO
+
+	from django.core.files.uploadedfile import InMemoryUploadedFile
+	from PIL import Image, ImageOps
+
+	img = ImageOps.exif_transpose(Image.open(upload)).convert('RGB')
+	img.thumbnail((max_px, max_px))
+	buf = BytesIO()
+	img.save(buf, 'JPEG', quality=quality, optimize=True)
+	buf.seek(0)
+	name = upload.name.rsplit('.', 1)[0] + '.jpg'
+	return InMemoryUploadedFile(buf, upload.field_name if hasattr(upload, 'field_name') else None,
+		name, 'image/jpeg', buf.getbuffer().nbytes, None)

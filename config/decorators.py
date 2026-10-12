@@ -23,3 +23,15 @@ def allowed_users(allowed_roles=[]):
 			return render(request, 'home/403.html', status=403)
 		return wrapper_func
 	return decorator
+
+
+def perm_required(perm):
+	"""Allow users holding the permission (via group or granted individually by an admin)."""
+	def decorator(view_func):
+		@wraps(view_func)
+		def wrapper_func(request, *args, **kwargs):
+			if request.user.has_perm(perm):
+				return view_func(request, *args, **kwargs)
+			return render(request, 'home/403.html', status=403)
+		return wrapper_func
+	return decorator

@@ -1,0 +1,58 @@
+{% extends "main/layout.html" %}{% load i18n crispy_forms_tags %}
+{% block content %}
+	<ol class="breadcrumb mb-2 mt-1">
+		<li class="breadcrumb-item"><a href="{% url 'home' %}">VARANDA</a></li>
+		<li class="breadcrumb-item"><a href="{% url 'sell-sailings' %}">{% trans "Sosa Bilhete" %}</a></li>
+		<li class="breadcrumb-item active" aria-current="page">{{ legend|upper }}</li>
+	</ol>
+	<div class="row">
+		<div class="col-lg-8">
+			<div class="card shadow-lg rounded mb-3">
+				<div class="card-header">{{ sailing.departure|date:"D d/m/Y H:i" }} · {{ sailing.route }}</div>
+				<div class="card-body">
+					<form method="post" enctype="multipart/form-data" id="sellForm" novalidate>{% csrf_token %}
+						{% if form.non_field_errors %}<div class="alert alert-danger p-2">{{ form.non_field_errors }}</div>{% endif %}
+						{% crispy form %}
+						<div class="d-flex justify-content-between align-items-center mt-3 flex-wrap">
+							<div class="h4 mb-2 mb-sm-0">{% trans "Total" %}: <span id="total">$0.00</span></div>
+							<button class="btn btn-success btn-lg" type="submit"><i class="fa fa-print"></i> {% trans "Rai no imprime" %}</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<div class="card shadow-sm mb-3">
+				<div class="card-header">{% trans "Kuota sobra" %}</div>
+				<div class="card-body">
+					<ul class="list-unstyled mb-0">
+						{% for label, q in quotas %}
+							<li class="d-flex justify-content-between"><span>{{ label }}</span>{% if q %}<strong class="{% if q.remaining == 0 %}text-danger{% endif %}">{{ q.remaining }} / {{ q.capacity }}</strong>{% else %}<span class="text-muted">—</span>{% endif %}</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block scripts %}
+<script>
+$(function () {
+	var $item = $('#id_item'), $qty = $('#id_quantity'), $pay = $('#id_payment_method');
+	function update() {
+		var o = $item.find('option:selected'), g = o.data('group'), price = parseFloat(o.data('price') || 0);
+		var pax = g === 'passenger';
+		$('#passenger-fields').toggle(pax);
+		$('#plate-fields').toggle(o.data('plate') == 1);
+		$qty.closest('.form-group').toggle(!pax);
+		if (pax) $qty.val(1);
+		$('#transfer-fields').toggle($pay.val() === 'transfer');
+		var q = parseInt($qty.val() || 1, 10);
+		$('#total').text('$' + (price * q).toFixed(2));
+	}
+	$item.on('change', update); $qty.on('input', update); $pay.on('change', update);
+	update();
+	$('#sellForm').on('submit', function () { $(this).find('button[type=submit]').prop('disabled', true); });
+});
+</script>
+{% endblock %}

@@ -1,4 +1,5 @@
 from django.contrib.auth.models import Group
+from django.core.management import call_command
 from django.http import HttpResponse
 from django.test import RequestFactory, TestCase
 from django.urls import reverse
@@ -49,9 +50,12 @@ class DecoratorTests(TestCase):
 
 
 class ReportApiTests(TestCase):
+	def setUp(self):
+		call_command("setup_roles", verbosity=0)
+
 	def test_api_requires_login_and_returns_series(self):
 		self.assertEqual(self.client.get("/api/report/venda/rota/").status_code, 403)
-		g = Group.objects.create(name="admin")
+		g = Group.objects.get(name="admin")
 		u = User.objects.create_user("e", password="x")
 		u.groups.add(g)
 		self.client.force_login(u)
@@ -61,7 +65,7 @@ class ReportApiTests(TestCase):
 		self.assertEqual(self.client.get("/report/dash/").status_code, 200)
 
 	def test_operator_cannot_open_admin_only_pages_but_can_open_report(self):
-		g = Group.objects.create(name="inspector")
+		g = Group.objects.get(name="inspector")
 		u = User.objects.create_user("f", password="x")
 		u.groups.add(g)
 		self.client.force_login(u)
@@ -69,14 +73,18 @@ class ReportApiTests(TestCase):
 
 
 class MenuTests(TestCase):
+	def setUp(self):
+		call_command("setup_roles", verbosity=0)
+
 	def _menu_for(self, group):
 		u = User.objects.create_user(group, password="x")
-		u.groups.add(Group.objects.create(name=group))
+		u.groups.add(Group.objects.get(name=group))
 		self.client.force_login(u)
 		return [m["url"] for m in self.client.get(reverse("home")).context["menu"]]
 
 	def test_menu_per_role(self):
 		self.assertEqual(self._menu_for("inspector"), ["home"])
+		self.assertEqual(self._menu_for("resepsionista"), ["home", "sell-sailings", "ticket-list"])
 
 	def test_admin_and_operator_see_reports(self):
 		self.assertIn("report-dash", self._menu_for("operator"))

@@ -2,16 +2,18 @@ from django.contrib.staticfiles import finders
 from django.templatetags.static import static
 from django.utils.translation import gettext_lazy as _
 
-# (url name, label, FontAwesome 4 icon, roles allowed). Add new modules here; the desktop navbar
-# and the mobile sidebar both render from this single list.
+# (url name, label, FontAwesome 4 icon, required permission or None). Add new modules here; the desktop
+# navbar and the mobile sidebar both render from this single list, filtered by the user's permissions.
 MENU = [
-	('home', _("Painel"), 'fa-home', ('admin', 'resepsionista', 'inspector', 'operator')),
-	('report-dash', _("Relatóriu"), 'fa-bar-chart', ('admin', 'operator')),
+	('home', _("Painel"), 'fa-home', None),
+	('sell-sailings', _("Sosa Bilhete"), 'fa-ticket', 'ticketing.issue_ticket'),
+	('ticket-list', _("Lista Bilhete"), 'fa-list', 'ticketing.issue_ticket'),
+	('report-dash', _("Relatóriu"), 'fa-bar-chart', 'ticketing.view_reports'),
 ]
 
 
 def role(request):
-	"""Expose the user's role ('admin', 'resepsionista', 'inspector', 'operator') and its menu."""
+	"""Expose the user's role ('admin', 'resepsionista', ...) and the menu they may see."""
 	user = request.user
 	if not user.is_authenticated:
 		return {'role': None, 'menu': []}
@@ -23,7 +25,7 @@ def role(request):
 	current = getattr(getattr(request, 'resolver_match', None), 'url_name', None)
 	menu = [
 		{'url': name, 'label': label, 'icon': icon, 'active': name == current}
-		for name, label, icon, roles in MENU if r in roles
+		for name, label, icon, perm in MENU if perm is None or user.has_perm(perm)
 	]
 	return {'role': r, 'menu': menu}
 

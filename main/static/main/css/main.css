@@ -96,6 +96,7 @@ body.sb-open .page-wrapper, body.sb-open footer { margin-left: var(--sb-w); }
 /* Components */
 .btn { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
 .btn-sm { min-height: 36px; }
+.btn .fa { margin-right: .4rem; }
 .btn-info, .badge-info { background-color: var(--accent); border-color: var(--accent); color: #fff; }
 .btn-info:hover { background-color: #007f81; border-color: #007f81; color: #fff; }
 .text-info { color: var(--accent) !important; }

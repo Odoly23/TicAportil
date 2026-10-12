@@ -1,0 +1,50 @@
+{% extends "main/layout.html" %}{% load i18n %}
+{% block content %}
+	<ol class="breadcrumb mb-2 mt-1">
+		<li class="breadcrumb-item"><a href="{% url 'home' %}">VARANDA</a></li>
+		<li class="breadcrumb-item active" aria-current="page">{{ legend|upper }}</li>
+	</ol>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="card shadow-lg pt-0 rounded">
+				<div class="card-header">{{ legend|upper }}</div>
+				<div class="card-body">
+					<form method="get" class="form-inline mb-3">
+						<input type="date" name="date" value="{{ day|date:'Y-m-d' }}" class="form-control mr-2">
+						<button class="btn btn-sm btn-info">{% trans "Buka" %}</button>
+						<span class="ml-auto h5 mb-0">{% trans "Total" %}: ${{ total }}</span>
+					</form>
+					<div class="table-responsive">
+					<table class="table table-sm" id="example" width="100%" cellspacing="0">
+						<thead><tr>
+							<th>Nu.</th><th>{% trans "Serial" %}</th><th>{% trans "Naran" %}</th><th>{% trans "Tipu" %}</th>
+							<th>{% trans "Viajen" %}</th><th>USD</th><th>{% trans "Pagamentu" %}</th><th>Status</th><th>#</th>
+						</tr></thead>
+						<tbody>
+						{% for obj in objects %}
+							<tr>
+								<td>{{ forloop.counter }}</td>
+								<td>{{ obj.serial }}</td>
+								<td>{{ obj.full_name|default:"—" }}</td>
+								<td>{{ obj.item.display_name }}{% if obj.quantity > 1 %} ×{{ obj.quantity }}{% endif %}</td>
+								<td>{{ obj.sailing.route }} <small class="text-muted">{{ obj.sailing.departure|date:"d/m H:i" }}</small></td>
+								<td>{{ obj.total }}</td>
+								<td>{{ obj.get_payment_method_display }}</td>
+								<td>{{ obj.get_status_display }}</td>
+								<td>
+									<a class="btn btn-sm btn-success mb-1" href="{% url 'ticket-detail' obj.pk %}"><i class="fa fa-list"></i></a>
+									<a class="btn btn-sm btn-info mb-1" href="{% url 'ticket-print' obj.pk %}" target="_blank"><i class="fa fa-print"></i></a>
+								</td>
+							</tr>
+						{% endfor %}
+						</tbody>
+					</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block scripts %}
+	<script>$(document).ready(function () { $('#example').DataTable(); });</script>
+{% endblock %}
