@@ -1,0 +1,215 @@
+#
+msgid ""
+msgstr ""
+"Language: id\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#: ticketing/models.py
+msgid "Agendadu"
+msgstr "Terjadwal"
+
+#: main/templates/home/403.html
+msgid "Aksesu la permite"
+msgstr "Akses ditolak"
+
+#: ticketing/models.py
+msgid "Atrazadu"
+msgstr "Tertunda"
+
+#: report/templates/report/chart_dash.html
+msgid "Bilhete Bazeia Rota"
+msgstr "Tiket per rute"
+
+#: ticketing/models.py
+msgid "Bilhete Identidade (BI)"
+msgstr "Kartu Identitas (BI)"
+
+#: report/templates/report/chart_dash.html
+msgid "Bilhete Loron-loron (loron 30 ikus)"
+msgstr "Tiket per hari (30 hari terakhir)"
+
+#: main/templates/home/home.html
+msgid "Bilhete sosa deit iha loket portu. La presiza konta."
+msgstr "Tiket hanya dijual di loket pelabuhan. Tidak perlu akun."
+
+#: ticketing/models.py
+msgid "Emite ona"
+msgstr "Diterbitkan"
+
+#: main/templates/home/500.html
+msgid "Fila ba pájina inisiál"
+msgstr "Kembali ke beranda"
+
+#: ticketing/models.py
+msgid "Fila fali osan"
+msgstr "Dikembalikan dananya"
+
+#: main/templates/home/home.html
+msgid "Horáriu Ró-Laran"
+msgstr "Jadwal Kapal"
+
+#: main/templates/main/adm.html
+msgid "Jestaun"
+msgstr "Administrasi"
+
+#: ticketing/models.py
+msgid "Kansela"
+msgstr "Dibatalkan"
+
+#: ticketing/models.py
+msgid "Kartaun Eleitorál"
+msgstr "Kartu Pemilih"
+
+#: users/forms.py
+msgid "Liafuan-pase"
+msgstr "Kata sandi"
+
+#: users/models.py
+msgid "Lian"
+msgstr "Bahasa"
+
+#: main/templates/main/navbar.html
+msgid "Login staff"
+msgstr "Masuk staf"
+
+#: main/templates/main/dashboard.html
+msgid "Módulu sira (venda bilhete, scan, relatóriu) sei iha faze tuir mai."
+msgstr ""
+"Modul (penjualan tiket, pemindaian, laporan) hadir di fase berikutnya."
+
+#: custom/models.py
+msgid "Naran"
+msgstr "Nama"
+
+#: users/forms.py
+msgid "Naran uza-na'in"
+msgstr "Nama pengguna"
+
+#: users/forms.py
+msgid "Naran uza-na'in ka liafuan-pase la los. Tenta fali."
+msgstr "Nama pengguna atau kata sandi salah. Coba lagi."
+
+#: users/models.py
+msgid "Operadór"
+msgstr "Operator"
+
+#: ticketing/models.py
+msgid "Osan kontante"
+msgstr "Tunai"
+
+#: main/templates/main/operator.html
+msgid "Painel"
+msgstr "Dasbor"
+
+#: ticketing/models.py
+msgid "Partida ona"
+msgstr "Telah berangkat"
+
+#: custom/models.py
+msgid "Pasajeiru"
+msgstr "Penumpang"
+
+#: custom/models.py
+msgid "Pasajeiru: idade maximu"
+msgstr "Penumpang: usia maksimum"
+
+#: custom/models.py
+msgid "Pasajeiru: idade minimu"
+msgstr "Penumpang: usia minimum"
+
+#: ticketing/models.py
+msgid "Pasaporte"
+msgstr "Paspor"
+
+#: main/templates/home/login.html
+msgid "Portal Sistema Bilheteira"
+msgstr "Portal Sistem Tiket"
+
+#: main/templates/home/home.html
+msgid "Presu bilhete"
+msgstr "Harga tiket"
+
+#: main/templates/home/404.html
+msgid "Pájina la hetan"
+msgstr "Halaman tidak ditemukan"
+
+#: main/templates/main/operator.html
+msgid "Relatóriu"
+msgstr "Laporan"
+
+#: ticketing/models.py
+msgid "Remata"
+msgstr "Selesai"
+
+#: main/templates/home/home.html
+msgid "Rota"
+msgstr "Rute"
+
+#: main/templates/main/navbar.html
+msgid "Sai"
+msgstr "Keluar"
+
+#: custom/models.py
+msgid "Sasán / Animál"
+msgstr "Barang / Hewan"
+
+#: main/templates/home/home.html
+msgid "Seidauk iha viajen agendadu."
+msgstr "Belum ada pelayaran terjadwal."
+
+#: ticketing/models.py
+msgid "Seluk"
+msgstr "Lainnya"
+
+#: ticketing/models.py
+msgid "Sertifikadu Batismu"
+msgstr "Surat Baptis"
+
+#: ticketing/models.py
+msgid "Sertifikadu RDTL"
+msgstr "Sertifikat RDTL"
+
+#: main/templates/home/login.html
+msgid "Sesaun taka automátiku wainhira la uza ba minutu 30."
+msgstr "Sesi berakhir otomatis setelah 30 menit tidak aktif."
+
+#: main/templates/home/500.html
+msgid "Sistema iha problema"
+msgstr "Sistem mengalami masalah"
+
+#: main/templates/home/login.html
+msgid "Tama"
+msgstr "Masuk"
+
+#: ticketing/models.py
+msgid "Tama ona ro"
+msgstr "Sudah naik kapal"
+
+#: users/models.py
+msgid "Telefone"
+msgstr "Telepon"
+
+#: users/forms.py
+msgid "Tentativa barak liu. Hein minutu %(m)d ho tenta fali."
+msgstr "Terlalu banyak percobaan. Tunggu %(m)d menit lalu coba lagi."
+
+#: main/templates/home/home.html
+msgid "Tipu"
+msgstr "Jenis"
+
+#: ticketing/models.py
+msgid "Transferénsia banku"
+msgstr "Transfer bank"
+
+#: users/models.py
+msgid "Uza-na'in operadór nia haree de'it dadus operadór rasik nian."
+msgstr "Pengguna operator hanya melihat data operatornya sendiri."
+
+#: custom/models.py
+msgid "Veíkulu"
+msgstr "Kendaraan"
+
+#: main/templates/home/home.html
+msgid "Viajen tuir mai"
+msgstr "Pelayaran mendatang"

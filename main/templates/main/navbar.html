@@ -1,0 +1,33 @@
+{% load static i18n %}{% get_current_language as LANG %}{% get_available_languages as LANGS %}
+<header class="site-header">
+	<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+		<a class="navbar-brand" href="{% if user.is_authenticated %}{% url 'home' %}{% else %}{% url 'landing' %}{% endif %}"><b>APOR<span class="brand-accent">TIL</span></b></a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarToggle">
+			{% if user.is_authenticated %}
+				{% if role == 'admin' %}{% include 'main/adm.html' %}
+				{% elif role == 'resepsionista' %}{% include 'main/resepsionista.html' %}
+				{% elif role == 'inspector' %}{% include 'main/inspector.html' %}
+				{% elif role == 'operator' %}{% include 'main/operator.html' %}
+				{% else %}<ul class="navbar-nav mr-auto"></ul>{% endif %}
+			{% else %}
+				<ul class="navbar-nav mr-auto"></ul>
+			{% endif %}
+			<form class="form-inline lang-switch my-2 my-lg-0" action="{% url 'set_language' %}" method="post">{% csrf_token %}
+				<input type="hidden" name="next" value="{{ request.get_full_path }}">
+				{% for code, name in LANGS %}
+					<button name="language" value="{{ code }}" title="{{ name }}" class="btn btn-sm {% if code == LANG %}btn-info{% else %}btn-outline-light{% endif %} mr-1">{{ code|upper }}</button>
+				{% endfor %}
+			</form>
+			{% if user.is_authenticated %}
+				<form class="form-inline ml-lg-2" action="{% url 'logout' %}" method="post">{% csrf_token %}
+					<button class="btn btn-sm btn-outline-light"><i class="fa fa-sign-out"></i> {% trans "Sai" %}</button>
+				</form>
+			{% else %}
+				<a class="btn btn-sm btn-info ml-lg-2" href="{% url 'login' %}"><i class="fa fa-sign-in"></i> {% trans "Login staff" %}</a>
+			{% endif %}
+		</div>
+	</nav>
+</header>

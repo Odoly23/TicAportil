@@ -1,0 +1,21 @@
+/* APORTIL palette: navy #0d2a4a, waves teal #00a8a8, light background #f8fafc. Mobile-first. */
+:root{--navy:#0d2a4a;--teal:#00a8a8;--bg:#f8fafc}
+body{background:var(--bg);padding-top:64px;color:#10243b;font-size:1rem}
+.navbar.fixed-top{background-color:var(--navy)}
+.brand-accent{color:var(--teal)}
+.btn-info,.badge-info{background-color:var(--teal);border-color:var(--teal);color:#fff}
+.btn-info:hover{background-color:#008c8c;border-color:#008c8c;color:#fff}
+.text-info{color:var(--teal)!important}
+a{color:#007f7f}
+.btn{min-height:44px;display:inline-flex;align-items:center;justify-content:center}
+.btn-sm{min-height:36px}
+.navbar .btn{min-height:36px}
+.card{border-radius:14px;border-color:#dde4ec}
+.card-header{background:#fff;color:var(--navy);font-weight:600}
+.breadcrumb{background:transparent}
+.hero{background:linear-gradient(135deg,var(--navy),#14406b);color:#fff;padding:28px 20px}
+.hero h1{font-size:clamp(1.5rem,5vw,2.2rem);margin:0 0 4px}
+.section-title{color:var(--navy);margin:24px 0 12px}
+.site-footer{background:#404446;color:#fff}
+.form-control{min-height:44px}
+@media(max-width:991px){.lang-switch{margin:8px 0}}

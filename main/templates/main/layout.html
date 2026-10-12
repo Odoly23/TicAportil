@@ -1,0 +1,46 @@
+{% load static i18n %}{% get_current_language as LANG %}
+<!DOCTYPE html>
+<html lang="{{ LANG }}">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="theme-color" content="#0d2a4a">
+		{% if title %}
+			<title>APORTIL Bilheteira - {% trans title %}</title>
+		{% else %}
+			<title>APORTIL Bilheteira</title>
+		{% endif %}
+		<link rel="stylesheet" href="{% static 'main/css/bootstrap.min.css' %}">
+		<link rel="icon" href="{% static 'main/images/favicon.png' %}">
+		<link rel="stylesheet" href="{% static 'main/font-awesome/css/font-awesome.min.css' %}">
+		<link rel="stylesheet" href="{% static 'main/css/dataTables.bootstrap4.min.css' %}">
+		<link rel="stylesheet" href="{% static 'main/css/main.css' %}">
+	</head>
+	<body>
+		{% include 'main/navbar.html' %}
+		<main role="main" class="container">
+			<div class="row">
+				<div class="col-md-12">
+					{% if messages %}
+						{% for message in messages %}
+							<div class="alert alert-{{ message.tags }} p-2">{{ message }}</div>
+						{% endfor %}
+					{% endif %}
+					{% block content %}{% endblock %}
+				</div>
+			</div>
+		</main>
+
+		<footer class="page-footer font-small mt-5 site-footer">
+			<div class="footer-copyright text-center py-3">
+				© {% now "Y" %} APORTIL — Administração dos Portos de Timor-Leste
+			</div>
+		</footer>
+
+		<script src="{% static 'main/js/jquery.min.js' %}"></script>
+		<script src="{% static 'main/js/bootstrap.bundle.min.js' %}"></script>
+		<script src="{% static 'main/js/jquery.dataTables.min.js' %}"></script>
+		<script src="{% static 'main/js/dataTables.bootstrap4.min.js' %}"></script>
+		{% block scripts %}{% endblock %}
+	</body>
+</html>

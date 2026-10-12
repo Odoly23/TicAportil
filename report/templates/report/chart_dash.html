@@ -1,0 +1,33 @@
+{% extends "main/layout.html" %}
+{% load static i18n %}
+{% block content %}
+	<ol class="breadcrumb mb-2 mt-1">
+		<li class="breadcrumb-item"><a href="{% url 'home' %}">VARANDA</a></li>
+		<li class="breadcrumb-item active" aria-current="page">{{ legend|upper }}</li>
+	</ol>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="card mb-3">
+				<div class="card-header">{% trans "Bilhete Bazeia Rota" %}</div>
+				<div class="card-body"><figure class="highcharts-figure"><div id="chart_rota"></div></figure></div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="card mb-3">
+				<div class="card-header">{% trans "Bilhete Loron-loron (loron 30 ikus)" %}</div>
+				<div class="card-body"><figure class="highcharts-figure"><div id="chart_diaria"></div></figure></div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block scripts %}
+	<script src="{% static 'main/js_custom/highcharts.js' %}"></script>
+	<script src="{% static 'main/js_custom/accessibility.js' %}"></script>
+	<script src="{% static 'main/js_custom/exporting.js' %}"></script>
+	<script src="{% static 'main/js_custom/export-data.js' %}"></script>
+	<link rel="stylesheet" href="{% static 'main/js_custom/chart.css' %}">
+	<script>
+		{% include 'chart/venda_rota.js' %}
+		{% include 'chart/venda_diaria.js' %}
+	</script>
+{% endblock %}

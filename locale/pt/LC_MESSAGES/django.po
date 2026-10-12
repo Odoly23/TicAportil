@@ -1,0 +1,217 @@
+#
+msgid ""
+msgstr ""
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#: ticketing/models.py
+msgid "Agendadu"
+msgstr "Agendado"
+
+#: main/templates/home/403.html
+msgid "Aksesu la permite"
+msgstr "Acesso não permitido"
+
+#: ticketing/models.py
+msgid "Atrazadu"
+msgstr "Atrasado"
+
+#: report/templates/report/chart_dash.html
+msgid "Bilhete Bazeia Rota"
+msgstr "Bilhetes por rota"
+
+#: ticketing/models.py
+msgid "Bilhete Identidade (BI)"
+msgstr "Bilhete de Identidade (BI)"
+
+#: report/templates/report/chart_dash.html
+msgid "Bilhete Loron-loron (loron 30 ikus)"
+msgstr "Bilhetes por dia (últimos 30 dias)"
+
+#: main/templates/home/home.html
+msgid "Bilhete sosa deit iha loket portu. La presiza konta."
+msgstr ""
+"Os bilhetes só se compram na bilheteira do porto. Não é necessária conta."
+
+#: ticketing/models.py
+msgid "Emite ona"
+msgstr "Emitido"
+
+#: main/templates/home/500.html
+msgid "Fila ba pájina inisiál"
+msgstr "Voltar à página inicial"
+
+#: ticketing/models.py
+msgid "Fila fali osan"
+msgstr "Reembolsado"
+
+#: main/templates/home/home.html
+msgid "Horáriu Ró-Laran"
+msgstr "Horário dos Navios"
+
+#: main/templates/main/adm.html
+msgid "Jestaun"
+msgstr "Gestão"
+
+#: ticketing/models.py
+msgid "Kansela"
+msgstr "Cancelado"
+
+#: ticketing/models.py
+msgid "Kartaun Eleitorál"
+msgstr "Cartão Eleitoral"
+
+#: users/forms.py
+msgid "Liafuan-pase"
+msgstr "Palavra-passe"
+
+#: users/models.py
+msgid "Lian"
+msgstr "Língua"
+
+#: main/templates/main/navbar.html
+msgid "Login staff"
+msgstr "Entrada do pessoal"
+
+#: main/templates/main/dashboard.html
+msgid "Módulu sira (venda bilhete, scan, relatóriu) sei iha faze tuir mai."
+msgstr ""
+"Os módulos (venda de bilhetes, leitura, relatórios) virão nas próximas "
+"fases."
+
+#: custom/models.py
+msgid "Naran"
+msgstr "Nome"
+
+#: users/forms.py
+msgid "Naran uza-na'in"
+msgstr "Nome de utilizador"
+
+#: users/forms.py
+msgid "Naran uza-na'in ka liafuan-pase la los. Tenta fali."
+msgstr "Nome de utilizador ou palavra-passe incorretos. Tente novamente."
+
+#: users/models.py
+msgid "Operadór"
+msgstr "Operador"
+
+#: ticketing/models.py
+msgid "Osan kontante"
+msgstr "Dinheiro"
+
+#: main/templates/main/operator.html
+msgid "Painel"
+msgstr "Painel"
+
+#: ticketing/models.py
+msgid "Partida ona"
+msgstr "Partiu"
+
+#: custom/models.py
+msgid "Pasajeiru"
+msgstr "Passageiro"
+
+#: custom/models.py
+msgid "Pasajeiru: idade maximu"
+msgstr "Passageiros: idade máxima"
+
+#: custom/models.py
+msgid "Pasajeiru: idade minimu"
+msgstr "Passageiros: idade mínima"
+
+#: ticketing/models.py
+msgid "Pasaporte"
+msgstr "Passaporte"
+
+#: main/templates/home/login.html
+msgid "Portal Sistema Bilheteira"
+msgstr "Portal do Sistema de Bilhética"
+
+#: main/templates/home/home.html
+msgid "Presu bilhete"
+msgstr "Preços dos bilhetes"
+
+#: main/templates/home/404.html
+msgid "Pájina la hetan"
+msgstr "Página não encontrada"
+
+#: main/templates/main/operator.html
+msgid "Relatóriu"
+msgstr "Relatório"
+
+#: ticketing/models.py
+msgid "Remata"
+msgstr "Concluído"
+
+#: main/templates/home/home.html
+msgid "Rota"
+msgstr "Rota"
+
+#: main/templates/main/navbar.html
+msgid "Sai"
+msgstr "Sair"
+
+#: custom/models.py
+msgid "Sasán / Animál"
+msgstr "Carga / Animais"
+
+#: main/templates/home/home.html
+msgid "Seidauk iha viajen agendadu."
+msgstr "Ainda não há viagens agendadas."
+
+#: ticketing/models.py
+msgid "Seluk"
+msgstr "Outro"
+
+#: ticketing/models.py
+msgid "Sertifikadu Batismu"
+msgstr "Certidão de Batismo"
+
+#: ticketing/models.py
+msgid "Sertifikadu RDTL"
+msgstr "Certidão RDTL"
+
+#: main/templates/home/login.html
+msgid "Sesaun taka automátiku wainhira la uza ba minutu 30."
+msgstr "A sessão fecha automaticamente após 30 minutos de inatividade."
+
+#: main/templates/home/500.html
+msgid "Sistema iha problema"
+msgstr "O sistema tem um problema"
+
+#: main/templates/home/login.html
+msgid "Tama"
+msgstr "Entrar"
+
+#: ticketing/models.py
+msgid "Tama ona ro"
+msgstr "Embarcou"
+
+#: users/models.py
+msgid "Telefone"
+msgstr "Telefone"
+
+#: users/forms.py
+msgid "Tentativa barak liu. Hein minutu %(m)d ho tenta fali."
+msgstr "Demasiadas tentativas. Aguarde %(m)d minutos e tente novamente."
+
+#: main/templates/home/home.html
+msgid "Tipu"
+msgstr "Tipo"
+
+#: ticketing/models.py
+msgid "Transferénsia banku"
+msgstr "Transferência bancária"
+
+#: users/models.py
+msgid "Uza-na'in operadór nia haree de'it dadus operadór rasik nian."
+msgstr "O utilizador de operador só vê dados do próprio operador."
+
+#: custom/models.py
+msgid "Veíkulu"
+msgstr "Veículo"
+
+#: main/templates/home/home.html
+msgid "Viajen tuir mai"
+msgstr "Próximas viagens"
