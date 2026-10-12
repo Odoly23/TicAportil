@@ -87,3 +87,13 @@ class MenuTests(TestCase):
 		html = self.client.get(reverse("home")).content.decode()
 		self.assertIn('id="sidebar"', html)
 		self.assertIn('class="main-navbar"', html)
+
+
+class LogoTests(TestCase):
+	def test_page_renders_without_logo_file(self):
+		self.assertEqual(self.client.get(reverse("landing")).status_code, 200)
+
+	def test_logo_used_when_present(self):
+		from unittest import mock
+		with mock.patch("main.context_processors.finders.find", return_value="/x/logo.png"):
+			self.assertContains(self.client.get(reverse("login")), "main/images/logo.png")

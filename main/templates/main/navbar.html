@@ -17,7 +17,7 @@
 <header class="main-navbar">
 	<div class="container">
 		<a class="brand" href="{% if user.is_authenticated %}{% url 'home' %}{% else %}{% url 'landing' %}{% endif %}">
-			<i class="fa fa-ship"></i><span>APORTIL <small>Bilheteira</small></span>
+			{% if logo_url %}<img src="{{ logo_url }}" alt="APORTIL">{% else %}<i class="fa fa-ship"></i>{% endif %}<span>APORTIL <small>Bilheteira</small></span>
 		</a>
 
 		<ul class="nav-links">

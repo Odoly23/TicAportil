@@ -1,3 +1,5 @@
+from django.contrib.staticfiles import finders
+from django.templatetags.static import static
 from django.utils.translation import gettext_lazy as _
 
 # (url name, label, FontAwesome 4 icon, roles allowed). Add new modules here; the desktop navbar
@@ -24,3 +26,8 @@ def role(request):
 		for name, label, icon, roles in MENU if r in roles
 	]
 	return {'role': r, 'menu': menu}
+
+
+def logo(request):
+	"""Use main/static/main/images/logo.png when present, else fall back to the text/icon brand."""
+	return {'logo_url': static('main/images/logo.png') if finders.find('main/images/logo.png') else None}
