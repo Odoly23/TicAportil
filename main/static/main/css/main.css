@@ -1,9 +1,10 @@
-/* APORTIL theme. Navbar/sidebar layout follows the client's reference design. Mobile-first. */
+/* APORTIL theme. Colors are sampled from the logo (deep blue subtitle #102860, waves turquoise #009ea0).
+   Navbar/sidebar layout follows the client's reference design. Mobile-first. */
 :root {
-  --navy:    #0b1e8a;
-  --navy-dk: #071260;
+  --navy:    #112c66;
+  --navy-dk: #0a1b44;
   --white:   #ffffff;
-  --accent:  #00a8a8;   /* APORTIL waves teal, used for primary actions */
+  --accent:  #009ea0;   /* APORTIL waves turquoise, used for primary actions */
   --topbar-h: 34px;
   --navbar-h: 62px;
   --header-h: 96px;     /* topbar + navbar */
@@ -34,7 +35,8 @@ a { color: var(--navy); }
 .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--white); font-weight: 700; white-space: nowrap; }
 .brand:hover { color: var(--white); text-decoration: none; }
 .brand i { font-size: 1.5rem; color: var(--accent); }
-.brand img { height: 42px; object-fit: cover; }
+.brand img { height: 46px; width: auto; background: #fff; padding: 2px 8px; border-radius: 6px; }
+.brand img + span { display: none; }  /* the logo already carries the name */
 .brand span { font-size: .95rem; }
 .brand small { display: block; font-size: .65rem; font-weight: 400; opacity: .75; letter-spacing: .06em; text-transform: uppercase; }
 
@@ -95,7 +97,7 @@ body.sb-open .page-wrapper, body.sb-open footer { margin-left: var(--sb-w); }
 .btn { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
 .btn-sm { min-height: 36px; }
 .btn-info, .badge-info { background-color: var(--accent); border-color: var(--accent); color: #fff; }
-.btn-info:hover { background-color: #008c8c; border-color: #008c8c; color: #fff; }
+.btn-info:hover { background-color: #007f81; border-color: #007f81; color: #fff; }
 .text-info { color: var(--accent) !important; }
 .card { border-radius: 10px; border-color: #dde4ec; }
 .card-header { background: #fff; color: var(--navy); font-weight: 600; }
