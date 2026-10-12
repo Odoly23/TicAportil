@@ -66,3 +66,24 @@ class ReportApiTests(TestCase):
 		u.groups.add(g)
 		self.client.force_login(u)
 		self.assertEqual(self.client.get("/report/dash/").status_code, 403)
+
+
+class MenuTests(TestCase):
+	def _menu_for(self, group):
+		u = User.objects.create_user(group, password="x")
+		u.groups.add(Group.objects.create(name=group))
+		self.client.force_login(u)
+		return [m["url"] for m in self.client.get(reverse("home")).context["menu"]]
+
+	def test_menu_per_role(self):
+		self.assertEqual(self._menu_for("inspector"), ["home"])
+
+	def test_admin_and_operator_see_reports(self):
+		self.assertIn("report-dash", self._menu_for("operator"))
+
+	def test_sidebar_and_navbar_render(self):
+		u = User.objects.create_superuser("root", password="x")
+		self.client.force_login(u)
+		html = self.client.get(reverse("home")).content.decode()
+		self.assertIn('id="sidebar"', html)
+		self.assertIn('class="main-navbar"', html)

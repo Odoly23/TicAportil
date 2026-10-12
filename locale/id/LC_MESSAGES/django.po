@@ -49,7 +49,7 @@ msgstr "Dikembalikan dananya"
 msgid "Horáriu Ró-Laran"
 msgstr "Jadwal Kapal"
 
-#: main/templates/main/adm.html
+#: main/templates/main/navbar.html
 msgid "Jestaun"
 msgstr "Administrasi"
 
@@ -68,6 +68,10 @@ msgstr "Kata sandi"
 #: users/models.py
 msgid "Lian"
 msgstr "Bahasa"
+
+#: main/templates/main/navbar.html
+msgid "Login"
+msgstr "Masuk"
 
 #: main/templates/main/navbar.html
 msgid "Login staff"
@@ -98,7 +102,7 @@ msgstr "Operator"
 msgid "Osan kontante"
 msgstr "Tunai"
 
-#: main/templates/main/operator.html
+#: main/context_processors.py
 msgid "Painel"
 msgstr "Dasbor"
 
@@ -134,7 +138,7 @@ msgstr "Harga tiket"
 msgid "Pájina la hetan"
 msgstr "Halaman tidak ditemukan"
 
-#: main/templates/main/operator.html
+#: main/context_processors.py
 msgid "Relatóriu"
 msgstr "Laporan"
 

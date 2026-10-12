@@ -49,7 +49,7 @@ msgstr "Refunded"
 msgid "Horáriu Ró-Laran"
 msgstr "Ferry Schedule"
 
-#: main/templates/main/adm.html
+#: main/templates/main/navbar.html
 msgid "Jestaun"
 msgstr "Administration"
 
@@ -68,6 +68,10 @@ msgstr "Password"
 #: users/models.py
 msgid "Lian"
 msgstr "Language"
+
+#: main/templates/main/navbar.html
+msgid "Login"
+msgstr "Login"
 
 #: main/templates/main/navbar.html
 msgid "Login staff"
@@ -97,7 +101,7 @@ msgstr "Operator"
 msgid "Osan kontante"
 msgstr "Cash"
 
-#: main/templates/main/operator.html
+#: main/context_processors.py
 msgid "Painel"
 msgstr "Dashboard"
 
@@ -133,7 +137,7 @@ msgstr "Ticket prices"
 msgid "Pájina la hetan"
 msgstr "Page not found"
 
-#: main/templates/main/operator.html
+#: main/context_processors.py
 msgid "Relatóriu"
 msgstr "Reports"
 

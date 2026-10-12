@@ -50,7 +50,7 @@ msgstr "Reembolsado"
 msgid "Horáriu Ró-Laran"
 msgstr "Horário dos Navios"
 
-#: main/templates/main/adm.html
+#: main/templates/main/navbar.html
 msgid "Jestaun"
 msgstr "Gestão"
 
@@ -69,6 +69,10 @@ msgstr "Palavra-passe"
 #: users/models.py
 msgid "Lian"
 msgstr "Língua"
+
+#: main/templates/main/navbar.html
+msgid "Login"
+msgstr "Entrar"
 
 #: main/templates/main/navbar.html
 msgid "Login staff"
@@ -100,7 +104,7 @@ msgstr "Operador"
 msgid "Osan kontante"
 msgstr "Dinheiro"
 
-#: main/templates/main/operator.html
+#: main/context_processors.py
 msgid "Painel"
 msgstr "Painel"
 
@@ -136,7 +140,7 @@ msgstr "Preços dos bilhetes"
 msgid "Pájina la hetan"
 msgstr "Página não encontrada"
 
-#: main/templates/main/operator.html
+#: main/context_processors.py
 msgid "Relatóriu"
 msgstr "Relatório"
 
