@@ -45,6 +45,10 @@ msgstr "Adiar e enviar notificação"
 msgid "Aumenta"
 msgstr "Adicionar"
 
+#: ticketing/views_scan.py
+msgid "Bele tama ro"
+msgstr "Pode embarcar"
+
 #: ticketing/templates/ticketing/sailing_detail.html
 msgid "Bilhete"
 msgstr "Bilhetes"
@@ -75,9 +79,17 @@ msgstr ""
 "Os bilhetes da viagem %(route)s (%(old)s) foram transferidos para a viagem "
 "de %(new)s."
 
+#: ticketing/views_scan.py
+msgid "Bilhete kansela / fila osan ona"
+msgstr "Bilhete cancelado / reembolsado"
+
 #: ticketing/views_sched.py
 msgid "Bilhete kansela ona."
 msgstr "Bilhete cancelado."
+
+#: ticketing/views_scan.py
+msgid "Bilhete la hetan"
+msgstr "Bilhete não encontrado"
 
 #: ticketing/templates/ticketing/sailing_detail.html
 msgid "Bilhete muda ba"
@@ -86,6 +98,10 @@ msgstr "Bilhetes movidos para"
 #: ticketing/messages.py
 msgid "Bilhete muda viajen"
 msgstr "Bilhetes mudaram de viagem"
+
+#: ticketing/views_scan.py
+msgid "Bilhete ne'e ba"
+msgstr "Este bilhete é para"
 
 #: ticketing/views_sched.py
 msgid "Bilhete ne'e la bele kansela ona."
@@ -99,6 +115,10 @@ msgstr ""
 #: ticketing/templates/ticketing/list.html
 msgid "Buka"
 msgstr "Abrir"
+
+#: ticketing/views_scan.py
+msgid "Dadus offline hamoos ona."
+msgstr "Dados offline eliminados."
 
 #: ticketing/templates/ticketing/announcement_list.html
 msgid "Data"
@@ -127,6 +147,10 @@ msgstr "Detalhe"
 #: ticketing/templates/ticketing/detail.html
 msgid "Dokumentu"
 msgstr "Documento"
+
+#: ticketing/templates/ticketing/scan.html
+msgid "Download lista (offline)"
+msgstr "Descarregar lista (offline)"
 
 #: ticketing/templates/ticketing/sailing_detail.html
 msgid "Edita"
@@ -184,9 +208,17 @@ msgstr "Foto do documento eliminada (30 dias)."
 msgid "Foto dokumentu obrigatóriu."
 msgstr "A foto do documento é obrigatória."
 
+#: ticketing/views_scan.py
+msgid "Hahú kámera"
+msgstr "Iniciar câmara"
+
 #: ticketing/templates/ticketing/announcement_list.html
 msgid "Hamoos anúnsiu ne'e?"
 msgstr "Eliminar este aviso?"
+
+#: ticketing/views_scan.py
+msgid "Hamoos dadus offline husi telemovel ne'e?"
+msgstr "Eliminar os dados offline deste telemóvel?"
 
 #: ticketing/templates/ticketing/notifications.html
 msgid "Haree viajen"
@@ -203,6 +235,14 @@ msgstr "Mostrar todos"
 #: ticketing/forms_sched.py
 msgid "Hatudu iha pájina públiku"
 msgstr "Mostrar na página pública"
+
+#: ticketing/views_scan.py
+msgid "Hein sinkroniza: %s"
+msgstr "A aguardar sincronização: %s"
+
+#: ticketing/views_scan.py
+msgid "Hili viajen uluk."
+msgstr "Escolha primeiro a viagem."
 
 #: main/templates/home/home.html
 msgid "Horáriu Ró-Laran"
@@ -292,9 +332,25 @@ msgstr "Quota restante"
 msgid "Kuota veíkulu"
 msgstr "Quota de veículos"
 
+#: ticketing/views_scan.py
+msgid "Kámera la bele loke. Uza input manual."
+msgstr "Não foi possível abrir a câmara. Use a entrada manual."
+
 #: ticketing/forms_sched.py
 msgid "La bele menus husi %(n)d (faan ona)."
 msgstr "Não pode ser inferior a %(n)d (já vendidos)."
+
+#: ticketing/views_scan.py
+msgid "La bele verifika (offline) — rai ba sinkronizasaun"
+msgstr "Não verificável (offline) — guardado para sincronizar"
+
+#: ticketing/views_scan.py
+msgid "La iha internet. Scan rai iha telemovel."
+msgstr "Sem internet. Os scans ficam guardados no telemóvel."
+
+#: ticketing/views_scan.py
+msgid "La konsege download lista."
+msgstr "Não foi possível descarregar a lista."
 
 #: users/forms.py
 msgid "Liafuan-pase"
@@ -307,6 +363,10 @@ msgstr "Língua"
 #: main/context_processors.py
 msgid "Lista Bilhete"
 msgstr "Lista de bilhetes"
+
+#: ticketing/views_scan.py
+msgid "Lista download ona: %s bilhete."
+msgstr "Lista descarregada: %s bilhetes."
 
 #: main/templates/main/navbar.html
 msgid "Login"
@@ -386,6 +446,10 @@ msgstr "A matrícula é obrigatória."
 msgid "Nú. referénsia transferénsia"
 msgstr "N.º de referência da transferência"
 
+#: ticketing/templates/ticketing/scan.html
+msgid "Nú. serial manual"
+msgstr "N.º de série manual"
+
 #: ticketing/forms.py
 msgid "Obrigatóriu."
 msgstr "Obrigatório."
@@ -393,6 +457,14 @@ msgstr "Obrigatório."
 #: ticketing/forms.py
 msgid "Observasaun"
 msgstr "Observação"
+
+#: ticketing/views_scan.py
+msgid "Offline"
+msgstr "Offline"
+
+#: ticketing/views_scan.py
+msgid "Online"
+msgstr "Online"
 
 #: users/models.py
 msgid "Operadór"
@@ -413,6 +485,10 @@ msgstr "Pagamento"
 #: main/context_processors.py
 msgid "Painel"
 msgstr "Painel"
+
+#: ticketing/views_scan.py
+msgid "Para kámera"
+msgstr "Parar câmara"
 
 #: ticketing/templates/ticketing/sailing_list.html
 msgid "Partida"
@@ -474,6 +550,10 @@ msgstr "Página não encontrada"
 msgid "Públiku"
 msgstr "Público"
 
+#: ticketing/views_scan.py
+msgid "QR la válidu — bilhete falsu?"
+msgstr "QR inválido — bilhete falso?"
+
 #: ticketing/templates/ticketing/action_form.html
 msgid "Rai"
 msgstr "Guardar"
@@ -514,9 +594,17 @@ msgstr "Este barco tem outra viagem perto desta hora."
 msgid "Sai"
 msgstr "Sair"
 
+#: ticketing/views_scan.py
+msgid "Sala"
+msgstr "Erro"
+
 #: custom/models.py
 msgid "Sasán / Animál"
 msgstr "Carga / Animais"
+
+#: main/context_processors.py
+msgid "Scan QR"
+msgstr "Ler QR"
 
 #: ticketing/templates/ticketing/notifications.html
 msgid "Seidauk iha notifikasaun."
@@ -542,6 +630,13 @@ msgstr "Certidão de Batismo"
 msgid "Sertifikadu RDTL"
 msgstr "Certidão RDTL"
 
+#: ticketing/views_scan.py
+msgid ""
+"Sesaun remata. Login fali hodi sinkroniza (dadus seguru iha telemovel)."
+msgstr ""
+"Sessão terminada. Inicie sessão para sincronizar (os dados estão seguros no "
+"telemóvel)."
+
 #: main/templates/home/login.html
 msgid "Sesaun taka automátiku wainhira la uza ba minutu 30."
 msgstr "A sessão fecha automaticamente após 30 minutos de inatividade."
@@ -549,6 +644,22 @@ msgstr "A sessão fecha automaticamente após 30 minutos de inatividade."
 #: ticketing/forms.py
 msgid "Sexu"
 msgstr "Sexo"
+
+#: ticketing/templates/ticketing/scan.html
+msgid "Sinkroniza"
+msgstr "Sincronizar"
+
+#: ticketing/views_scan.py
+msgid "Sinkroniza ona: %s."
+msgstr "Sincronizados: %s."
+
+#: ticketing/views_scan.py
+msgid "Sinkroniza uluk — iha scan seidauk haruka."
+msgstr "Sincronize primeiro — há leituras por enviar."
+
+#: ticketing/views_scan.py
+msgid "Sinkroniza..."
+msgstr "A sincronizar..."
 
 #: main/templates/home/500.html
 msgid "Sistema iha problema"
@@ -578,13 +689,25 @@ msgstr "Fechar vendas antes (minutos)"
 msgid "Tama"
 msgstr "Entrar"
 
+#: ticketing/views_scan.py
+msgid "Tama iha"
+msgstr "Embarcou às"
+
 #: ticketing/models.py
 msgid "Tama ona ro"
 msgstr "Embarcou"
 
+#: ticketing/views_scan.py
+msgid "Tama ona ro ona!"
+msgstr "Já embarcou!"
+
 #: users/models.py
 msgid "Telefone"
 msgstr "Telefone"
+
+#: ticketing/views_scan.py
+msgid "Tenke haree:"
+msgstr "Verificar:"
 
 #: users/forms.py
 msgid "Tentativa barak liu. Hein minutu %(m)d ho tenta fali."
@@ -674,9 +797,17 @@ msgstr "Viagem atualizada."
 msgid "Viajen foun deit"
 msgstr "Só viagens futuras"
 
+#: ticketing/views_scan.py
+msgid "Viajen kansela"
+msgstr "Viagem cancelada"
+
 #: ticketing/views_sched.py
 msgid "Viajen kansela ona. Email haruka: %(n)d."
 msgstr "Viagem cancelada. Emails enviados: %(n)d."
+
+#: ticketing/views_scan.py
+msgid "Viajen la los"
+msgstr "Viagem errada"
 
 #: ticketing/views_sched.py
 msgid "Viajen ne'e la bele edita ona."
@@ -693,6 +824,10 @@ msgstr "Próximas viagens"
 #: ticketing/forms.py
 msgid "WhatsApp (opsionál)"
 msgstr "WhatsApp (opcional)"
+
+#: ticketing/views_scan.py
+msgid "husi"
+msgstr "por"
 
 #: ticketing/templates/ticketing/sailing_detail.html
 msgid "uluk"

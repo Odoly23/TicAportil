@@ -1,6 +1,6 @@
 from django.urls import path
 
-from . import views, views_sched as sched
+from . import views, views_sched as sched, views_scan as scan
 
 urlpatterns = [
 	path('sell/', views.SellSailings, name='sell-sailings'),
@@ -23,4 +23,10 @@ urlpatterns = [
 	path('announcements/<int:pk>/delete/', sched.AnnouncementDelete, name='announcement-delete'),
 	path('notifications/', sched.NotificationList, name='notifications'),
 	path('tickets/<int:pk>/cancel/', sched.TicketCancel, name='ticket-cancel'),
+	path('scan/', scan.ScanPage, name='scan'),
+	path('scan/sw.js', scan.ServiceWorker, name='scan-sw'),
+	path('scan/manifest.webmanifest', scan.WebManifest, name='scan-manifest'),
+	path('scan/api/validate/', scan.ApiValidate, name='scan-validate'),
+	path('scan/api/sync/', scan.ApiSync, name='scan-sync'),
+	path('scan/api/manifest/<int:sailing_id>/', scan.ApiManifest, name='scan-sailing-manifest'),
 ]

@@ -116,3 +116,11 @@ body.sb-open .page-wrapper, body.sb-open footer { margin-left: var(--sb-w); }
   .brand img { height: 40px; }
   .nav-links .av + * , .nav-links .dropdown-toggle .av { display: none; }
 }
+
+/* Scanner */
+.result-box { border-radius: 12px; padding: 18px; color: #fff; text-align: center; }
+.result-box.bg-warning { color: #212529; }
+.result-title { font-size: 1.5rem; font-weight: 700; line-height: 1.2; }
+.result-name { font-size: 1.25rem; margin-top: 6px; }
+#reader { width: 100%; max-width: 420px; margin: 0 auto; }
+#reader video { border-radius: 12px; }

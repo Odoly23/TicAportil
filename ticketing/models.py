@@ -226,3 +226,30 @@ class Notification(models.Model):
         from .messages import render
 
         return render(self.kind, self.data)
+
+
+class ScanEvent(models.Model):
+    """Every boarding scan (online or synced from offline), kept as evidence even when it is refused."""
+
+    class Result(models.TextChoices):
+        OK = "ok", "ok"
+        DUPLICATE = "duplicate", "duplicate"
+        WRONG_SAILING = "wrong_sailing", "wrong_sailing"
+        CANCELLED = "cancelled", "cancelled"
+        SAILING_CANCELLED = "sailing_cancelled", "sailing_cancelled"
+        INVALID = "invalid", "invalid"
+        NOT_FOUND = "not_found", "not_found"
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL, related_name="+")
+    sailing = models.ForeignKey(Sailing, null=True, on_delete=models.SET_NULL, related_name="scans")
+    ticket = models.ForeignKey(Ticket, null=True, blank=True, on_delete=models.SET_NULL, related_name="scans")
+    serial = models.CharField(max_length=40, blank=True)  # never the signature
+    result = models.CharField(max_length=20, choices=Result.choices, db_index=True)
+    manual = models.BooleanField(default=False)  # serial typed by hand, no QR signature
+    offline = models.BooleanField(default=False)
+    scanned_at = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-scanned_at"]
+        indexes = [models.Index(fields=["sailing", "result"])]

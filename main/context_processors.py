@@ -11,6 +11,7 @@ MENU = [
 	('sailing-list', _("Jadwal"), 'fa-calendar', 'ticketing.manage_schedule'),
 	('announcement-list', _("Anúnsiu"), 'fa-bullhorn', 'ticketing.manage_schedule'),
 	('notifications', _("Notifikasaun"), 'fa-bell', 'ticketing.manage_schedule'),
+	('scan', _("Scan QR"), 'fa-qrcode', 'ticketing.scan_ticket'),
 	('report-dash', _("Relatóriu"), 'fa-bar-chart', 'ticketing.view_reports'),
 ]
 

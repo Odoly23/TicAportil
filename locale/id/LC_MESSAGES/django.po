@@ -45,6 +45,10 @@ msgstr "Tunda dan kirim notifikasi"
 msgid "Aumenta"
 msgstr "Tambah"
 
+#: ticketing/views_scan.py
+msgid "Bele tama ro"
+msgstr "Boleh naik kapal"
+
 #: ticketing/templates/ticketing/sailing_detail.html
 msgid "Bilhete"
 msgstr "Tiket"
@@ -73,9 +77,17 @@ msgstr "Tiket Kapal"
 msgid "Bilhete husi viajen %(route)s (%(old)s) muda ona ba viajen %(new)s."
 msgstr "Tiket pelayaran %(route)s (%(old)s) dipindahkan ke pelayaran %(new)s."
 
+#: ticketing/views_scan.py
+msgid "Bilhete kansela / fila osan ona"
+msgstr "Tiket dibatalkan / dana dikembalikan"
+
 #: ticketing/views_sched.py
 msgid "Bilhete kansela ona."
 msgstr "Tiket dibatalkan."
+
+#: ticketing/views_scan.py
+msgid "Bilhete la hetan"
+msgstr "Tiket tidak ditemukan"
 
 #: ticketing/templates/ticketing/sailing_detail.html
 msgid "Bilhete muda ba"
@@ -84,6 +96,10 @@ msgstr "Tiket dipindahkan ke"
 #: ticketing/messages.py
 msgid "Bilhete muda viajen"
 msgstr "Tiket dipindahkan ke pelayaran lain"
+
+#: ticketing/views_scan.py
+msgid "Bilhete ne'e ba"
+msgstr "Tiket ini untuk"
 
 #: ticketing/views_sched.py
 msgid "Bilhete ne'e la bele kansela ona."
@@ -96,6 +112,10 @@ msgstr "Tiket hanya dijual di loket pelabuhan. Tidak perlu akun."
 #: ticketing/templates/ticketing/list.html
 msgid "Buka"
 msgstr "Tampilkan"
+
+#: ticketing/views_scan.py
+msgid "Dadus offline hamoos ona."
+msgstr "Data offline dihapus."
 
 #: ticketing/templates/ticketing/announcement_list.html
 msgid "Data"
@@ -124,6 +144,10 @@ msgstr "Detail"
 #: ticketing/templates/ticketing/detail.html
 msgid "Dokumentu"
 msgstr "Dokumen"
+
+#: ticketing/templates/ticketing/scan.html
+msgid "Download lista (offline)"
+msgstr "Unduh daftar (offline)"
 
 #: ticketing/templates/ticketing/sailing_detail.html
 msgid "Edita"
@@ -181,9 +205,17 @@ msgstr "Foto dokumen sudah dihapus (30 hari)."
 msgid "Foto dokumentu obrigatóriu."
 msgstr "Foto dokumen wajib diisi."
 
+#: ticketing/views_scan.py
+msgid "Hahú kámera"
+msgstr "Mulai kamera"
+
 #: ticketing/templates/ticketing/announcement_list.html
 msgid "Hamoos anúnsiu ne'e?"
 msgstr "Hapus pengumuman ini?"
+
+#: ticketing/views_scan.py
+msgid "Hamoos dadus offline husi telemovel ne'e?"
+msgstr "Hapus data offline dari ponsel ini?"
 
 #: ticketing/templates/ticketing/notifications.html
 msgid "Haree viajen"
@@ -200,6 +232,14 @@ msgstr "Tampilkan semua"
 #: ticketing/forms_sched.py
 msgid "Hatudu iha pájina públiku"
 msgstr "Tampilkan di halaman publik"
+
+#: ticketing/views_scan.py
+msgid "Hein sinkroniza: %s"
+msgstr "Menunggu sinkronisasi: %s"
+
+#: ticketing/views_scan.py
+msgid "Hili viajen uluk."
+msgstr "Pilih pelayaran dulu."
 
 #: main/templates/home/home.html
 msgid "Horáriu Ró-Laran"
@@ -289,9 +329,25 @@ msgstr "Sisa kuota"
 msgid "Kuota veíkulu"
 msgstr "Kuota kendaraan"
 
+#: ticketing/views_scan.py
+msgid "Kámera la bele loke. Uza input manual."
+msgstr "Kamera tidak bisa dibuka. Gunakan input manual."
+
 #: ticketing/forms_sched.py
 msgid "La bele menus husi %(n)d (faan ona)."
 msgstr "Tidak boleh kurang dari %(n)d (sudah terjual)."
+
+#: ticketing/views_scan.py
+msgid "La bele verifika (offline) — rai ba sinkronizasaun"
+msgstr "Tidak dapat diverifikasi (offline) — disimpan untuk sinkronisasi"
+
+#: ticketing/views_scan.py
+msgid "La iha internet. Scan rai iha telemovel."
+msgstr "Tidak ada internet. Hasil scan disimpan di ponsel."
+
+#: ticketing/views_scan.py
+msgid "La konsege download lista."
+msgstr "Gagal mengunduh daftar."
 
 #: users/forms.py
 msgid "Liafuan-pase"
@@ -304,6 +360,10 @@ msgstr "Bahasa"
 #: main/context_processors.py
 msgid "Lista Bilhete"
 msgstr "Daftar tiket"
+
+#: ticketing/views_scan.py
+msgid "Lista download ona: %s bilhete."
+msgstr "Daftar diunduh: %s tiket."
 
 #: main/templates/main/navbar.html
 msgid "Login"
@@ -382,6 +442,10 @@ msgstr "Nomor plat wajib diisi."
 msgid "Nú. referénsia transferénsia"
 msgstr "No. referensi transfer"
 
+#: ticketing/templates/ticketing/scan.html
+msgid "Nú. serial manual"
+msgstr "No. serial manual"
+
 #: ticketing/forms.py
 msgid "Obrigatóriu."
 msgstr "Wajib diisi."
@@ -389,6 +453,14 @@ msgstr "Wajib diisi."
 #: ticketing/forms.py
 msgid "Observasaun"
 msgstr "Catatan"
+
+#: ticketing/views_scan.py
+msgid "Offline"
+msgstr "Offline"
+
+#: ticketing/views_scan.py
+msgid "Online"
+msgstr "Online"
 
 #: users/models.py
 msgid "Operadór"
@@ -409,6 +481,10 @@ msgstr "Pembayaran"
 #: main/context_processors.py
 msgid "Painel"
 msgstr "Dasbor"
+
+#: ticketing/views_scan.py
+msgid "Para kámera"
+msgstr "Hentikan kamera"
 
 #: ticketing/templates/ticketing/sailing_list.html
 msgid "Partida"
@@ -470,6 +546,10 @@ msgstr "Halaman tidak ditemukan"
 msgid "Públiku"
 msgstr "Publik"
 
+#: ticketing/views_scan.py
+msgid "QR la válidu — bilhete falsu?"
+msgstr "QR tidak valid — tiket palsu?"
+
 #: ticketing/templates/ticketing/action_form.html
 msgid "Rai"
 msgstr "Simpan"
@@ -510,9 +590,17 @@ msgstr "Kapal ini punya pelayaran lain di sekitar jam ini."
 msgid "Sai"
 msgstr "Keluar"
 
+#: ticketing/views_scan.py
+msgid "Sala"
+msgstr "Kesalahan"
+
 #: custom/models.py
 msgid "Sasán / Animál"
 msgstr "Barang / Hewan"
+
+#: main/context_processors.py
+msgid "Scan QR"
+msgstr "Pindai QR"
 
 #: ticketing/templates/ticketing/notifications.html
 msgid "Seidauk iha notifikasaun."
@@ -538,6 +626,11 @@ msgstr "Surat Baptis"
 msgid "Sertifikadu RDTL"
 msgstr "Sertifikat RDTL"
 
+#: ticketing/views_scan.py
+msgid ""
+"Sesaun remata. Login fali hodi sinkroniza (dadus seguru iha telemovel)."
+msgstr "Sesi berakhir. Masuk lagi untuk sinkronisasi (data aman di ponsel)."
+
 #: main/templates/home/login.html
 msgid "Sesaun taka automátiku wainhira la uza ba minutu 30."
 msgstr "Sesi berakhir otomatis setelah 30 menit tidak aktif."
@@ -545,6 +638,22 @@ msgstr "Sesi berakhir otomatis setelah 30 menit tidak aktif."
 #: ticketing/forms.py
 msgid "Sexu"
 msgstr "Jenis kelamin"
+
+#: ticketing/templates/ticketing/scan.html
+msgid "Sinkroniza"
+msgstr "Sinkronkan"
+
+#: ticketing/views_scan.py
+msgid "Sinkroniza ona: %s."
+msgstr "Tersinkron: %s."
+
+#: ticketing/views_scan.py
+msgid "Sinkroniza uluk — iha scan seidauk haruka."
+msgstr "Sinkronkan dulu — ada hasil scan yang belum terkirim."
+
+#: ticketing/views_scan.py
+msgid "Sinkroniza..."
+msgstr "Menyinkronkan..."
 
 #: main/templates/home/500.html
 msgid "Sistema iha problema"
@@ -574,13 +683,25 @@ msgstr "Tutup penjualan sebelum (menit)"
 msgid "Tama"
 msgstr "Masuk"
 
+#: ticketing/views_scan.py
+msgid "Tama iha"
+msgstr "Naik pada"
+
 #: ticketing/models.py
 msgid "Tama ona ro"
 msgstr "Sudah naik kapal"
 
+#: ticketing/views_scan.py
+msgid "Tama ona ro ona!"
+msgstr "Sudah naik kapal!"
+
 #: users/models.py
 msgid "Telefone"
 msgstr "Telepon"
+
+#: ticketing/views_scan.py
+msgid "Tenke haree:"
+msgstr "Perlu dicek:"
 
 #: users/forms.py
 msgid "Tentativa barak liu. Hein minutu %(m)d ho tenta fali."
@@ -670,9 +791,17 @@ msgstr "Pelayaran diperbarui."
 msgid "Viajen foun deit"
 msgstr "Hanya yang akan datang"
 
+#: ticketing/views_scan.py
+msgid "Viajen kansela"
+msgstr "Pelayaran dibatalkan"
+
 #: ticketing/views_sched.py
 msgid "Viajen kansela ona. Email haruka: %(n)d."
 msgstr "Pelayaran dibatalkan. Email terkirim: %(n)d."
+
+#: ticketing/views_scan.py
+msgid "Viajen la los"
+msgstr "Pelayaran salah"
 
 #: ticketing/views_sched.py
 msgid "Viajen ne'e la bele edita ona."
@@ -689,6 +818,10 @@ msgstr "Pelayaran mendatang"
 #: ticketing/forms.py
 msgid "WhatsApp (opsionál)"
 msgstr "WhatsApp (opsional)"
+
+#: ticketing/views_scan.py
+msgid "husi"
+msgstr "oleh"
 
 #: ticketing/templates/ticketing/sailing_detail.html
 msgid "uluk"

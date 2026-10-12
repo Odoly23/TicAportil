@@ -186,3 +186,6 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": ["rest_framework.authentication.SessionAuthentication"],
     "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
 }
+
+# Bump to invalidate the scanner PWA cache after a deploy.
+APP_VERSION = os.environ.get("APP_VERSION", "1")
