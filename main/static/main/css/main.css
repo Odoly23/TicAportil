@@ -124,3 +124,18 @@ body.sb-open .page-wrapper, body.sb-open footer { margin-left: var(--sb-w); }
 .result-name { font-size: 1.25rem; margin-top: 6px; }
 #reader { width: 100%; max-width: 420px; margin: 0 auto; }
 #reader video { border-radius: 12px; }
+
+/* Reports */
+.kpi { border-left: 4px solid var(--accent); }
+.kpi-value { font-size: 1.7rem; font-weight: 700; color: var(--navy); line-height: 1.2; }
+@media print {
+  .topbar, .main-navbar, #sidebar, footer, .noprint, .breadcrumb { display: none !important; }
+  body { padding-top: 0; background: #fff; }
+  .main-content { box-shadow: none; padding: 0; }
+  .card { break-inside: avoid; box-shadow: none !important; }
+  body.sb-open .page-wrapper { margin-left: 0; }
+}
+.nav-links .dropdown-item.active { background: #eef1ff; color: #000; }
+.nav-links .dropdown-menu a.dropdown-item { color: #212529; }
+.nav-links .dropdown-menu a.dropdown-item.text-danger { color: #dc3545; }
+.nav-links .dropdown-menu a.dropdown-item:hover { background: #eef1ff; color: #000; }

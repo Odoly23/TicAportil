@@ -45,11 +45,35 @@ msgstr "Tunda dan kirim notifikasi"
 msgid "Aumenta"
 msgstr "Tambah"
 
+#: report/exports.py
+msgid "Bazeia kaixa"
+msgstr "Per kasir"
+
+#: report/exports.py
+msgid "Bazeia kategoria"
+msgstr "Per kategori"
+
+#: report/exports.py
+msgid "Bazeia operadór"
+msgstr "Per operator"
+
+#: report/exports.py
+msgid "Bazeia pagamentu"
+msgstr "Per pembayaran"
+
+#: report/exports.py
+msgid "Bazeia rota"
+msgstr "Per rute"
+
+#: report/exports.py
+msgid "Bazeia ró"
+msgstr "Per kapal"
+
 #: ticketing/views_scan.py
 msgid "Bele tama ro"
 msgstr "Boleh naik kapal"
 
-#: ticketing/templates/ticketing/sailing_detail.html
+#: report/exports.py
 msgid "Bilhete"
 msgstr "Tiket"
 
@@ -57,25 +81,25 @@ msgstr "Tiket"
 msgid "Bilhete %(t)d muda ona. Email haruka: %(n)d."
 msgstr "%(t)d tiket dipindahkan. Email terkirim: %(n)d."
 
-#: report/templates/report/chart_dash.html
-msgid "Bilhete Bazeia Rota"
-msgstr "Tiket per rute"
-
 #: ticketing/models.py
 msgid "Bilhete Identidade (BI)"
 msgstr "Kartu Identitas (BI)"
-
-#: report/templates/report/chart_dash.html
-msgid "Bilhete Loron-loron (loron 30 ikus)"
-msgstr "Tiket per hari (30 hari terakhir)"
 
 #: ticketing/templates/ticketing/print.html
 msgid "Bilhete Ró"
 msgstr "Tiket Kapal"
 
+#: report/exports.py
+msgid "Bilhete faan"
+msgstr "Tiket terjual"
+
 #: ticketing/messages.py
 msgid "Bilhete husi viajen %(route)s (%(old)s) muda ona ba viajen %(new)s."
 msgstr "Tiket pelayaran %(route)s (%(old)s) dipindahkan ke pelayaran %(new)s."
+
+#: report/exports.py
+msgid "Bilhete kansela (sala) — la konta"
+msgstr "Tiket dibatalkan (salah terbit) — tidak dihitung"
 
 #: ticketing/views_scan.py
 msgid "Bilhete kansela / fila osan ona"
@@ -109,6 +133,18 @@ msgstr "Tiket ini tidak dapat dibatalkan lagi."
 msgid "Bilhete sosa deit iha loket portu. La presiza konta."
 msgstr "Tiket hanya dijual di loket pelabuhan. Tidak perlu akun."
 
+#: report/emails.py
+msgid "Bilhetes anulados (erro, não contam)"
+msgstr "Tiket dibatalkan (salah, tidak dihitung)"
+
+#: report/emails.py
+msgid "Bilhetes vendidos"
+msgstr "Tiket terjual"
+
+#: report/exports.py
+msgid "Bruto (USD)"
+msgstr "Bruto (USD)"
+
 #: ticketing/templates/ticketing/list.html
 msgid "Buka"
 msgstr "Tampilkan"
@@ -117,6 +153,10 @@ msgstr "Tampilkan"
 msgid "Dadus offline hamoos ona."
 msgstr "Data offline dihapus."
 
+#: main/context_processors.py
+msgid "Dashboard"
+msgstr "Dasbor penjualan"
+
 #: ticketing/templates/ticketing/announcement_list.html
 msgid "Data"
 msgstr "Tanggal"
@@ -124,6 +164,10 @@ msgstr "Tanggal"
 #: ticketing/forms.py
 msgid "Data Moris"
 msgstr "Tanggal lahir"
+
+#: report/forms.py
+msgid "Data final tenke depois data inísiu."
+msgstr "Tanggal akhir harus setelah tanggal awal."
 
 #: ticketing/forms.py
 msgid "Data moris la los."
@@ -136,6 +180,10 @@ msgstr "Tanggal dan jam baru"
 #: ticketing/forms_sched.py
 msgid "Data no oras partida"
 msgstr "Tanggal dan jam keberangkatan"
+
+#: report/exports.py
+msgid "Deskrisaun"
+msgstr "Keterangan"
 
 #: ticketing/templates/ticketing/print.html
 msgid "Detallu"
@@ -153,9 +201,17 @@ msgstr "Unduh daftar (offline)"
 msgid "Edita"
 msgstr "Ubah"
 
+#: report/emails.py
+msgid "Em anexo: relatório detalhado em PDF e Excel."
+msgstr "Terlampir: laporan rinci dalam PDF dan Excel."
+
 #: ticketing/forms.py
 msgid "Email (opsionál)"
 msgstr "Email (opsional)"
+
+#: report/templates/report/chart_dash.html
+msgid "Embarke"
+msgstr "Naik kapal"
 
 #: ticketing/models.py
 msgid "Emite ona"
@@ -193,6 +249,10 @@ msgstr "Dikembalikan dananya"
 msgid "Fila fali osan — razaun saúde"
 msgstr "Pengembalian dana — alasan kesehatan"
 
+#: report/exports.py
+msgid "Fila osan (USD)"
+msgstr "Pengembalian dana (USD)"
+
 #: ticketing/forms.py
 msgid "Foto dokumentu"
 msgstr "Foto dokumen"
@@ -204,6 +264,10 @@ msgstr "Foto dokumen sudah dihapus (30 hari)."
 #: ticketing/forms.py
 msgid "Foto dokumentu obrigatóriu."
 msgstr "Foto dokumen wajib diisi."
+
+#: report/templates/report/chart_dash.html
+msgid "Fulan ida-ne'e"
+msgstr "Bulan ini"
 
 #: ticketing/views_scan.py
 msgid "Hahú kámera"
@@ -245,6 +309,10 @@ msgstr "Pilih pelayaran dulu."
 msgid "Horáriu Ró-Laran"
 msgstr "Jadwal Kapal"
 
+#: report/forms.py
+msgid "Husi"
+msgstr "Dari"
+
 #: ticketing/forms.py
 msgid "Idade pasajeiru (%(a)d) la tuir kategoria ne'e."
 msgstr "Usia penumpang (%(a)d) tidak sesuai kategori ini."
@@ -257,6 +325,10 @@ msgstr "Gambar terlalu besar (maks. 10 MB)."
 msgid "Imprime"
 msgstr "Cetak"
 
+#: report/templates/report/cashier.html
+msgid "Ita-nia turnu rasik de'it."
+msgstr "Hanya shift Anda sendiri."
+
 #: main/context_processors.py
 msgid "Jadwal"
 msgstr "Jadwal"
@@ -264,6 +336,10 @@ msgstr "Jadwal"
 #: main/templates/main/navbar.html
 msgid "Jestaun"
 msgstr "Administrasi"
+
+#: report/templates/report/cashier.html
+msgid "Kaixa"
+msgstr "Kasir"
 
 #: ticketing/models.py
 msgid "Kansela"
@@ -349,6 +425,10 @@ msgstr "Tidak ada internet. Hasil scan disimpan di ponsel."
 msgid "La konsege download lista."
 msgstr "Gagal mengunduh daftar."
 
+#: report/templates/report/boarding.html
+msgid "La tama"
+msgstr "Tidak naik"
+
 #: users/forms.py
 msgid "Liafuan-pase"
 msgstr "Kata sandi"
@@ -356,6 +436,10 @@ msgstr "Kata sandi"
 #: users/models.py
 msgid "Lian"
 msgstr "Bahasa"
+
+#: report/exports.py
+msgid "Liquidu (USD)"
+msgstr "Bersih (USD)"
 
 #: main/context_processors.py
 msgid "Lista Bilhete"
@@ -372,6 +456,14 @@ msgstr "Masuk"
 #: main/templates/main/navbar.html
 msgid "Login staff"
 msgstr "Masuk staf"
+
+#: report/exports.py
+msgid "Loron-loron"
+msgstr "Harian"
+
+#: report/emails.py
+msgid "Líquido (USD)"
+msgstr "Bersih (USD)"
 
 #: ticketing/templates/ticketing/sailing_detail.html
 msgid "Marka partida ona"
@@ -458,6 +550,10 @@ msgstr "Catatan"
 msgid "Offline"
 msgstr "Offline"
 
+#: report/templates/report/chart_dash.html
+msgid "Ohin"
+msgstr "Hari ini"
+
 #: ticketing/views_scan.py
 msgid "Online"
 msgstr "Online"
@@ -466,9 +562,25 @@ msgstr "Online"
 msgid "Operadór"
 msgstr "Operator"
 
+#: report/templates/report/cashier.html
+msgid "Oras"
+msgstr "Jam"
+
 #: ticketing/forms_sched.py
 msgid "Oras hanesan ho uluk."
 msgstr "Jam sama dengan sebelumnya."
+
+#: report/templates/report/cashier.html
+msgid "Osan iha kaixa"
+msgstr "Uang di laci"
+
+#: report/templates/report/cashier.html
+msgid ""
+"Osan iha kaixa = osan kontante faan − osan kontante fila fali. Transferénsia"
+" la tama iha kaixa."
+msgstr ""
+"Uang di laci = penjualan tunai − pengembalian tunai. Transfer bank tidak "
+"masuk laci."
 
 #: ticketing/models.py
 msgid "Osan kontante"
@@ -498,7 +610,7 @@ msgstr "Telah berangkat"
 msgid "Partida tenke iha futuru."
 msgstr "Keberangkatan harus di masa depan."
 
-#: custom/models.py
+#: report/exports.py
 msgid "Pasajeiru"
 msgstr "Penumpang"
 
@@ -518,9 +630,25 @@ msgstr "Paspor"
 msgid "Pasaporte uza kategoria estranjeiru."
 msgstr "Paspor memakai kategori orang asing."
 
+#: report/emails.py
+msgid "Passageiros"
+msgstr "Penumpang"
+
+#: report/templates/report/chart_dash.html
+msgid "Pendapatan loron-loron (loron 30 ikus)"
+msgstr "Pendapatan harian (30 hari terakhir)"
+
+#: report/forms.py
+msgid "Períodu naruk liu."
+msgstr "Periode terlalu panjang."
+
 #: ticketing/templates/ticketing/print.html
 msgid "Plaka"
 msgstr "Plat"
+
+#: report/emails.py
+msgid "Por rota"
+msgstr "Per rute"
 
 #: main/templates/home/login.html
 msgid "Portal Sistema Bilheteira"
@@ -566,19 +694,51 @@ msgstr "Alasan (untuk penumpang)"
 msgid "Razaun / detallu"
 msgstr "Alasan / rincian"
 
+#: report/emails.py
+msgid "Reembolsos (USD)"
+msgstr "Pengembalian dana (USD)"
+
+#: report/emails.py
+msgid "Relatório de vendas"
+msgstr "Laporan penjualan"
+
 #: main/context_processors.py
 msgid "Relatóriu"
 msgstr "Laporan"
+
+#: main/context_processors.py
+msgid "Relatóriu Embarke"
+msgstr "Laporan naik kapal"
+
+#: main/context_processors.py
+msgid "Relatóriu Kaixa"
+msgstr "Laporan kasir"
+
+#: main/context_processors.py
+msgid "Relatóriu Vendas"
+msgstr "Laporan penjualan"
+
+#: report/exports.py
+msgid "Relatóriu Vendas APORTIL"
+msgstr "Laporan Penjualan APORTIL"
+
+#: report/templates/report/chart_dash.html
+msgid "Relatóriu detallu"
+msgstr "Laporan rinci"
 
 #: ticketing/models.py
 msgid "Remata"
 msgstr "Selesai"
 
-#: ticketing/forms_sched.py
+#: report/exports.py
+msgid "Rezumu"
+msgstr "Ringkasan"
+
+#: report/forms.py
 msgid "Rota"
 msgstr "Rute"
 
-#: ticketing/forms_sched.py
+#: report/forms.py
 msgid "Ró"
 msgstr "Kapal"
 
@@ -601,6 +761,10 @@ msgstr "Barang / Hewan"
 #: main/context_processors.py
 msgid "Scan QR"
 msgstr "Pindai QR"
+
+#: report/templates/report/boarding.html
+msgid "Scan problema"
+msgstr "Masalah pemindaian"
 
 #: ticketing/templates/ticketing/notifications.html
 msgid "Seidauk iha notifikasaun."
@@ -707,6 +871,10 @@ msgstr "Perlu dicek:"
 msgid "Tentativa barak liu. Hein minutu %(m)d ho tenta fali."
 msgstr "Terlalu banyak percobaan. Tunggu %(m)d menit lalu coba lagi."
 
+#: report/templates/report/chart_dash.html
+msgid "Tinan ida-ne'e"
+msgstr "Tahun ini"
+
 #: ticketing/forms_sched.py
 msgid "Tipu"
 msgstr "Jenis"
@@ -718,6 +886,10 @@ msgstr "Jenis tiket"
 #: ticketing/forms.py
 msgid "Tipu dokumentu"
 msgstr "Jenis dokumen"
+
+#: report/forms.py
+msgid "To'o"
+msgstr "Sampai"
 
 #: ticketing/templates/ticketing/list.html
 msgid "Total"
@@ -819,13 +991,53 @@ msgstr "Pelayaran mendatang"
 msgid "WhatsApp (opsionál)"
 msgstr "WhatsApp (opsional)"
 
+#: report/emails.py
+msgid "anual"
+msgstr "tahunan"
+
+#: report/templates/report/sales.html
+msgid "bilhete"
+msgstr "tiket"
+
+#: report/emails.py
+msgid "diário"
+msgstr "harian"
+
+#: report/templates/report/boarding.html
+msgid "dupl."
+msgstr "ganda"
+
+#: report/templates/report/boarding.html
+msgid "falsu"
+msgstr "palsu"
+
+#: report/templates/report/chart_dash.html
+msgid "fila osan"
+msgstr "pengembalian"
+
 #: ticketing/views_scan.py
 msgid "husi"
 msgstr "oleh"
 
+#: report/emails.py
+msgid "mensal"
+msgstr "bulanan"
+
+#: report/templates/report/sales.html
+msgid "pasajeiru"
+msgstr "penumpang"
+
 #: ticketing/templates/ticketing/sailing_detail.html
 msgid "uluk"
 msgstr "semula"
+
+#: report/templates/report/boarding.html
+msgid "viajen sala"
+msgstr "pelayaran salah"
+
+#: report/forms.py
+msgid "— Hotu —"
+msgstr "— Semua —"
 
 #: ticketing/forms_sched.py
 msgid "— La muda agora —"

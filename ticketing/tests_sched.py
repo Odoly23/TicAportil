@@ -219,12 +219,12 @@ class NotificationAnnouncementTests(SchedBase):
 		Notification.objects.create(user=self.opuser, kind='delayed', sailing=self.s1,
 			data={'route': 'Dili ➔ Beloi', 'vessel': 'V1', 'old': self.s1.departure.isoformat(), 'new': self.s1.departure.isoformat(), 'note': 'x'})
 		self.login(self.opuser)
-		menu = self.client.get(reverse('home')).context['menu']
+		menu = self.client.get(reverse('home')).context['menu_flat']
 		self.assertEqual([m['badge'] for m in menu if m['url'] == 'notifications'], [1])
 		r = self.client.get(reverse('notifications'))
 		self.assertContains(r, 'Dili')
-		self.assertEqual(self.client.get(reverse('home')).context['menu'][-2]['badge'] if False else
-			[m['badge'] for m in self.client.get(reverse('home')).context['menu'] if m['url'] == 'notifications'], [0])
+		self.assertEqual(self.client.get(reverse('home')).context['menu_flat'][-2]['badge'] if False else
+			[m['badge'] for m in self.client.get(reverse('home')).context['menu_flat'] if m['url'] == 'notifications'], [0])
 
 	def test_auto_announcement_renders_in_visitor_language_and_expires(self):
 		data = {'route': 'Dili ➔ Beloi', 'vessel': 'V1', 'old': self.s1.departure.isoformat(), 'new': self.s1.departure.isoformat(), 'note': 'Cuaca'}

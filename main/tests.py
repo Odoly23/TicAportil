@@ -61,7 +61,7 @@ class ReportApiTests(TestCase):
 		self.client.force_login(u)
 		r = self.client.get("/api/report/venda/rota/")
 		self.assertEqual(r.status_code, 200)
-		self.assertEqual(set(r.json()), {"label", "obj"})
+		self.assertEqual(set(r.json()), {"label", "obj", "obj2"})
 		self.assertEqual(self.client.get("/report/dash/").status_code, 200)
 
 	def test_operator_cannot_open_admin_only_pages_but_can_open_report(self):
@@ -80,11 +80,11 @@ class MenuTests(TestCase):
 		u = User.objects.create_user(group, password="x")
 		u.groups.add(Group.objects.get(name=group))
 		self.client.force_login(u)
-		return [m["url"] for m in self.client.get(reverse("home")).context["menu"]]
+		return [m["url"] for m in self.client.get(reverse("home")).context["menu_flat"]]
 
 	def test_menu_per_role(self):
 		self.assertEqual(self._menu_for("inspector"), ["home", "scan"])
-		self.assertEqual(self._menu_for("resepsionista"), ["home", "sell-sailings", "ticket-list"])
+		self.assertEqual(self._menu_for("resepsionista"), ["home", "sell-sailings", "ticket-list", "report-cashier"])
 
 	def test_admin_and_operator_see_reports(self):
 		self.assertIn("report-dash", self._menu_for("operator"))

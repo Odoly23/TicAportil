@@ -42,8 +42,27 @@ Teks sumber = Tetun. Tambah di `scripts/translations.py`, lalu `python scripts/b
   (cocok persis dengan payload QR bertanda tangan), antre di IndexedDB, dikirim otomatis saat online; server tetap
   penentu akhir (scan paling awal menang). Semua scan tercatat di `ScanEvent`. Kamera & service worker butuh
   **HTTPS** di produksi (localhost dikecualikan). Naikkan `APP_VERSION` di `.env` setelah deploy untuk menyegarkan cache PWA.
-- Berikut: email laporan harian/bulanan/tahunan + dashboard pendapatan,
-  kelola pengguna/tarif (UI), WhatsApp, deploy.
+- Fase 5: **laporan** — dashboard (KPI hari/bulan/tahun + 4 grafik), laporan penjualan berfilter (rentang, rute, kapal,
+  operator) dengan ekspor Excel & PDF, laporan kaixa per shift (kasir hanya melihat shift sendiri), laporan embarke
+  (terjual vs naik, no-show, scan bermasalah), email otomatis harian/bulanan/tahunan ke `REPORT_RECIPIENTS` (Portugis,
+  lampiran PDF + Excel). Operator hanya melihat angka kapalnya sendiri di semua halaman, grafik, dan ekspor.
+- Berikut: layar kelola (tarif, pengguna, data master), WhatsApp, deploy.
+
+### Aturan hitung laporan (USD, hari = hari kalender Asia/Dili)
+- **Bruto** = tiket yang dibuat pada periode, kecuali yang dibatalkan karena salah emisi (*void*, tidak dihitung).
+- **Refund** = tiket refund (alasan kesehatan) yang refund-nya terjadi pada periode (tanggal refund, bukan tanggal jual).
+- **Bersih** = bruto − refund. Uang di laci kaixa = penjualan tunai − refund tunai (transfer tidak masuk laci).
+
+### Email laporan otomatis (cron, zona waktu server = Asia/Dili)
+```
+CRON_TZ=Asia/Dili
+59 23 * * *  cd /srv/ticaportil && .venv/bin/python manage.py send_reports --period daily     # hari ini
+10 6  1 * *  cd /srv/ticaportil && .venv/bin/python manage.py send_reports --period monthly   # bulan lalu
+20 6  1 1 *  cd /srv/ticaportil && .venv/bin/python manage.py send_reports --period yearly    # tahun lalu
+0  2  * * *  cd /srv/ticaportil && .venv/bin/python manage.py purge_documents
+```
+Aman dijalankan ulang: laporan yang sudah terkirim dilewati (`--force` untuk kirim lagi); kegagalan SMTP dicatat
+di `ReportLog` dan perintah keluar dengan error agar cron/monitoring mengetahuinya.
 
 Email dikirim lewat SMTP APORTIL (`EMAIL_*` di `.env`); jika SMTP gagal, perubahan jadwal tetap tersimpan
 dan kegagalan dicatat di audit log (`email_failed`).

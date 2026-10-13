@@ -45,11 +45,35 @@ msgstr ""
 msgid "Aumenta"
 msgstr ""
 
+#: report/exports.py
+msgid "Bazeia kaixa"
+msgstr ""
+
+#: report/exports.py
+msgid "Bazeia kategoria"
+msgstr ""
+
+#: report/exports.py
+msgid "Bazeia operadór"
+msgstr ""
+
+#: report/exports.py
+msgid "Bazeia pagamentu"
+msgstr ""
+
+#: report/exports.py
+msgid "Bazeia rota"
+msgstr ""
+
+#: report/exports.py
+msgid "Bazeia ró"
+msgstr ""
+
 #: ticketing/views_scan.py
 msgid "Bele tama ro"
 msgstr ""
 
-#: ticketing/templates/ticketing/sailing_detail.html
+#: report/exports.py
 msgid "Bilhete"
 msgstr ""
 
@@ -57,24 +81,24 @@ msgstr ""
 msgid "Bilhete %(t)d muda ona. Email haruka: %(n)d."
 msgstr ""
 
-#: report/templates/report/chart_dash.html
-msgid "Bilhete Bazeia Rota"
-msgstr ""
-
 #: ticketing/models.py
 msgid "Bilhete Identidade (BI)"
-msgstr ""
-
-#: report/templates/report/chart_dash.html
-msgid "Bilhete Loron-loron (loron 30 ikus)"
 msgstr ""
 
 #: ticketing/templates/ticketing/print.html
 msgid "Bilhete Ró"
 msgstr ""
 
+#: report/exports.py
+msgid "Bilhete faan"
+msgstr ""
+
 #: ticketing/messages.py
 msgid "Bilhete husi viajen %(route)s (%(old)s) muda ona ba viajen %(new)s."
+msgstr ""
+
+#: report/exports.py
+msgid "Bilhete kansela (sala) — la konta"
 msgstr ""
 
 #: ticketing/views_scan.py
@@ -109,6 +133,18 @@ msgstr ""
 msgid "Bilhete sosa deit iha loket portu. La presiza konta."
 msgstr ""
 
+#: report/emails.py
+msgid "Bilhetes anulados (erro, não contam)"
+msgstr ""
+
+#: report/emails.py
+msgid "Bilhetes vendidos"
+msgstr ""
+
+#: report/exports.py
+msgid "Bruto (USD)"
+msgstr ""
+
 #: ticketing/templates/ticketing/list.html
 msgid "Buka"
 msgstr ""
@@ -117,12 +153,20 @@ msgstr ""
 msgid "Dadus offline hamoos ona."
 msgstr ""
 
+#: main/context_processors.py
+msgid "Dashboard"
+msgstr ""
+
 #: ticketing/templates/ticketing/announcement_list.html
 msgid "Data"
 msgstr ""
 
 #: ticketing/forms.py
 msgid "Data Moris"
+msgstr ""
+
+#: report/forms.py
+msgid "Data final tenke depois data inísiu."
 msgstr ""
 
 #: ticketing/forms.py
@@ -135,6 +179,10 @@ msgstr ""
 
 #: ticketing/forms_sched.py
 msgid "Data no oras partida"
+msgstr ""
+
+#: report/exports.py
+msgid "Deskrisaun"
 msgstr ""
 
 #: ticketing/templates/ticketing/print.html
@@ -153,8 +201,16 @@ msgstr ""
 msgid "Edita"
 msgstr ""
 
+#: report/emails.py
+msgid "Em anexo: relatório detalhado em PDF e Excel."
+msgstr ""
+
 #: ticketing/forms.py
 msgid "Email (opsionál)"
+msgstr ""
+
+#: report/templates/report/chart_dash.html
+msgid "Embarke"
 msgstr ""
 
 #: ticketing/models.py
@@ -193,6 +249,10 @@ msgstr ""
 msgid "Fila fali osan — razaun saúde"
 msgstr ""
 
+#: report/exports.py
+msgid "Fila osan (USD)"
+msgstr ""
+
 #: ticketing/forms.py
 msgid "Foto dokumentu"
 msgstr ""
@@ -203,6 +263,10 @@ msgstr ""
 
 #: ticketing/forms.py
 msgid "Foto dokumentu obrigatóriu."
+msgstr ""
+
+#: report/templates/report/chart_dash.html
+msgid "Fulan ida-ne'e"
 msgstr ""
 
 #: ticketing/views_scan.py
@@ -245,6 +309,10 @@ msgstr ""
 msgid "Horáriu Ró-Laran"
 msgstr ""
 
+#: report/forms.py
+msgid "Husi"
+msgstr ""
+
 #: ticketing/forms.py
 msgid "Idade pasajeiru (%(a)d) la tuir kategoria ne'e."
 msgstr ""
@@ -257,12 +325,20 @@ msgstr ""
 msgid "Imprime"
 msgstr ""
 
+#: report/templates/report/cashier.html
+msgid "Ita-nia turnu rasik de'it."
+msgstr ""
+
 #: main/context_processors.py
 msgid "Jadwal"
 msgstr ""
 
 #: main/templates/main/navbar.html
 msgid "Jestaun"
+msgstr ""
+
+#: report/templates/report/cashier.html
+msgid "Kaixa"
 msgstr ""
 
 #: ticketing/models.py
@@ -349,12 +425,20 @@ msgstr ""
 msgid "La konsege download lista."
 msgstr ""
 
+#: report/templates/report/boarding.html
+msgid "La tama"
+msgstr ""
+
 #: users/forms.py
 msgid "Liafuan-pase"
 msgstr ""
 
 #: users/models.py
 msgid "Lian"
+msgstr ""
+
+#: report/exports.py
+msgid "Liquidu (USD)"
 msgstr ""
 
 #: main/context_processors.py
@@ -371,6 +455,14 @@ msgstr ""
 
 #: main/templates/main/navbar.html
 msgid "Login staff"
+msgstr ""
+
+#: report/exports.py
+msgid "Loron-loron"
+msgstr ""
+
+#: report/emails.py
+msgid "Líquido (USD)"
 msgstr ""
 
 #: ticketing/templates/ticketing/sailing_detail.html
@@ -457,6 +549,10 @@ msgstr ""
 msgid "Offline"
 msgstr ""
 
+#: report/templates/report/chart_dash.html
+msgid "Ohin"
+msgstr ""
+
 #: ticketing/views_scan.py
 msgid "Online"
 msgstr ""
@@ -465,8 +561,22 @@ msgstr ""
 msgid "Operadór"
 msgstr ""
 
+#: report/templates/report/cashier.html
+msgid "Oras"
+msgstr ""
+
 #: ticketing/forms_sched.py
 msgid "Oras hanesan ho uluk."
+msgstr ""
+
+#: report/templates/report/cashier.html
+msgid "Osan iha kaixa"
+msgstr ""
+
+#: report/templates/report/cashier.html
+msgid ""
+"Osan iha kaixa = osan kontante faan − osan kontante fila fali. Transferénsia"
+" la tama iha kaixa."
 msgstr ""
 
 #: ticketing/models.py
@@ -497,7 +607,7 @@ msgstr ""
 msgid "Partida tenke iha futuru."
 msgstr ""
 
-#: custom/models.py
+#: report/exports.py
 msgid "Pasajeiru"
 msgstr ""
 
@@ -517,8 +627,24 @@ msgstr ""
 msgid "Pasaporte uza kategoria estranjeiru."
 msgstr ""
 
+#: report/emails.py
+msgid "Passageiros"
+msgstr ""
+
+#: report/templates/report/chart_dash.html
+msgid "Pendapatan loron-loron (loron 30 ikus)"
+msgstr ""
+
+#: report/forms.py
+msgid "Períodu naruk liu."
+msgstr ""
+
 #: ticketing/templates/ticketing/print.html
 msgid "Plaka"
+msgstr ""
+
+#: report/emails.py
+msgid "Por rota"
 msgstr ""
 
 #: main/templates/home/login.html
@@ -565,19 +691,51 @@ msgstr ""
 msgid "Razaun / detallu"
 msgstr ""
 
+#: report/emails.py
+msgid "Reembolsos (USD)"
+msgstr ""
+
+#: report/emails.py
+msgid "Relatório de vendas"
+msgstr ""
+
 #: main/context_processors.py
 msgid "Relatóriu"
+msgstr ""
+
+#: main/context_processors.py
+msgid "Relatóriu Embarke"
+msgstr ""
+
+#: main/context_processors.py
+msgid "Relatóriu Kaixa"
+msgstr ""
+
+#: main/context_processors.py
+msgid "Relatóriu Vendas"
+msgstr ""
+
+#: report/exports.py
+msgid "Relatóriu Vendas APORTIL"
+msgstr ""
+
+#: report/templates/report/chart_dash.html
+msgid "Relatóriu detallu"
 msgstr ""
 
 #: ticketing/models.py
 msgid "Remata"
 msgstr ""
 
-#: ticketing/forms_sched.py
+#: report/exports.py
+msgid "Rezumu"
+msgstr ""
+
+#: report/forms.py
 msgid "Rota"
 msgstr ""
 
-#: ticketing/forms_sched.py
+#: report/forms.py
 msgid "Ró"
 msgstr ""
 
@@ -599,6 +757,10 @@ msgstr ""
 
 #: main/context_processors.py
 msgid "Scan QR"
+msgstr ""
+
+#: report/templates/report/boarding.html
+msgid "Scan problema"
 msgstr ""
 
 #: ticketing/templates/ticketing/notifications.html
@@ -706,6 +868,10 @@ msgstr ""
 msgid "Tentativa barak liu. Hein minutu %(m)d ho tenta fali."
 msgstr ""
 
+#: report/templates/report/chart_dash.html
+msgid "Tinan ida-ne'e"
+msgstr ""
+
 #: ticketing/forms_sched.py
 msgid "Tipu"
 msgstr ""
@@ -716,6 +882,10 @@ msgstr ""
 
 #: ticketing/forms.py
 msgid "Tipu dokumentu"
+msgstr ""
+
+#: report/forms.py
+msgid "To'o"
 msgstr ""
 
 #: ticketing/templates/ticketing/list.html
@@ -812,12 +982,52 @@ msgstr ""
 msgid "WhatsApp (opsionál)"
 msgstr ""
 
+#: report/emails.py
+msgid "anual"
+msgstr ""
+
+#: report/templates/report/sales.html
+msgid "bilhete"
+msgstr ""
+
+#: report/emails.py
+msgid "diário"
+msgstr ""
+
+#: report/templates/report/boarding.html
+msgid "dupl."
+msgstr ""
+
+#: report/templates/report/boarding.html
+msgid "falsu"
+msgstr ""
+
+#: report/templates/report/chart_dash.html
+msgid "fila osan"
+msgstr ""
+
 #: ticketing/views_scan.py
 msgid "husi"
 msgstr ""
 
+#: report/emails.py
+msgid "mensal"
+msgstr ""
+
+#: report/templates/report/sales.html
+msgid "pasajeiru"
+msgstr ""
+
 #: ticketing/templates/ticketing/sailing_detail.html
 msgid "uluk"
+msgstr ""
+
+#: report/templates/report/boarding.html
+msgid "viajen sala"
+msgstr ""
+
+#: report/forms.py
+msgid "— Hotu —"
 msgstr ""
 
 #: ticketing/forms_sched.py
