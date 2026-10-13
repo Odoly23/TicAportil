@@ -1,0 +1,82 @@
+{% load static i18n %}{% get_current_language as LANG %}{% get_available_languages as LANGS %}
+<!-- TOPBAR -->
+<div class="topbar">
+	<div class="container">
+		<div class="tb-left">
+			<span><i class="fa fa-anchor"></i> APORTIL · Timor-Leste</span>
+			<span>{% now "d/m/Y" %}</span>
+		</div>
+		<form class="tb-right lang-switch" action="{% url 'set_language' %}" method="post">{% csrf_token %}
+			<input type="hidden" name="next" value="{{ request.get_full_path }}">
+			{% for code, name in LANGS %}<button name="language" value="{{ code }}" title="{{ name }}" class="{% if code == LANG %}on{% endif %}">{{ code|upper }}</button>{% endfor %}
+		</form>
+	</div>
+</div>
+
+<!-- NAVBAR -->
+<header class="main-navbar">
+	<div class="container">
+		<a class="brand" href="{% if user.is_authenticated %}{% url 'home' %}{% else %}{% url 'landing' %}{% endif %}">
+			{% if logo_url %}<img src="{{ logo_url }}" alt="APORTIL">{% else %}<i class="fa fa-ship"></i>{% endif %}<span>APORTIL <small>Bilheteira</small></span>
+		</a>
+
+		<ul class="nav-links">
+			{% for m in menu %}
+				{% if m.children %}
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle {% if m.active %}active{% endif %}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa {{ m.icon }}"></i> {{ m.label }}</a>
+					<div class="dropdown-menu">
+						{% for c in m.children %}<a class="dropdown-item {% if c.active %}active{% endif %}" href="{% url c.url %}"><i class="fa {{ c.icon }}"></i> {{ c.label }}</a>{% endfor %}
+					</div>
+				</li>
+				{% else %}
+				<li><a href="{% url m.url %}" class="{% if m.active %}active{% endif %}"><i class="fa {{ m.icon }}"></i> {{ m.label }}{% if m.badge %} <span class="badge badge-danger">{{ m.badge }}</span>{% endif %}</a></li>
+				{% endif %}
+			{% endfor %}
+			{% if user.is_authenticated %}
+				{% if role == 'admin' %}<li><a href="/admin/"><i class="fa fa-cog"></i> {% trans "Jestaun" %}</a></li>{% endif %}
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<span class="av"><i class="fa fa-user"></i></span> {{ user.get_full_name|default:user.username }}
+					</a>
+					<div class="dropdown-menu dropdown-menu-right">
+						<span class="dropdown-item-text text-muted small">{{ role|default:"-" }}</span>
+						<form action="{% url 'logout' %}" method="post">{% csrf_token %}
+							<button class="dropdown-item text-danger"><i class="fa fa-sign-out"></i> {% trans "Sai" %}</button>
+						</form>
+					</div>
+				</li>
+			{% else %}
+				<li><a href="{% url 'login' %}"><i class="fa fa-sign-in"></i> {% trans "Login staff" %}</a></li>
+			{% endif %}
+		</ul>
+
+		<button class="btn-ham" id="btnHam" type="button" aria-label="Menu" aria-controls="sidebar" aria-expanded="false">
+			<i class="fa fa-bars"></i>
+		</button>
+	</div>
+</header>
+
+<!-- SIDEBAR (mobile only) -->
+<nav id="sidebar" aria-label="Menu">
+	<div class="sb-body">
+		<ul>
+			{% for m in menu_flat %}
+				<li class="{% if m.active %}sb-on{% endif %}"><a href="{% url m.url %}"><i class="fa {{ m.icon }}"></i>{{ m.label }}{% if m.badge %}<span class="badge badge-danger sb-badge">{{ m.badge }}</span>{% endif %}</a></li>
+			{% endfor %}
+			{% if role == 'admin' %}<li><a href="/admin/"><i class="fa fa-cog"></i>{% trans "Jestaun" %}</a></li>{% endif %}
+		</ul>
+		<hr>
+		<ul>
+			{% if user.is_authenticated %}
+				<li>
+					<form action="{% url 'logout' %}" method="post" class="sb-form">{% csrf_token %}
+						<button><i class="fa fa-sign-out"></i>{% trans "Sai" %}</button>
+					</form>
+				</li>
+			{% else %}
+				<li><a href="{% url 'login' %}"><i class="fa fa-sign-in"></i>{% trans "Login" %}</a></li>
+			{% endif %}
+		</ul>
+	</div>
+</nav>

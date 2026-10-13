@@ -1,0 +1,1046 @@
+#
+msgid ""
+msgstr ""
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#: ticketing/views_sched.py
+msgid " Fila fali osan: $%(a)s."
+msgstr " Refund: $%(a)s."
+
+#: ticketing/models.py
+msgid "Agendadu"
+msgstr "Scheduled"
+
+#: main/templates/home/403.html
+msgid "Aksesu la permite"
+msgstr "Access denied"
+
+#: main/context_processors.py
+msgid "Anúnsiu"
+msgstr "Announcements"
+
+#: ticketing/views_sched.py
+msgid "Anúnsiu rai ona. Email haruka: %(n)d."
+msgstr "Announcement saved. Emails sent: %(n)d."
+
+#: ticketing/views_sched.py
+msgid "Asaun la bele."
+msgstr "Action not allowed."
+
+#: ticketing/models.py
+msgid "Atrazadu"
+msgstr "Delayed"
+
+#: ticketing/templates/ticketing/sailing_detail.html
+msgid "Atrazu"
+msgstr "Delay"
+
+#: ticketing/views_sched.py
+msgid "Atrazu no haruka notifikasaun"
+msgstr "Delay and send notification"
+
+#: ticketing/templates/ticketing/sailing_list.html
+msgid "Aumenta"
+msgstr "Add"
+
+#: report/exports.py
+msgid "Bazeia kaixa"
+msgstr "By cashier"
+
+#: report/exports.py
+msgid "Bazeia kategoria"
+msgstr "By category"
+
+#: report/exports.py
+msgid "Bazeia operadór"
+msgstr "By operator"
+
+#: report/exports.py
+msgid "Bazeia pagamentu"
+msgstr "By payment"
+
+#: report/exports.py
+msgid "Bazeia rota"
+msgstr "By route"
+
+#: report/exports.py
+msgid "Bazeia ró"
+msgstr "By vessel"
+
+#: ticketing/views_scan.py
+msgid "Bele tama ro"
+msgstr "OK to board"
+
+#: report/exports.py
+msgid "Bilhete"
+msgstr "Tickets"
+
+#: ticketing/views_sched.py
+msgid "Bilhete %(t)d muda ona. Email haruka: %(n)d."
+msgstr "%(t)d tickets moved. Emails sent: %(n)d."
+
+#: ticketing/models.py
+msgid "Bilhete Identidade (BI)"
+msgstr "Identity Card (BI)"
+
+#: ticketing/templates/ticketing/print.html
+msgid "Bilhete Ró"
+msgstr "Ferry Ticket"
+
+#: report/exports.py
+msgid "Bilhete faan"
+msgstr "Tickets sold"
+
+#: ticketing/messages.py
+msgid "Bilhete husi viajen %(route)s (%(old)s) muda ona ba viajen %(new)s."
+msgstr ""
+"Tickets for the %(route)s sailing (%(old)s) have been moved to the sailing "
+"on %(new)s."
+
+#: report/exports.py
+msgid "Bilhete kansela (sala) — la konta"
+msgstr "Voided tickets (mistakes) — not counted"
+
+#: ticketing/views_scan.py
+msgid "Bilhete kansela / fila osan ona"
+msgstr "Ticket cancelled / refunded"
+
+#: ticketing/views_sched.py
+msgid "Bilhete kansela ona."
+msgstr "Ticket cancelled."
+
+#: ticketing/views_scan.py
+msgid "Bilhete la hetan"
+msgstr "Ticket not found"
+
+#: ticketing/templates/ticketing/sailing_detail.html
+msgid "Bilhete muda ba"
+msgstr "Tickets moved to"
+
+#: ticketing/messages.py
+msgid "Bilhete muda viajen"
+msgstr "Tickets moved to another sailing"
+
+#: ticketing/views_scan.py
+msgid "Bilhete ne'e ba"
+msgstr "This ticket is for"
+
+#: ticketing/views_sched.py
+msgid "Bilhete ne'e la bele kansela ona."
+msgstr "This ticket can no longer be cancelled."
+
+#: main/templates/home/home.html
+msgid "Bilhete sosa deit iha loket portu. La presiza konta."
+msgstr "Tickets are sold only at the port ticket office. No account needed."
+
+#: report/emails.py
+msgid "Bilhetes anulados (erro, não contam)"
+msgstr "Voided tickets (mistakes, not counted)"
+
+#: report/emails.py
+msgid "Bilhetes vendidos"
+msgstr "Tickets sold"
+
+#: report/exports.py
+msgid "Bruto (USD)"
+msgstr "Gross (USD)"
+
+#: ticketing/templates/ticketing/list.html
+msgid "Buka"
+msgstr "Show"
+
+#: ticketing/views_scan.py
+msgid "Dadus offline hamoos ona."
+msgstr "Offline data cleared."
+
+#: main/context_processors.py
+msgid "Dashboard"
+msgstr "Sales dashboard"
+
+#: ticketing/templates/ticketing/announcement_list.html
+msgid "Data"
+msgstr "Date"
+
+#: ticketing/forms.py
+msgid "Data Moris"
+msgstr "Date of birth"
+
+#: report/forms.py
+msgid "Data final tenke depois data inísiu."
+msgstr "The end date must be after the start date."
+
+#: ticketing/forms.py
+msgid "Data moris la los."
+msgstr "Invalid date of birth."
+
+#: ticketing/forms_sched.py
+msgid "Data no oras foun"
+msgstr "New date and time"
+
+#: ticketing/forms_sched.py
+msgid "Data no oras partida"
+msgstr "Departure date and time"
+
+#: report/exports.py
+msgid "Deskrisaun"
+msgstr "Description"
+
+#: ticketing/templates/ticketing/print.html
+msgid "Detallu"
+msgstr "Details"
+
+#: ticketing/templates/ticketing/detail.html
+msgid "Dokumentu"
+msgstr "Document"
+
+#: ticketing/templates/ticketing/scan.html
+msgid "Download lista (offline)"
+msgstr "Download list (offline)"
+
+#: ticketing/templates/ticketing/sailing_detail.html
+msgid "Edita"
+msgstr "Edit"
+
+#: report/emails.py
+msgid "Em anexo: relatório detalhado em PDF e Excel."
+msgstr "Attached: detailed report as PDF and Excel."
+
+#: ticketing/forms.py
+msgid "Email (opsionál)"
+msgstr "Email (optional)"
+
+#: report/templates/report/chart_dash.html
+msgid "Embarke"
+msgstr "Boarding"
+
+#: ticketing/models.py
+msgid "Emite ona"
+msgstr "Issued"
+
+#: ticketing/forms.py
+msgid "Faan bilhete ba viajen ne'e taka ona."
+msgstr "Ticket sales for this sailing are closed."
+
+#: ticketing/templates/ticketing/detail.html
+msgid "Faan husi"
+msgstr "Sold by"
+
+#: ticketing/templates/ticketing/sell_sailings.html
+msgid "Faan taka ona"
+msgstr "Sales closed"
+
+#: ticketing/forms.py
+msgid "Ficheiru la'ós imajen válidu."
+msgstr "The file is not a valid image."
+
+#: ticketing/templates/ticketing/action_form.html
+msgid "Fila"
+msgstr "Back"
+
+#: main/templates/home/500.html
+msgid "Fila ba pájina inisiál"
+msgstr "Back to home page"
+
+#: ticketing/models.py
+msgid "Fila fali osan"
+msgstr "Refunded"
+
+#: ticketing/forms_sched.py
+msgid "Fila fali osan — razaun saúde"
+msgstr "Refund — health reason"
+
+#: report/exports.py
+msgid "Fila osan (USD)"
+msgstr "Refunds (USD)"
+
+#: ticketing/forms.py
+msgid "Foto dokumentu"
+msgstr "Document photo"
+
+#: ticketing/templates/ticketing/detail.html
+msgid "Foto dokumentu hamoos ona (30 loron)."
+msgstr "Document photo deleted (30 days)."
+
+#: ticketing/forms.py
+msgid "Foto dokumentu obrigatóriu."
+msgstr "Document photo is required."
+
+#: report/templates/report/chart_dash.html
+msgid "Fulan ida-ne'e"
+msgstr "This month"
+
+#: ticketing/views_scan.py
+msgid "Hahú kámera"
+msgstr "Start camera"
+
+#: ticketing/templates/ticketing/announcement_list.html
+msgid "Hamoos anúnsiu ne'e?"
+msgstr "Delete this announcement?"
+
+#: ticketing/views_scan.py
+msgid "Hamoos dadus offline husi telemovel ne'e?"
+msgstr "Delete the offline data from this phone?"
+
+#: ticketing/templates/ticketing/notifications.html
+msgid "Haree viajen"
+msgstr "View sailing"
+
+#: ticketing/forms_sched.py
+msgid "Haruka email ba bilhete nain viajen ne'e"
+msgstr "Email the ticket holders of this sailing"
+
+#: ticketing/templates/ticketing/sailing_list.html
+msgid "Hatudu hotu"
+msgstr "Show all"
+
+#: ticketing/forms_sched.py
+msgid "Hatudu iha pájina públiku"
+msgstr "Show on the public page"
+
+#: ticketing/views_scan.py
+msgid "Hein sinkroniza: %s"
+msgstr "Waiting to sync: %s"
+
+#: ticketing/views_scan.py
+msgid "Hili viajen uluk."
+msgstr "Choose a sailing first."
+
+#: main/templates/home/home.html
+msgid "Horáriu Ró-Laran"
+msgstr "Ferry Schedule"
+
+#: report/forms.py
+msgid "Husi"
+msgstr "From"
+
+#: ticketing/forms.py
+msgid "Idade pasajeiru (%(a)d) la tuir kategoria ne'e."
+msgstr "The passenger's age (%(a)d) does not fit this category."
+
+#: ticketing/forms.py
+msgid "Imajen boot liu (maximu 10 MB)."
+msgstr "Image too large (max 10 MB)."
+
+#: ticketing/templates/ticketing/detail.html
+msgid "Imprime"
+msgstr "Print"
+
+#: report/templates/report/cashier.html
+msgid "Ita-nia turnu rasik de'it."
+msgstr "Your own shift only."
+
+#: main/context_processors.py
+msgid "Jadwal"
+msgstr "Schedule"
+
+#: main/templates/main/navbar.html
+msgid "Jestaun"
+msgstr "Administration"
+
+#: report/templates/report/cashier.html
+msgid "Kaixa"
+msgstr "Cashier"
+
+#: ticketing/models.py
+msgid "Kansela"
+msgstr "Cancelled"
+
+#: ticketing/forms_sched.py
+msgid "Kansela (sala emisaun) — la fila osan"
+msgstr "Void (issued by mistake) — no refund"
+
+#: ticketing/templates/ticketing/detail.html
+msgid "Kansela bilhete"
+msgstr "Cancel ticket"
+
+#: ticketing/views_sched.py
+msgid "Kansela viajen"
+msgstr "Cancel sailing"
+
+#: ticketing/models.py
+msgid "Kartaun Eleitorál"
+msgstr "Voter Card"
+
+#: ticketing/forms.py
+msgid "Kategoria ne'e ba estranjeiru ho pasaporte de'it."
+msgstr "This category is for foreigners with a passport only."
+
+#: ticketing/views_sched.py
+msgid "Konfirma kansela"
+msgstr "Confirm cancellation"
+
+#: ticketing/forms.py
+msgid "Kuantidade"
+msgstr "Quantity"
+
+#: ticketing/templates/ticketing/sailing_detail.html
+msgid "Kuota"
+msgstr "Quota"
+
+#: ticketing/views_sched.py
+msgid "Kuota la to'o iha viajen foun: %(s)s"
+msgstr "Not enough quota on the new sailing: %(s)s"
+
+#: ticketing/forms.py
+msgid "Kuota la to'o. Sobra: %(n)d."
+msgstr "Not enough quota. Remaining: %(n)d."
+
+#: ticketing/views.py
+msgid "Kuota la to'o. Tenta fali."
+msgstr "Not enough quota. Please try again."
+
+#: ticketing/forms_sched.py
+msgid "Kuota pasajeiru"
+msgstr "Passenger quota"
+
+#: ticketing/forms_sched.py
+msgid "Kuota sasán / animál"
+msgstr "Goods / animals quota"
+
+#: ticketing/templates/ticketing/sailing_list.html
+msgid "Kuota sobra"
+msgstr "Remaining quota"
+
+#: ticketing/forms_sched.py
+msgid "Kuota veíkulu"
+msgstr "Vehicle quota"
+
+#: ticketing/views_scan.py
+msgid "Kámera la bele loke. Uza input manual."
+msgstr "Could not open the camera. Use manual entry."
+
+#: ticketing/forms_sched.py
+msgid "La bele menus husi %(n)d (faan ona)."
+msgstr "Cannot be below %(n)d (already sold)."
+
+#: ticketing/views_scan.py
+msgid "La bele verifika (offline) — rai ba sinkronizasaun"
+msgstr "Cannot verify (offline) — saved for sync"
+
+#: ticketing/views_scan.py
+msgid "La iha internet. Scan rai iha telemovel."
+msgstr "No internet. Scans are kept on the phone."
+
+#: ticketing/views_scan.py
+msgid "La konsege download lista."
+msgstr "Could not download the list."
+
+#: report/templates/report/boarding.html
+msgid "La tama"
+msgstr "No-shows"
+
+#: users/forms.py
+msgid "Liafuan-pase"
+msgstr "Password"
+
+#: users/models.py
+msgid "Lian"
+msgstr "Language"
+
+#: report/exports.py
+msgid "Liquidu (USD)"
+msgstr "Net (USD)"
+
+#: main/context_processors.py
+msgid "Lista Bilhete"
+msgstr "Ticket list"
+
+#: ticketing/views_scan.py
+msgid "Lista download ona: %s bilhete."
+msgstr "List downloaded: %s tickets."
+
+#: main/templates/main/navbar.html
+msgid "Login"
+msgstr "Login"
+
+#: main/templates/main/navbar.html
+msgid "Login staff"
+msgstr "Staff login"
+
+#: report/exports.py
+msgid "Loron-loron"
+msgstr "Day by day"
+
+#: report/emails.py
+msgid "Líquido (USD)"
+msgstr "Net (USD)"
+
+#: ticketing/templates/ticketing/sailing_detail.html
+msgid "Marka partida ona"
+msgstr "Mark as departed"
+
+#: ticketing/templates/ticketing/sailing_detail.html
+msgid "Marka remata"
+msgstr "Mark as completed"
+
+#: ticketing/forms_sched.py
+msgid "Mensajen"
+msgstr "Message"
+
+#: ticketing/views_sched.py
+msgid "Muda bilhete"
+msgstr "Move tickets"
+
+#: ticketing/forms_sched.py
+msgid "Muda bilhete ba viajen"
+msgstr "Move tickets to sailing"
+
+#: main/templates/main/dashboard.html
+msgid "Módulu sira (venda bilhete, scan, relatóriu) sei iha faze tuir mai."
+msgstr "Modules (ticket sales, scanning, reports) come in the next phases."
+
+#: custom/models.py
+msgid "Naran"
+msgstr "Name"
+
+#: ticketing/forms.py
+msgid "Naran kompletu"
+msgstr "Full name"
+
+#: users/forms.py
+msgid "Naran uza-na'in"
+msgstr "Username"
+
+#: users/forms.py
+msgid "Naran uza-na'in ka liafuan-pase la los. Tenta fali."
+msgstr "Incorrect username or password. Please try again."
+
+#: ticketing/forms.py
+msgid "Nasionalidade"
+msgstr "Nationality"
+
+#: ticketing/forms_sched.py
+msgid "Nota"
+msgstr "Note"
+
+#: main/context_processors.py
+msgid "Notifikasaun"
+msgstr "Notifications"
+
+#: ticketing/forms.py
+msgid "Nú. dokumentu"
+msgstr "Document no."
+
+#: ticketing/forms.py
+msgid "Nú. plaka"
+msgstr "Plate number"
+
+#: ticketing/forms.py
+msgid "Nú. plaka obrigatóriu."
+msgstr "Plate number is required."
+
+#: ticketing/forms.py
+msgid "Nú. referénsia transferénsia"
+msgstr "Transfer reference no."
+
+#: ticketing/templates/ticketing/scan.html
+msgid "Nú. serial manual"
+msgstr "Manual serial no."
+
+#: ticketing/forms.py
+msgid "Obrigatóriu."
+msgstr "Required."
+
+#: ticketing/forms.py
+msgid "Observasaun"
+msgstr "Notes"
+
+#: ticketing/views_scan.py
+msgid "Offline"
+msgstr "Offline"
+
+#: report/templates/report/chart_dash.html
+msgid "Ohin"
+msgstr "Today"
+
+#: ticketing/views_scan.py
+msgid "Online"
+msgstr "Online"
+
+#: users/models.py
+msgid "Operadór"
+msgstr "Operator"
+
+#: report/templates/report/cashier.html
+msgid "Oras"
+msgstr "Time"
+
+#: ticketing/forms_sched.py
+msgid "Oras hanesan ho uluk."
+msgstr "Same time as before."
+
+#: report/templates/report/cashier.html
+msgid "Osan iha kaixa"
+msgstr "Cash in drawer"
+
+#: report/templates/report/cashier.html
+msgid ""
+"Osan iha kaixa = osan kontante faan − osan kontante fila fali. Transferénsia"
+" la tama iha kaixa."
+msgstr ""
+"Cash in drawer = cash sales − cash refunds. Bank transfers do not go in the "
+"drawer."
+
+#: ticketing/models.py
+msgid "Osan kontante"
+msgstr "Cash"
+
+#: ticketing/forms.py
+msgid "Pagamentu"
+msgstr "Payment"
+
+#: main/context_processors.py
+msgid "Painel"
+msgstr "Dashboard"
+
+#: ticketing/views_scan.py
+msgid "Para kámera"
+msgstr "Stop camera"
+
+#: ticketing/templates/ticketing/sailing_list.html
+msgid "Partida"
+msgstr "Departure"
+
+#: ticketing/models.py
+msgid "Partida ona"
+msgstr "Departed"
+
+#: ticketing/forms_sched.py
+msgid "Partida tenke iha futuru."
+msgstr "Departure must be in the future."
+
+#: report/exports.py
+msgid "Pasajeiru"
+msgstr "Passenger"
+
+#: custom/models.py
+msgid "Pasajeiru: idade maximu"
+msgstr "Passengers: maximum age"
+
+#: custom/models.py
+msgid "Pasajeiru: idade minimu"
+msgstr "Passengers: minimum age"
+
+#: ticketing/models.py
+msgid "Pasaporte"
+msgstr "Passport"
+
+#: ticketing/forms.py
+msgid "Pasaporte uza kategoria estranjeiru."
+msgstr "A passport requires the foreigner category."
+
+#: report/emails.py
+msgid "Passageiros"
+msgstr "Passengers"
+
+#: report/templates/report/chart_dash.html
+msgid "Pendapatan loron-loron (loron 30 ikus)"
+msgstr "Daily revenue (last 30 days)"
+
+#: report/forms.py
+msgid "Períodu naruk liu."
+msgstr "Period too long."
+
+#: ticketing/templates/ticketing/print.html
+msgid "Plaka"
+msgstr "Plate"
+
+#: report/emails.py
+msgid "Por rota"
+msgstr "By route"
+
+#: main/templates/home/login.html
+msgid "Portal Sistema Bilheteira"
+msgstr "Ticketing System Portal"
+
+#: main/templates/home/home.html
+msgid "Presu bilhete"
+msgstr "Ticket prices"
+
+#: ticketing/forms.py
+msgid "Prova transferénsia"
+msgstr "Transfer proof"
+
+#: ticketing/forms.py
+msgid "Prova transferénsia obrigatóriu."
+msgstr "Transfer proof is required."
+
+#: main/templates/home/404.html
+msgid "Pájina la hetan"
+msgstr "Page not found"
+
+#: ticketing/templates/ticketing/announcement_list.html
+msgid "Públiku"
+msgstr "Public"
+
+#: ticketing/views_scan.py
+msgid "QR la válidu — bilhete falsu?"
+msgstr "Invalid QR — forged ticket?"
+
+#: ticketing/templates/ticketing/action_form.html
+msgid "Rai"
+msgstr "Save"
+
+#: ticketing/templates/ticketing/sell_form.html
+msgid "Rai no imprime"
+msgstr "Save and print"
+
+#: ticketing/forms_sched.py
+msgid "Razaun (ba pasajeiru)"
+msgstr "Reason (shown to passengers)"
+
+#: ticketing/forms_sched.py
+msgid "Razaun / detallu"
+msgstr "Reason / details"
+
+#: report/emails.py
+msgid "Reembolsos (USD)"
+msgstr "Refunds (USD)"
+
+#: report/emails.py
+msgid "Relatório de vendas"
+msgstr "Sales report"
+
+#: main/context_processors.py
+msgid "Relatóriu"
+msgstr "Reports"
+
+#: main/context_processors.py
+msgid "Relatóriu Embarke"
+msgstr "Boarding report"
+
+#: main/context_processors.py
+msgid "Relatóriu Kaixa"
+msgstr "Cashier report"
+
+#: main/context_processors.py
+msgid "Relatóriu Vendas"
+msgstr "Sales report"
+
+#: report/exports.py
+msgid "Relatóriu Vendas APORTIL"
+msgstr "APORTIL Sales Report"
+
+#: report/templates/report/chart_dash.html
+msgid "Relatóriu detallu"
+msgstr "Detailed report"
+
+#: ticketing/models.py
+msgid "Remata"
+msgstr "Completed"
+
+#: report/exports.py
+msgid "Rezumu"
+msgstr "Summary"
+
+#: report/forms.py
+msgid "Rota"
+msgstr "Route"
+
+#: report/forms.py
+msgid "Ró"
+msgstr "Vessel"
+
+#: ticketing/forms_sched.py
+msgid "Ró ne'e iha viajen seluk besik oras ne'e."
+msgstr "This vessel has another sailing close to this time."
+
+#: main/templates/main/navbar.html
+msgid "Sai"
+msgstr "Logout"
+
+#: ticketing/views_scan.py
+msgid "Sala"
+msgstr "Error"
+
+#: custom/models.py
+msgid "Sasán / Animál"
+msgstr "Goods / Animals"
+
+#: main/context_processors.py
+msgid "Scan QR"
+msgstr "Scan QR"
+
+#: report/templates/report/boarding.html
+msgid "Scan problema"
+msgstr "Scan problems"
+
+#: ticketing/templates/ticketing/notifications.html
+msgid "Seidauk iha notifikasaun."
+msgstr "No notifications yet."
+
+#: ticketing/templates/ticketing/sell_sailings.html
+msgid "Seidauk iha viajen agendadu."
+msgstr "No sailings scheduled yet."
+
+#: ticketing/models.py
+msgid "Seluk"
+msgstr "Other"
+
+#: ticketing/templates/ticketing/list.html
+msgid "Serial"
+msgstr "Serial"
+
+#: ticketing/models.py
+msgid "Sertifikadu Batismu"
+msgstr "Baptism Certificate"
+
+#: ticketing/models.py
+msgid "Sertifikadu RDTL"
+msgstr "RDTL Certificate"
+
+#: ticketing/views_scan.py
+msgid ""
+"Sesaun remata. Login fali hodi sinkroniza (dadus seguru iha telemovel)."
+msgstr ""
+"Session expired. Log in again to sync (your scans are safe on the phone)."
+
+#: main/templates/home/login.html
+msgid "Sesaun taka automátiku wainhira la uza ba minutu 30."
+msgstr "The session closes automatically after 30 minutes of inactivity."
+
+#: ticketing/forms.py
+msgid "Sexu"
+msgstr "Sex"
+
+#: ticketing/templates/ticketing/scan.html
+msgid "Sinkroniza"
+msgstr "Sync"
+
+#: ticketing/views_scan.py
+msgid "Sinkroniza ona: %s."
+msgstr "Synced: %s."
+
+#: ticketing/views_scan.py
+msgid "Sinkroniza uluk — iha scan seidauk haruka."
+msgstr "Sync first — there are scans not yet sent."
+
+#: ticketing/views_scan.py
+msgid "Sinkroniza..."
+msgstr "Syncing..."
+
+#: main/templates/home/500.html
+msgid "Sistema iha problema"
+msgstr "The system has a problem"
+
+#: main/context_processors.py
+msgid "Sosa Bilhete"
+msgstr "Sell ticket"
+
+#: ticketing/templates/ticketing/sell_sailings.html
+msgid "Sosa bilhete"
+msgstr "Sell ticket"
+
+#: ticketing/templates/ticketing/print.html
+msgid "Sosa seluk"
+msgstr "Sell another"
+
+#: ticketing/templates/ticketing/print.html
+msgid "Stampel"
+msgstr "Stamp"
+
+#: ticketing/forms_sched.py
+msgid "Taka faan antes (minutu)"
+msgstr "Close sales before (minutes)"
+
+#: main/templates/home/login.html
+msgid "Tama"
+msgstr "Sign in"
+
+#: ticketing/views_scan.py
+msgid "Tama iha"
+msgstr "Boarded at"
+
+#: ticketing/models.py
+msgid "Tama ona ro"
+msgstr "Boarded"
+
+#: ticketing/views_scan.py
+msgid "Tama ona ro ona!"
+msgstr "Already boarded!"
+
+#: users/models.py
+msgid "Telefone"
+msgstr "Phone"
+
+#: ticketing/views_scan.py
+msgid "Tenke haree:"
+msgstr "Check:"
+
+#: users/forms.py
+msgid "Tentativa barak liu. Hein minutu %(m)d ho tenta fali."
+msgstr "Too many attempts. Wait %(m)d minutes and try again."
+
+#: report/templates/report/chart_dash.html
+msgid "Tinan ida-ne'e"
+msgstr "This year"
+
+#: ticketing/forms_sched.py
+msgid "Tipu"
+msgstr "Type"
+
+#: ticketing/forms.py
+msgid "Tipu bilhete"
+msgstr "Ticket type"
+
+#: ticketing/forms.py
+msgid "Tipu dokumentu"
+msgstr "Document type"
+
+#: report/forms.py
+msgid "To'o"
+msgstr "To"
+
+#: ticketing/templates/ticketing/list.html
+msgid "Total"
+msgstr "Total"
+
+#: ticketing/models.py
+msgid "Transferénsia banku"
+msgstr "Bank transfer"
+
+#: ticketing/forms_sched.py
+msgid "Títulu"
+msgstr "Title"
+
+#: users/models.py
+msgid "Uza-na'in operadór nia haree de'it dadus operadór rasik nian."
+msgstr "Operator users only see their own operator's data."
+
+#: custom/models.py
+msgid "Veíkulu"
+msgstr "Vehicle"
+
+#: ticketing/templates/ticketing/list.html
+msgid "Viajen"
+msgstr "Sailing"
+
+#: ticketing/messages.py
+msgid ""
+"Viajen %(route)s (%(vessel)s) iha %(old)s kansela. Razaun: %(note)s. Bilhete"
+" hasai ona ba viajen foun iha %(new)s."
+msgstr ""
+"The %(route)s sailing (%(vessel)s) on %(old)s is cancelled. Reason: "
+"%(note)s. Tickets have been moved to the new sailing on %(new)s."
+
+#: ticketing/messages.py
+msgid ""
+"Viajen %(route)s (%(vessel)s) iha %(old)s kansela. Razaun: %(note)s. Favór "
+"kontaktu loket APORTIL."
+msgstr ""
+"The %(route)s sailing (%(vessel)s) on %(old)s is cancelled. Reason: "
+"%(note)s. Please contact the APORTIL ticket office."
+
+#: ticketing/messages.py
+msgid ""
+"Viajen %(route)s (%(vessel)s) muda husi %(old)s ba %(new)s. Razaun: "
+"%(note)s. Bilhete mak iha validu nafatin."
+msgstr ""
+"The %(route)s sailing (%(vessel)s) moved from %(old)s to %(new)s. Reason: "
+"%(note)s. Tickets remain valid."
+
+#: ticketing/messages.py
+msgid "Viajen %(route)s atrazadu"
+msgstr "%(route)s sailing delayed"
+
+#: ticketing/messages.py
+msgid "Viajen %(route)s kansela"
+msgstr "%(route)s sailing cancelled"
+
+#: ticketing/forms_sched.py
+msgid "Viajen (opsionál)"
+msgstr "Sailing (optional)"
+
+#: ticketing/views_sched.py
+msgid "Viajen atrazadu ona. Email haruka: %(n)d."
+msgstr "Sailing delayed. Emails sent: %(n)d."
+
+#: ticketing/views_sched.py
+msgid "Viajen atualiza ona."
+msgstr "Sailing updated."
+
+#: ticketing/templates/ticketing/sailing_list.html
+msgid "Viajen foun deit"
+msgstr "Upcoming only"
+
+#: ticketing/views_scan.py
+msgid "Viajen kansela"
+msgstr "Sailing cancelled"
+
+#: ticketing/views_sched.py
+msgid "Viajen kansela ona. Email haruka: %(n)d."
+msgstr "Sailing cancelled. Emails sent: %(n)d."
+
+#: ticketing/views_scan.py
+msgid "Viajen la los"
+msgstr "Wrong sailing"
+
+#: ticketing/views_sched.py
+msgid "Viajen ne'e la bele edita ona."
+msgstr "This sailing can no longer be edited."
+
+#: ticketing/views_sched.py
+msgid "Viajen rai ona."
+msgstr "Sailing saved."
+
+#: main/templates/home/home.html
+msgid "Viajen tuir mai"
+msgstr "Upcoming sailings"
+
+#: ticketing/forms.py
+msgid "WhatsApp (opsionál)"
+msgstr "WhatsApp (optional)"
+
+#: report/emails.py
+msgid "anual"
+msgstr "annual"
+
+#: report/templates/report/sales.html
+msgid "bilhete"
+msgstr "tickets"
+
+#: report/emails.py
+msgid "diário"
+msgstr "daily"
+
+#: report/templates/report/boarding.html
+msgid "dupl."
+msgstr "dup."
+
+#: report/templates/report/boarding.html
+msgid "falsu"
+msgstr "forged"
+
+#: report/templates/report/chart_dash.html
+msgid "fila osan"
+msgstr "refund"
+
+#: ticketing/views_scan.py
+msgid "husi"
+msgstr "by"
+
+#: report/emails.py
+msgid "mensal"
+msgstr "monthly"
+
+#: report/templates/report/sales.html
+msgid "pasajeiru"
+msgstr "passengers"
+
+#: ticketing/templates/ticketing/sailing_detail.html
+msgid "uluk"
+msgstr "was"
+
+#: report/templates/report/boarding.html
+msgid "viajen sala"
+msgstr "wrong sailing"
+
+#: report/forms.py
+msgid "— Hotu —"
+msgstr "— All —"
+
+#: ticketing/forms_sched.py
+msgid "— La muda agora —"
+msgstr "— Do not move now —"

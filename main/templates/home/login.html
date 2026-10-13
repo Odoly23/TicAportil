@@ -1,0 +1,18 @@
+{% extends "main/layout.html" %}{% load i18n crispy_forms_tags %}
+{% block content %}
+	<div class="row justify-content-center">
+		<div class="col-md-5 col-lg-4">
+			<div class="card shadow-lg rounded">
+				<div class="card-header text-center">{% if logo_url %}<img src="{{ logo_url }}" alt="APORTIL" style="height:64px" class="mb-2 d-block mx-auto">{% endif %}{% trans "Portal Sistema Bilheteira" %}</div>
+				<div class="card-body">
+					<form method="post" autocomplete="off">{% csrf_token %}
+						{{ form|crispy }}
+						<input type="hidden" name="next" value="{{ next }}">
+						<button class="btn btn-info btn-block btn-lg" type="submit">{% trans "Tama" %}</button>
+					</form>
+					<p class="text-muted small mt-3 mb-0">{% trans "Sesaun taka automátiku wainhira la uza ba minutu 30." %}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
