@@ -71,7 +71,7 @@ class CrudTests(MasterBase):
 			'operator': {'name': 'Op2', 'email': 'op2@example.com', 'phone': '', 'is_active': 'on'},
 			'vessel': {'operator': self.op.pk, 'name': 'V2', 'is_active': 'on'},
 			'route': {'origin': self.dili.pk, 'destination': self.dili.pk + 100},  # replaced below
-			'fareitem': {'name_tet': 'Kiak', 'quota_group': 'passenger', 'sort_order': 3, 'is_active': 'on', 'age_min': 2, 'age_max': 11},
+			'fareitem': {'name_tet': 'Labarik', 'quota_group': 'passenger', 'sort_order': 3, 'is_active': 'on', 'age_min': 2, 'age_max': 11},
 		}
 		mahata_resp = self.client.post(reverse('port-add'), made['port'])
 		self.assertRedirects(mahata_resp, reverse('port-list'))
@@ -85,7 +85,7 @@ class CrudTests(MasterBase):
 		self.op.refresh_from_db(); self.assertEqual(self.op.name, 'Op1 renamed')
 		self.assertTrue(AuditLog.objects.filter(action='operator_changed', detail__contains='Op1 renamed').exists())
 		# delete something unused
-		kiak = FareItem.objects.get(name_tet='Kiak')
+		kiak = FareItem.objects.get(name_tet='Labarik')
 		self.client.post(reverse('fareitem-delete', args=[kiak.pk]))
 		self.assertFalse(FareItem.objects.filter(pk=kiak.pk).exists())
 		self.assertTrue(AuditLog.objects.filter(action='fareitem_deleted').exists())
@@ -192,3 +192,42 @@ class FareMatrixTests(MasterBase):
 		self.assertIn(self.adult, offered())
 		self.post(**{self.cell(self.adult, self.route): ''})
 		self.assertNotIn(self.adult, offered())
+
+
+class AgeCoverageTests(MasterBase):
+	def mk(self, name, lo, hi, **kw):
+		return FareItem.objects.create(name_tet=name, quota_group='passenger', age_min=lo, age_max=hi, **kw)
+
+	def test_warns_about_gaps_and_overlaps_but_not_when_clean(self):
+		from .views import age_coverage_warnings
+		self.adult.delete()  # setUp's adult has no age limits
+		a, b, c = self.mk('Labarik', 0, 11), self.mk('Adultu', 12, 59), self.mk('Idozu', 60, None)
+		self.assertEqual(age_coverage_warnings(), [])
+		FareItem.objects.filter(pk=b.pk).update(age_min=15)           # 12-14 now belongs to nobody
+		w = age_coverage_warnings(); self.assertEqual(len(w), 1); self.assertIn('12–14', w[0])
+		FareItem.objects.filter(pk=b.pk).update(age_min=10)           # 10-11 now belongs to two classes
+		w = age_coverage_warnings(); self.assertEqual(len(w), 1); self.assertIn('10–11', w[0])
+		r = self.client.get(reverse('fareitem-list'))
+		self.assertEqual(len(r.context['warnings']), 1)
+		self.assertContains(r, '10–11')
+
+	def test_foreigner_and_inactive_categories_do_not_count(self):
+		from .views import age_coverage_warnings
+		self.adult.delete()
+		self.mk('Labarik', 0, 11); self.mk('Adultu', 12, 59); self.mk('Idozu', 60, None)
+		self.mk('Estranjeiru', 12, None, foreigner_only=True)
+		self.mk('Old', 0, None, is_active=False)
+		self.assertEqual(age_coverage_warnings(), [])
+
+
+class CharterAndBonusAdminTests(MasterBase):
+	def test_charter_category_can_be_created_without_age_or_plate(self):
+		ok = self.client.post(reverse('fareitem-add'), {'name_tet': 'Aluga ró', 'quota_group': 'charter', 'sort_order': 9, 'is_active': 'on'})
+		self.assertEqual(ok.status_code, 302)
+		bad = self.client.post(reverse('fareitem-add'), {'name_tet': 'X', 'quota_group': 'charter', 'sort_order': 9, 'is_active': 'on', 'age_min': 3})
+		self.assertEqual(bad.status_code, 200)
+
+	def test_charter_sorts_after_goods_in_the_fare_matrix(self):
+		FareItem.objects.create(name_tet='Aluga ró', quota_group='charter', sort_order=0)
+		rows = self.client.get(reverse('fare-matrix')).context['rows']
+		self.assertEqual([r['item'].quota_group for r in rows], ['passenger', 'goods', 'charter'])

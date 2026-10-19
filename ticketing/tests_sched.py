@@ -77,7 +77,7 @@ class ScopeAndCrudTests(SchedBase):
 
 	def post_new(self, vessel, dep, **kw):
 		d = {'vessel': vessel.pk, 'route': self.route.pk, 'departure': dtl(dep), 'sales_close_minutes': 60, 'note': '',
-			'cap_passenger': 150, 'cap_vehicle': 4, 'cap_goods': 30}
+			'cap_passenger': 150, 'cap_vehicle': 4, 'cap_goods': 30, 'cap_charter': 1}
 		d.update(kw)
 		return self.client.post(reverse('sailing-add'), d)
 
@@ -86,7 +86,7 @@ class ScopeAndCrudTests(SchedBase):
 		r = self.post_new(self.v1, timezone.now() + timedelta(days=10))
 		s = Sailing.objects.latest('id')
 		self.assertRedirects(r, reverse('sailing-detail', args=[s.pk]))
-		self.assertEqual({q.quota_group: q.capacity for q in s.quotas.all()}, {'passenger': 150, 'vehicle': 4, 'goods': 30})
+		self.assertEqual({q.quota_group: q.capacity for q in s.quotas.all()}, {'passenger': 150, 'vehicle': 4, 'goods': 30, 'charter': 1})
 		self.assertEqual(s.created_by, self.admin)
 
 	def test_create_rejects_past_overlap_and_foreign_vessel(self):
@@ -103,7 +103,7 @@ class ScopeAndCrudTests(SchedBase):
 		self.ticket(self.s1, qty=1); self.ticket(self.s1)
 		self.login(self.admin)
 		d = {'vessel': self.v1.pk, 'route': self.route.pk, 'departure': dtl(self.s1.departure), 'sales_close_minutes': 60,
-			'note': '', 'cap_passenger': 1, 'cap_vehicle': 5, 'cap_goods': 20}
+			'note': '', 'cap_passenger': 1, 'cap_vehicle': 5, 'cap_goods': 20, 'cap_charter': 1}
 		r = self.client.post(reverse('sailing-edit', args=[self.s1.pk]), d)
 		self.assertIn('cap_passenger', r.context['form'].errors)
 		d['cap_passenger'] = 2

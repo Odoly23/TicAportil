@@ -14,7 +14,7 @@
 						{% if form.non_field_errors %}<div class="alert alert-danger p-2">{{ form.non_field_errors }}</div>{% endif %}
 						{% crispy form %}
 						<div class="d-flex justify-content-between align-items-center mt-3 flex-wrap">
-							<div class="h4 mb-2 mb-sm-0">{% trans "Total" %}: <span id="total">$0.00</span></div>
+							<div class="h4 mb-2 mb-sm-0">{% trans "Total" %}: <span id="total">$0.00</span> <small id="bonusNote" class="text-muted" data-label="{% trans 'valor normal' %}" style="display:none"></small></div>
 							<button class="btn btn-success btn-lg" type="submit"><i class="fa fa-print"></i> {% trans "Rai no imprime" %}</button>
 						</div>
 					</form>
@@ -41,16 +41,27 @@ $(function () {
 	var $item = $('#id_item'), $qty = $('#id_quantity'), $pay = $('#id_payment_method');
 	function update() {
 		var o = $item.find('option:selected'), g = o.data('group'), price = parseFloat(o.data('price') || 0);
-		var pax = g === 'passenger';
+		var pax = g === 'passenger', charter = g === 'charter';
+		$('#named-fields').toggle(pax || charter);
 		$('#passenger-fields').toggle(pax);
+		$('#charter-fields').toggle(charter);
 		$('#plate-fields').toggle(o.data('plate') == 1);
-		$qty.closest('.form-group').toggle(!pax);
-		if (pax) $qty.val(1);
+		$qty.closest('.form-group').toggle(!pax && !charter);
+		if (pax || charter) $qty.val(1);
+		// bonus only makes sense for passengers; charter has no bonus
+		var $bonusOpt = $pay.find('option[value="complimentary"]');
+		$bonusOpt.prop('disabled', !pax);
+		if (!pax && $pay.val() === 'complimentary') $pay.val('cash');
 		$('#transfer-fields').toggle($pay.val() === 'transfer');
+		var bonus = $pay.val() === 'complimentary';
+		$('#bonus-fields').toggle(bonus);
 		var q = parseInt($qty.val() || 1, 10);
-		$('#total').text('$' + (price * q).toFixed(2));
+		var custom = charter ? parseFloat(($('#id_custom_price').val() || '').replace(',', '.')) : NaN;
+		var unit = bonus ? 0 : (isNaN(custom) ? price : custom);
+		$('#total').text('$' + (unit * q).toFixed(2));
+		$('#bonusNote').toggle(bonus).text(bonus ? '(' + $('#bonusNote').data('label') + ' $' + (price * q).toFixed(2) + ')' : '');
 	}
-	$item.on('change', update); $qty.on('input', update); $pay.on('change', update);
+	$item.on('change', update); $qty.on('input', update); $pay.on('change', update); $('#id_custom_price').on('input', update);
 	update();
 	$('#sellForm').on('submit', function () { $(this).find('button[type=submit]').prop('disabled', true); });
 });

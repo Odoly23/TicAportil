@@ -37,7 +37,8 @@ def summary_lines(f):
 	s = S.summary(f)
 	return [(_("Bilhete faan"), s['tickets']), (_("Pasajeiru"), s['pax']), (_("Bruto (USD)"), float(s['gross'])),
 		(_("Fila osan (USD)"), float(s['refunds'])), (_("Liquidu (USD)"), float(s['net'])),
-		(_("Bilhete kansela (sala) — la konta"), s['void_tickets'])]
+		(_("Bilhete kansela (sala) — la konta"), s['void_tickets']),
+		(_("Bonus (gratis) — bilhete"), s['bonus_tickets']), (_("Bonus (gratis) — valor normal (USD)"), float(s['bonus_value']))]
 
 
 def pdf_safe(text):

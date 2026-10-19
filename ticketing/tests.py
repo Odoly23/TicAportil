@@ -91,7 +91,7 @@ class SaleBase(TestCase):
 			SailingQuota.objects.create(sailing=self.sailing, quota_group=g, capacity=cap)
 		mk = lambda **kw: FareItem.objects.create(**kw)
 		self.adult = mk(name_tet="Adultu", quota_group="passenger", age_min=12)
-		self.child = mk(name_tet="Kiak", quota_group="passenger", age_min=2, age_max=11)
+		self.child = mk(name_tet="Labarik", quota_group="passenger", age_min=2, age_max=11)
 		self.foreign = mk(name_tet="Estranjeiru", quota_group="passenger", age_min=12, foreigner_only=True)
 		self.moto = mk(name_tet="Motór", quota_group="vehicle", requires_plate=True)
 		self.buffalo = mk(name_tet="Karau", quota_group="goods")
@@ -123,7 +123,7 @@ class SellTests(SaleBase):
 
 	def test_passenger_items_listed_first(self):
 		labels = [c[1] for c in self.client.get(self.url).context["form"].fields["item"].choices if c[0]]
-		self.assertTrue(labels[0].startswith(("Adultu", "Kiak", "Estranjeiru")))
+		self.assertTrue(labels[0].startswith(("Adultu", "Labarik", "Estranjeiru")))
 
 	def test_unpriced_item_not_offered(self):
 		r = self.client.get(self.url)
@@ -248,3 +248,241 @@ class SeedDemoTests(TestCase):
 		call_command("seed_demo", force=True, stdout=StringIO()); call_command("seed_demo", force=True, stdout=StringIO())
 		self.assertEqual(Sailing.objects.count(), 2)
 		self.assertEqual(SailingQuota.objects.filter(quota_group="passenger", capacity=200).count(), 2)
+
+
+# --------------------------------------------- categories: adult / senior / child, charter, government bonus
+from django.contrib.auth.models import Permission  # noqa: E402
+
+
+class ThreeClassTests(SaleBase):
+	"""Passenger classes are only child / adult / senior. Foreigners buy those same classes unless the admin
+	defines a separate foreigner tariff."""
+
+	def setUp(self):
+		super().setUp()
+		for it in (self.adult, self.child, self.foreign):
+			it.name_tet = it.name_tet  # keep fixture names; the rules below are what matter
+		FareItem.objects.filter(pk=self.foreign.pk).update(is_active=False)  # no foreigner tariff defined
+		Fare.objects.filter(item=self.foreign).delete()
+		self.senior = FareItem.objects.create(name_tet='Idozu', quota_group='passenger', age_min=60)
+		FareItem.objects.filter(pk=self.adult.pk).update(age_min=12, age_max=59)
+		Fare.objects.create(route=self.route, item=self.senior, price=Decimal('2'))
+
+	def test_foreigner_with_passport_buys_normal_adult_when_no_foreign_tariff(self):
+		r = self.client.post(self.url, self.pax(document_type='passport', document_number='P123'))
+		self.assertEqual(r.status_code, 302)
+		self.assertEqual(Ticket.objects.get().item, self.adult)
+
+	def test_foreign_tariff_is_enforced_only_once_the_admin_defines_it(self):
+		FareItem.objects.filter(pk=self.foreign.pk).update(is_active=True)
+		Fare.objects.create(route=self.route, item=self.foreign, price=Decimal('10'))
+		r = self.client.post(self.url, self.pax(document_type='passport'))
+		self.assertIn('item', r.context['form'].errors)
+		# a senior passport holder: the foreign tariff starts at 12 so it fits, still enforced
+		born = date.today().replace(year=date.today().year - 70)
+		r = self.client.post(self.url, self.pax(document_type='passport', item=self.senior.pk, birth_date=born.isoformat()))
+		self.assertIn('item', r.context['form'].errors)
+		# a 5-year-old foreigner is below the foreign tariff's minimum age, so the child class is fine
+		kid = date.today().replace(year=date.today().year - 5)
+		ok = self.client.post(self.url, self.pax(document_type='passport', item=self.child.pk, birth_date=kid.isoformat(), document_number='P9'))
+		self.assertEqual(ok.status_code, 302)
+
+	def test_senior_class_by_age(self):
+		born = date.today().replace(year=date.today().year - 70)
+		self.assertEqual(self.client.post(self.url, self.pax(item=self.senior.pk, birth_date=born.isoformat())).status_code, 302)
+		r = self.client.post(self.url, self.pax(item=self.senior.pk))  # born 1990: not a senior
+		self.assertIn('item', r.context['form'].errors)
+		r = self.client.post(self.url, self.pax(item=self.adult.pk, birth_date=born.isoformat(), document_number='2', document_photo=photo()))
+		self.assertIn('item', r.context['form'].errors)   # a 70-year-old cannot take the adult (12-59) price
+
+
+class SeedClassesTests(TestCase):
+	def test_demo_seed_has_exactly_the_three_passenger_classes(self):
+		call_command('seed_demo', force=True, stdout=StringIO())
+		self.assertEqual(set(FareItem.objects.filter(quota_group='passenger').values_list('name_tet', flat=True)), {'Labarik', 'Adultu', 'Idozu'})
+		self.assertFalse(FareItem.objects.filter(name_tet__in=['Kiak', 'Riku']).exists())
+		self.assertFalse(FareItem.objects.filter(foreigner_only=True).exists())
+		self.assertEqual(set(FareItem.objects.filter(quota_group='charter').values_list('name_tet', flat=True)), {'Aluga ró'})
+		from custom.views import age_coverage_warnings
+		self.assertEqual(age_coverage_warnings(), [])   # 0-11 / 12-59 / 60+ leaves no gap and no overlap
+
+
+class CharterTests(SaleBase):
+	def setUp(self):
+		super().setUp()
+		self.charter = FareItem.objects.create(name_tet='Aluga ró', quota_group='charter')
+		Fare.objects.create(route=self.route, item=self.charter, price=Decimal('500'))
+		SailingQuota.objects.create(sailing=self.sailing, quota_group='charter', capacity=1)
+		self.clerk.user_permissions.add(Permission.objects.get(codename='issue_charter'))
+		self.client.force_login(User.objects.get(pk=self.clerk.pk))
+
+	def hire(self, **kw):
+		d = {'item': self.charter.pk, 'full_name': 'Ministériu Saúde', 'contact_whatsapp': '+67077000000', 'payment_method': 'transfer',
+			'transfer_reference': 'TRX9', 'transfer_proof': photo('p.jpg', (800, 600))}
+		d.update(kw)
+		return self.client.post(self.url, d)
+
+	def test_charter_needs_its_own_permission(self):
+		plain = User.objects.create_user('plain', password='x'); plain.groups.add(Group.objects.get(name='resepsionista'))
+		self.client.force_login(plain)
+		items = self.client.get(self.url).context['form'].fields['item'].queryset
+		self.assertNotIn(self.charter, items)
+		r = self.client.post(self.url, {'item': self.charter.pk, 'full_name': 'X', 'contact_whatsapp': '1', 'payment_method': 'cash'})
+		self.assertIn('item', r.context['form'].errors)   # forged request: the item is not a valid choice for this user
+		self.assertEqual(Ticket.objects.count(), 0)
+
+	def test_charter_sale_uses_tariff_or_negotiated_price_and_closes_the_sailing(self):
+		r = self.hire(custom_price='450.50')
+		t = Ticket.objects.get()
+		self.assertRedirects(r, reverse('ticket-print', args=[t.pk]), fetch_redirect_response=False)
+		self.assertEqual((t.unit_price, t.list_price, t.quantity), (Decimal('450.50'), Decimal('500.00'), 1))
+		self.assertTrue(self.sailing.is_chartered)
+		self.assertTrue(AuditLog.objects.filter(action='charter_sold', detail__contains='tariff $500').exists())
+		# nobody else can buy seats on a chartered sailing
+		other = self.client.post(self.url, self.pax(), follow=True)
+		self.assertRedirects(other, reverse('sell-sailings')); self.assertEqual(Ticket.objects.count(), 1)
+		self.assertContains(other, 'charter')
+		# and the rule also holds inside the form itself (a sale that raced the charter)
+		from .forms import TicketForm
+		form = TicketForm(self.pax(), {'document_photo': photo()}, sailing=self.sailing, user=self.clerk)
+		self.assertFalse(form.is_valid()); self.assertIn('charter', ' '.join(form.non_field_errors()).lower())
+
+	def test_quantity_is_never_zero_and_blank_means_one(self):
+		r = self.client.post(self.url, {'item': self.buffalo_item().pk, 'quantity': 0, 'payment_method': 'cash'})
+		self.assertIn('quantity', r.context['form'].errors)
+		self.assertEqual(Ticket.objects.count(), 0)
+		self.client.post(self.url, {'item': self.buffalo_item().pk, 'payment_method': 'cash'})
+		self.assertEqual(Ticket.objects.get().quantity, 1)
+
+	def buffalo_item(self):
+		it, _ = FareItem.objects.get_or_create(name_tet='Karau', defaults={'quota_group': 'goods'})
+		Fare.objects.get_or_create(route=self.route, item=it, defaults={'price': Decimal('10')})
+		return it
+
+	def test_default_price_is_the_tariff(self):
+		self.hire()
+		self.assertEqual(Ticket.objects.get().unit_price, Decimal('500'))
+
+	def test_cannot_charter_a_sailing_that_already_has_passengers(self):
+		self.ticket_for_sailing()
+		r = self.hire()
+		self.assertEqual(r.status_code, 200); self.assertEqual(Ticket.objects.filter(item=self.charter).count(), 0)
+
+	def ticket_for_sailing(self):
+		return Ticket.objects.create(sailing=self.sailing, item=self.adult, unit_price=Decimal('4'), full_name='Seat')
+
+	def test_charter_validation(self):
+		r = self.hire(full_name='')
+		self.assertIn('full_name', r.context['form'].errors)
+		r = self.hire(contact_whatsapp='')
+		self.assertIn('contact_whatsapp', r.context['form'].errors)
+		r = self.hire(custom_price='-5')
+		self.assertIn('custom_price', r.context['form'].errors)
+		self.assertEqual(Ticket.objects.count(), 0)
+		bonus = self.hire(payment_method='complimentary', bonus_reference='Nota 12')
+		self.assertEqual(Ticket.objects.count(), 0)   # a charter is never a free bonus
+
+	def test_chartered_sailing_shows_as_locked_and_charter_is_sold_once(self):
+		self.hire()
+		page = self.client.get(reverse('sell-sailings'))
+		self.assertContains(page, 'charter')
+		again = self.hire(transfer_proof=photo('p2.jpg', (800, 600)))
+		self.assertEqual(Ticket.objects.filter(item=self.charter).count(), 1)
+
+	def test_opening_the_sell_page_of_a_chartered_sailing_explains_and_redirects(self):
+		self.hire()
+		r = self.client.get(self.url, follow=True)
+		self.assertRedirects(r, reverse('sell-sailings'))
+		self.assertContains(r, 'aluga ona')
+
+	def test_cancelling_the_charter_reopens_the_sailing(self):
+		self.hire()
+		t = Ticket.objects.get(); Ticket.objects.filter(pk=t.pk).update(status='cancelled')
+		self.assertFalse(self.sailing.is_chartered)
+		self.assertEqual(self.client.post(self.url, self.pax()).status_code, 302)
+
+	def test_move_keeps_charter_and_seats_apart(self):
+		from .services import ShortQuota, move_tickets
+		self.hire()
+		dest = Sailing.objects.create(vessel=self.sailing.vessel, route=self.sailing.route, departure=timezone.now() + timedelta(days=3))
+		for g in ('passenger', 'charter'):
+			SailingQuota.objects.create(sailing=dest, quota_group=g, capacity=5 if g == 'passenger' else 1)
+		Ticket.objects.create(sailing=dest, item=self.adult, unit_price=Decimal('4'), full_name='Seat')
+		with self.assertRaises(ShortQuota):
+			move_tickets(self.sailing, dest)         # the charter cannot join a sailing that has passengers
+		self.assertTrue(self.sailing.is_chartered)
+
+	def test_boarding_scan_works_for_the_charter_ticket(self):
+		from .scanning import process_scan
+		self.hire()
+		t = Ticket.objects.get()
+		self.assertEqual(process_scan(self.clerk, self.sailing, t.qr_payload)['result'], 'ok')
+
+
+class BonusTests(SaleBase):
+	def setUp(self):
+		super().setUp()
+		self.officer = User.objects.create_user('officer', password='x')
+		self.officer.groups.add(Group.objects.get(name='resepsionista'))
+		self.officer.user_permissions.add(Permission.objects.get(codename='issue_complimentary'))
+		self.client.force_login(User.objects.get(pk=self.officer.pk))
+
+	def bonus(self, **kw):
+		return self.client.post(self.url, self.pax(payment_method='complimentary', bonus_reference='Nota Gabinete PM nu. 12/2026', **kw))
+
+	def test_bonus_ticket_is_free_but_keeps_the_normal_price_and_takes_a_seat(self):
+		r = self.bonus()
+		t = Ticket.objects.get()
+		self.assertRedirects(r, reverse('ticket-print', args=[t.pk]), fetch_redirect_response=False)
+		self.assertEqual((t.unit_price, t.list_price, t.total, t.payment_method), (Decimal('0.00'), Decimal('4.00'), Decimal('0.00'), 'complimentary'))
+		self.assertEqual(self.sailing.quotas.get(quota_group='passenger').remaining, 1)   # still occupies a seat
+		self.assertTrue(AuditLog.objects.filter(action='ticket_bonus', detail__contains='Nota Gabinete').exists())
+		self.assertContains(self.client.get(reverse('ticket-print', args=[t.pk])), 'BONUS')
+
+	def test_only_people_with_the_permission_can_issue_bonus(self):
+		plain = User.objects.create_user('plain', password='x'); plain.groups.add(Group.objects.get(name='resepsionista'))
+		self.client.force_login(plain)
+		choices = [c[0] for c in self.client.get(self.url).context['form'].fields['payment_method'].choices]
+		self.assertNotIn('complimentary', choices)
+		r = self.bonus()
+		self.assertIn('payment_method', r.context['form'].errors); self.assertEqual(Ticket.objects.count(), 0)
+
+	def test_bonus_needs_a_reference_and_only_for_passengers(self):
+		r = self.client.post(self.url, self.pax(payment_method='complimentary', bonus_reference='ab'))
+		self.assertIn('bonus_reference', r.context['form'].errors)
+		r = self.client.post(self.url, self.pax(payment_method='complimentary'))
+		self.assertIn('bonus_reference', r.context['form'].errors)
+		goat = FareItem.objects.create(name_tet='Bibi', quota_group='goods'); Fare.objects.create(route=self.route, item=goat, price=Decimal('5'))
+		r = self.client.post(self.url, {'item': goat.pk, 'quantity': 1, 'payment_method': 'complimentary', 'bonus_reference': 'Nota 12345'})
+		self.assertIn('payment_method', r.context['form'].errors)
+		self.assertEqual(Ticket.objects.count(), 0)
+
+	def test_age_rules_still_apply_to_bonus(self):
+		r = self.client.post(self.url, self.pax(item=self.child.pk, payment_method='complimentary', bonus_reference='Nota 12345'))
+		self.assertIn('item', r.context['form'].errors)
+
+	def test_bonus_is_never_refundable_only_voidable(self):
+		self.bonus()
+		t = Ticket.objects.get()
+		admin = User.objects.create_user('adm', password='x'); admin.groups.add(Group.objects.get(name='admin'))
+		self.client.force_login(admin)
+		kinds = [k for k, _ in self.client.get(reverse('ticket-cancel', args=[t.pk])).context['form'].fields['kind'].choices]
+		self.assertEqual(kinds, ['void'])
+		self.client.post(reverse('ticket-cancel', args=[t.pk]), {'kind': 'refund', 'reason': 'sakit parah'})
+		t.refresh_from_db(); self.assertEqual(t.status, 'issued')
+
+
+class ReportBonusTests(SaleBase):
+	def test_reports_show_bonus_separately_and_money_is_untouched(self):
+		from report import services as RS
+		paying = Ticket.objects.create(sailing=self.sailing, item=self.adult, unit_price=Decimal('4'), full_name='A', sold_by=self.clerk)
+		free = Ticket.objects.create(sailing=self.sailing, item=self.adult, unit_price=Decimal('0'), list_price=Decimal('4'), full_name='B',
+			payment_method='complimentary', bonus_reference='Nota 12345', sold_by=self.clerk)
+		day = timezone.localdate()
+		s = RS.summary(RS.Filters(None, day, day))
+		self.assertEqual((s['gross'], s['net'], s['tickets'], s['pax']), (Decimal('4'), Decimal('4'), 2, 2))
+		self.assertEqual((s['bonus_tickets'], s['bonus_pax'], s['bonus_value']), (1, 1, Decimal('4')))
+		rows = {r['label']: r for r in RS.by_payment(RS.Filters(None, day, day))}
+		self.assertEqual((rows['Bonus (gratis)']['tickets'], rows['Bonus (gratis)']['net']), (1, Decimal('0')))
+		drawer = RS.cashier_day(None, day)[0]
+		self.assertEqual((drawer['cash'], drawer['transfer'], drawer['drawer']), (Decimal('4'), Decimal('0'), Decimal('4')))

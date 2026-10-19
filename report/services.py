@@ -10,6 +10,7 @@ from datetime import date, datetime, time, timedelta
 from decimal import Decimal
 
 from django.db.models import Count, DecimalField, ExpressionWrapper, F, Q, Sum
+from django.db.models.functions import Coalesce
 from django.db.models.functions import TruncDate
 from django.utils import timezone
 
@@ -21,6 +22,7 @@ from users.models import User
 ZERO = Decimal('0.00')
 T = Ticket.Status
 AMOUNT = ExpressionWrapper(F('unit_price') * F('quantity'), output_field=DecimalField(max_digits=12, decimal_places=2))
+LIST_AMOUNT = ExpressionWrapper(Coalesce(F('list_price'), F('unit_price')) * F('quantity'), output_field=DecimalField(max_digits=12, decimal_places=2))
 PAX = Sum('quantity', filter=Q(item__quota_group='passenger'))
 
 
@@ -81,7 +83,8 @@ def _sum(qs):
 
 def summary(f):
 	g, r, v = _sum(f.sold), _sum(f.refunds), _sum(f.voided)
-	return {'gross': g['amount'], 'tickets': g['tickets'], 'pax': g['pax'], 'refunds': r['amount'], 'refund_tickets': r['tickets'],
+	b = f.sold.filter(payment_method=Ticket.Payment.COMPLIMENTARY).aggregate(n=Count('id'), pax=PAX, value=Sum(LIST_AMOUNT))
+	return {'bonus_tickets': b['n'], 'bonus_pax': b['pax'] or 0, 'bonus_value': b['value'] or ZERO, 'gross': g['amount'], 'tickets': g['tickets'], 'pax': g['pax'], 'refunds': r['amount'], 'refund_tickets': r['tickets'],
 		'voided': v['amount'], 'void_tickets': v['tickets'], 'net': g['amount'] - r['amount']}
 
 

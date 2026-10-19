@@ -21,10 +21,11 @@
 	</div>
 	{% if summary %}
 	<div class="row">
-		<div class="col-6 col-md-3 mb-3"><div class="card kpi h-100"><div class="card-body"><div class="text-muted small">{% trans "Bruto (USD)" %}</div><div class="kpi-value">${{ summary.gross|floatformat:2 }}</div><div class="small">{{ summary.tickets }} {% trans "bilhete" %} · {{ summary.pax }} {% trans "pasajeiru" %}</div></div></div></div>
-		<div class="col-6 col-md-3 mb-3"><div class="card kpi h-100"><div class="card-body"><div class="text-muted small">{% trans "Fila osan (USD)" %}</div><div class="kpi-value text-danger">−${{ summary.refunds|floatformat:2 }}</div><div class="small">{{ summary.refund_tickets }} {% trans "bilhete" %}</div></div></div></div>
-		<div class="col-6 col-md-3 mb-3"><div class="card kpi h-100"><div class="card-body"><div class="text-muted small">{% trans "Liquidu (USD)" %}</div><div class="kpi-value text-success">${{ summary.net|floatformat:2 }}</div></div></div></div>
-		<div class="col-6 col-md-3 mb-3"><div class="card kpi h-100"><div class="card-body"><div class="text-muted small">{% trans "Bilhete kansela (sala) — la konta" %}</div><div class="kpi-value">{{ summary.void_tickets }}</div><div class="small">${{ summary.voided|floatformat:2 }}</div></div></div></div>
+		<div class="col-6 col-md mb-3"><div class="card kpi h-100"><div class="card-body"><div class="text-muted small">{% trans "Bruto (USD)" %}</div><div class="kpi-value">${{ summary.gross|floatformat:2 }}</div><div class="small">{{ summary.tickets }} {% trans "bilhete" %} · {{ summary.pax }} {% trans "pasajeiru" %}</div></div></div></div>
+		<div class="col-6 col-md mb-3"><div class="card kpi h-100"><div class="card-body"><div class="text-muted small">{% trans "Fila osan (USD)" %}</div><div class="kpi-value text-danger">−${{ summary.refunds|floatformat:2 }}</div><div class="small">{{ summary.refund_tickets }} {% trans "bilhete" %}</div></div></div></div>
+		<div class="col-6 col-md mb-3"><div class="card kpi h-100"><div class="card-body"><div class="text-muted small">{% trans "Liquidu (USD)" %}</div><div class="kpi-value text-success">${{ summary.net|floatformat:2 }}</div></div></div></div>
+		<div class="col-6 col-md mb-3"><div class="card kpi h-100"><div class="card-body"><div class="text-muted small">{% trans "Bonus (gratis)" %}</div><div class="kpi-value">{{ summary.bonus_tickets }}</div><div class="small">{% trans "valor normal" %} ${{ summary.bonus_value|floatformat:2 }}</div></div></div></div>
+		<div class="col-6 col-md mb-3"><div class="card kpi h-100"><div class="card-body"><div class="text-muted small">{% trans "Bilhete kansela (sala) — la konta" %}</div><div class="kpi-value">{{ summary.void_tickets }}</div><div class="small">${{ summary.voided|floatformat:2 }}</div></div></div></div>
 	</div>
 	{% for title, rows in tables %}
 		<div class="card shadow-sm mb-3">

@@ -56,6 +56,7 @@ class QuotaGroup(models.TextChoices):
     PASSENGER = "passenger", _("Pasajeiru")
     VEHICLE = "vehicle", _("Veíkulu")
     GOODS = "goods", _("Sasán / Animál")
+    CHARTER = "charter", _("Aluga ró (charter)")
 
 
 class FareItem(models.Model):
@@ -108,5 +109,5 @@ def order_items(qs):
     from django.db.models import Case, IntegerField, Value, When
 
     rank = Case(When(quota_group=QuotaGroup.PASSENGER, then=Value(0)), When(quota_group=QuotaGroup.VEHICLE, then=Value(1)),
-        default=Value(2), output_field=IntegerField())
+        When(quota_group=QuotaGroup.CHARTER, then=Value(3)), default=Value(2), output_field=IntegerField())
     return qs.order_by(rank, "sort_order", "name_tet")

@@ -19,7 +19,8 @@
 						<tr><th>{% trans "Dokumentu" %}</th><td>{{ obj.get_document_type_display }} {{ obj.document_number }}</td></tr>
 						{% endif %}
 						{% if obj.plate_number %}<tr><th>{% trans "Nú. plaka" %}</th><td>{{ obj.plate_number }}</td></tr>{% endif %}
-						<tr><th>USD</th><td><strong>${{ obj.total }}</strong></td></tr>
+						<tr><th>USD</th><td><strong>${{ obj.total }}</strong>{% if obj.payment_method == 'complimentary' and obj.list_price is not None %} <small class="text-muted">({% trans "valor normal" %} ${{ obj.list_price }})</small>{% endif %}</td></tr>
+						{% if obj.bonus_reference %}<tr><th>{% trans "Referénsia bonus" %}</th><td>{{ obj.bonus_reference }}</td></tr>{% endif %}
 						<tr><th>{% trans "Pagamentu" %}</th><td>{{ obj.get_payment_method_display }}{% if obj.transfer_reference %} · {{ obj.transfer_reference }}{% endif %}</td></tr>
 						{% if obj.cancelled_at %}<tr class="text-danger"><th>{% trans "Kansela" %}</th><td>{{ obj.cancelled_at|date:"d/m/Y H:i" }} · {{ obj.cancelled_by|default:"—" }} — {{ obj.cancel_reason }}</td></tr>{% endif %}
 						<tr><th>{% trans "Faan husi" %}</th><td>{{ obj.sold_by|default:"—" }} · {{ obj.created_at|date:"d/m/Y H:i" }}</td></tr>

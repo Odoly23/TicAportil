@@ -28,7 +28,8 @@ def build(period, key_date):
 		lines = [f"{_('Relatório de vendas')} {name}: {first:%d/%m/%Y}" + ('' if first == last else f" – {last:%d/%m/%Y}"), '',
 			f"{_('Bilhetes vendidos')}: {s['tickets']}", f"{_('Passageiros')}: {s['pax']}",
 			f"{_('Bruto (USD)')}: {s['gross']:,.2f}", f"{_('Reembolsos (USD)')}: {s['refunds']:,.2f} ({s['refund_tickets']})",
-			f"{_('Líquido (USD)')}: {s['net']:,.2f}", f"{_('Bilhetes anulados (erro, não contam)')}: {s['void_tickets']}", '']
+			f"{_('Líquido (USD)')}: {s['net']:,.2f}", f"{_('Bilhetes anulados (erro, não contam)')}: {s['void_tickets']}",
+			f"{_('Bilhetes bónus (gratuitos)')}: {s['bonus_tickets']} ({_('valor normal')} USD {s['bonus_value']:,.2f})", '']
 		top = S.by_route(f)[:5]
 		if top:
 			lines.append(_("Por rota") + ':')

@@ -268,7 +268,7 @@ def TicketCancel(request, pk):
 	if not eligible:
 		messages.warning(request, _("Bilhete ne'e la bele kansela ona."))
 		return redirect('ticket-detail', t.pk)
-	form = TicketCancelForm(request.POST or None, user=request.user)
+	form = TicketCancelForm(request.POST or None, user=request.user, ticket=t)
 	if request.method == 'POST' and form.is_valid():
 		refund = form.cleaned_data['kind'] == 'refund' and can_refund
 		t.status = Ticket.Status.REFUNDED if refund else Ticket.Status.CANCELLED

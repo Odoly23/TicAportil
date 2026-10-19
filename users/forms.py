@@ -62,6 +62,7 @@ EXTRA_PERMS = [
 	('refund_ticket', _("Fila osan (razaun saúde)")), ('scan_ticket', _("Scan QR boarding")),
 	('view_documents', _("Haree foto dokumentu")), ('view_reports', _("Haree relatóriu")),
 	('manage_schedule', _("Jere jadwal no anúnsiu")),
+	('issue_charter', _("Faan aluga ró (charter)")), ('issue_complimentary', _("Fó bilhete bonus (gratis) ba ofisiál governu")),
 ]
 
 

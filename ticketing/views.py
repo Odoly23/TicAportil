@@ -1,5 +1,6 @@
 import io
 from datetime import date, datetime, timedelta
+from decimal import Decimal
 
 import qrcode
 import qrcode.image.svg
@@ -35,7 +36,7 @@ def SellSailings(request):
 	sailings = (Sailing.objects.filter(departure__gte=now - timedelta(hours=2), departure__lte=now + timedelta(days=7))
 		.exclude(status__in=[Sailing.Status.CANCELLED, Sailing.Status.COMPLETED])
 		.select_related('vessel__operator', 'route__origin', 'route__destination').prefetch_related('quotas'))
-	rows = [{'obj': s, 'quotas': _quota_rows(s)} for s in sailings]
+	rows = [{'obj': s, 'quotas': _quota_rows(s), 'chartered': s.is_chartered} for s in sailings]
 	context = {'group': _group(request), 'rows': rows, 'title': 'Sosa Bilhete', 'legend': 'Sosa Bilhete — Hili Viajen'}
 	return render(request, 'ticketing/sell_sailings.html', context)
 
@@ -47,27 +48,42 @@ def TicketSell(request, sailing_id):
 	if not sailing.sales_open:
 		messages.warning(request, _("Faan bilhete ba viajen ne'e taka ona."))
 		return redirect('sell-sailings')
+	if sailing.is_chartered:
+		messages.warning(request, _("Viajen ne'e aluga ona (charter). La bele faan bilhete seluk."))
+		return redirect('sell-sailings')
 	if request.method == 'POST':
-		form = TicketForm(request.POST, request.FILES, sailing=sailing)
+		form = TicketForm(request.POST, request.FILES, sailing=sailing, user=request.user)
 		if form.is_valid():
+			item, cd = form.cleaned_data['item'], form.cleaned_data
 			try:
 				with transaction.atomic():
-					# Lock the quota row so two counters cannot oversell the last seats.
-					q = SailingQuota.objects.select_for_update().get(sailing=sailing, quota_group=form.cleaned_data['item'].quota_group)
-					if q.remaining < form.cleaned_data['quantity']:
-						raise ValueError('quota')
+					# Serialise sales of one sailing (quota, charter-vs-seats) behind a row lock.
+					locked = Sailing.objects.select_for_update().get(pk=sailing.pk)
+					q = SailingQuota.objects.select_for_update().get(sailing=sailing, quota_group=item.quota_group)
+					valid = Ticket.objects.filter(sailing=sailing, status__in=[Ticket.Status.ISSUED, Ticket.Status.BOARDED])
+					is_charter = item.quota_group == QuotaGroup.CHARTER
+					if q.remaining < cd['quantity'] or (is_charter and valid.exists()) or (not is_charter and locked.is_chartered):
+						raise ValueError('conflict')
 					t = form.save(commit=False)
 					t.sailing = sailing
-					t.unit_price = form.fares[t.item_id]
+					fare = form.fares[t.item_id]
+					price = cd['custom_price'] if (is_charter and cd.get('custom_price') is not None) else fare
+					t.list_price = fare
+					t.unit_price = Decimal('0.00') if t.payment_method == Ticket.Payment.COMPLIMENTARY else price
 					t.sold_by = request.user
 					t.save()
 					AuditLog.record('ticket_sold', user=request.user, request=request, detail=f'{t.serial} ${t.total}')
+					if t.payment_method == Ticket.Payment.COMPLIMENTARY:
+						AuditLog.record('ticket_bonus', user=request.user, request=request, detail=f'{t.serial} value ${fare} ref={t.bonus_reference}')
+					if is_charter:
+						AuditLog.record('charter_sold', user=request.user, request=request,
+							detail=f'{t.serial} {t.full_name} ${t.unit_price} (tariff ${fare})')
 			except (ValueError, SailingQuota.DoesNotExist):
-				form.add_error(None, _("Kuota la to'o. Tenta fali."))
+				form.add_error(None, _("Kuota la to'o ka viajen muda ona. Tenta fali."))
 			else:
 				return redirect('ticket-print', t.pk)
 	else:
-		form = TicketForm(sailing=sailing)
+		form = TicketForm(sailing=sailing, user=request.user)
 	context = {
 		'group': _group(request), 'form': form, 'sailing': sailing, 'quotas': _quota_rows(sailing),
 		'title': 'Sosa Bilhete', 'legend': f'{sailing.route} · {sailing.vessel}',

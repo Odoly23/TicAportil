@@ -24,24 +24,26 @@ class Command(BaseCommand):
 		r2 = Route.objects.get_or_create(origin=dili, destination=mahata)[0]
 		op = Operator.objects.get_or_create(name='DEMO Operator')[0]
 		vessels = [Vessel.objects.get_or_create(operator=op, name=n)[0] for n in ('Berlin Nakroma', 'Berlin Ramelau')]
-		items = [  # name_tet, name_en, group, age_min, age_max, foreigner_only, plate, sort, price
-			('Adultu', 'Adult', 'passenger', 12, None, False, False, 1, '4.00'),
-			('Kiak', 'Child', 'passenger', 2, 11, False, False, 2, '2.00'),
-			('Adultu Estranjeiru', 'Foreign adult', 'passenger', 12, None, True, False, 3, '10.00'),
-			('Motór', 'Motorbike', 'vehicle', None, None, False, True, 1, '8.00'),
-			('Kareta', 'Car', 'vehicle', None, None, False, True, 2, '40.00'),
-			('Karau', 'Buffalo', 'goods', None, None, False, False, 1, '10.00'),
-			('Fahi', 'Pig', 'goods', None, None, False, False, 2, '5.00'),
+		# name_tet, (pt, en, id), group, age_min, age_max, foreigner_only, plate, sort, PLACEHOLDER price
+		items = [
+			('Labarik', ('Criança', 'Child', 'Anak-anak'), 'passenger', 0, 11, False, False, 1, '2.00'),
+			('Adultu', ('Adulto', 'Adult', 'Dewasa'), 'passenger', 12, 59, False, False, 2, '4.00'),
+			('Idozu', ('Idoso', 'Senior', 'Lansia'), 'passenger', 60, None, False, False, 3, '2.00'),
+			('Motór', ('Mota', 'Motorbike', 'Sepeda motor'), 'vehicle', None, None, False, True, 1, '8.00'),
+			('Kareta', ('Carro', 'Car', 'Mobil'), 'vehicle', None, None, False, True, 2, '40.00'),
+			('Karau', ('Búfalo', 'Buffalo', 'Kerbau'), 'goods', None, None, False, False, 1, '10.00'),
+			('Fahi', ('Porco', 'Pig', 'Babi'), 'goods', None, None, False, False, 2, '5.00'),
+			('Aluga ró', ('Aluguer do barco', 'Vessel charter', 'Sewa kapal'), 'charter', None, None, False, False, 1, '500.00'),
 		]
-		for n, e, g, amin, amax, fo, pl, so, price in items:
+		for n, (pt, e, idn), g, amin, amax, fo, pl, so, price in items:
 			it = FareItem.objects.get_or_create(name_tet=n, defaults=dict(
-				name_en=e, quota_group=g, age_min=amin, age_max=amax, foreigner_only=fo, requires_plate=pl, sort_order=so))[0]
+				name_pt=pt, name_en=e, name_id=idn, quota_group=g, age_min=amin, age_max=amax, foreigner_only=fo, requires_plate=pl, sort_order=so))[0]
 			for r in (r1, r2):
 				Fare.objects.get_or_create(route=r, item=it, defaults={'price': Decimal(price)})
 		base = timezone.now().replace(minute=0, second=0, microsecond=0)
 		for i, (v, r) in enumerate([(vessels[0], r1), (vessels[1], r2)]):
 			s, created = Sailing.objects.get_or_create(vessel=v, route=r, departure=base + timedelta(days=1, hours=i))
 			if created:
-				for g, cap in (('passenger', 200), ('vehicle', 5), ('goods', 50)):
+				for g, cap in (('passenger', 200), ('vehicle', 5), ('goods', 50), ('charter', 1)):
 					SailingQuota.objects.create(sailing=s, quota_group=g, capacity=cap)
 		self.stdout.write(self.style.SUCCESS('Demo data loaded (placeholder prices!).'))

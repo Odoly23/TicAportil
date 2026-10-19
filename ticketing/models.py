@@ -40,6 +40,11 @@ class Sailing(models.Model):
         return f"{self.vessel} {self.route} {timezone.localtime(self.departure):%d/%m/%Y %H:%M}"
 
     @property
+    def is_chartered(self):
+        """A chartered sailing carries one charter booking and is closed to per-seat sales."""
+        return self.tickets.filter(item__quota_group=QuotaGroup.CHARTER, status__in=[Ticket.Status.ISSUED, Ticket.Status.BOARDED]).exists()
+
+    @property
     def sales_open(self):
         if self.status not in (self.Status.SCHEDULED, self.Status.DELAYED):
             return False
@@ -92,6 +97,7 @@ class Ticket(models.Model):
     class Payment(models.TextChoices):
         CASH = "cash", _("Osan kontante")
         TRANSFER = "transfer", _("Transferénsia banku")
+        COMPLIMENTARY = "complimentary", _("Bonus (gratis)")
 
     serial = models.CharField(max_length=20, unique=True, editable=False)
     sailing = models.ForeignKey(Sailing, on_delete=models.PROTECT, related_name="tickets")
@@ -115,7 +121,9 @@ class Ticket(models.Model):
     notes = models.CharField(max_length=255, blank=True)
 
     # Payment
-    payment_method = models.CharField(max_length=10, choices=Payment.choices, default=Payment.CASH)
+    payment_method = models.CharField(max_length=15, choices=Payment.choices, default=Payment.CASH)
+    list_price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)  # normal fare, kept when a bonus ticket is free
+    bonus_reference = models.CharField(max_length=150, blank=True)  # who authorised a complimentary ticket (letter / ministry)
     transfer_reference = models.CharField(max_length=60, blank=True)
     transfer_proof = models.ImageField(upload_to=transfer_proof, blank=True)
 
@@ -131,6 +139,8 @@ class Ticket(models.Model):
         ordering = ["-created_at"]
         permissions = [
             ("issue_ticket", "Can sell tickets"),
+            ("issue_charter", "Can sell a vessel charter"),
+            ("issue_complimentary", "Can issue complimentary (government bonus) tickets"),
             ("cancel_ticket", "Can cancel tickets"),
             ("refund_ticket", "Can refund tickets (medical reasons)"),
             ("scan_ticket", "Can scan tickets at boarding"),

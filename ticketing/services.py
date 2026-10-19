@@ -7,6 +7,8 @@ from django.utils import timezone
 from users.models import AuditLog, User
 
 from .messages import render_all
+from custom.models import QuotaGroup
+
 from .models import Announcement, Notification, Sailing, SailingQuota, Ticket
 
 VALID = (Ticket.Status.ISSUED,)
@@ -42,6 +44,11 @@ def move_tickets(src, dst, user=None, request=None):
 		raise ValueError('route')
 	with transaction.atomic():
 		tickets = list(Ticket.objects.select_for_update().filter(sailing=src, status__in=VALID).select_related('item'))
+		has_charter = any(t.item.quota_group == QuotaGroup.CHARTER for t in tickets)
+		if has_charter and Ticket.objects.filter(sailing=dst, status__in=[Ticket.Status.ISSUED, Ticket.Status.BOARDED]).exists():
+			raise ShortQuota({QuotaGroup.CHARTER: 1})   # the new sailing already has passengers: it cannot be given to a charter
+		if tickets and not has_charter and dst.is_chartered:
+			raise ShortQuota({QuotaGroup.CHARTER: 1})   # the new sailing is chartered: no per-seat tickets may join it
 		need = {}
 		for t in tickets:
 			need[t.item.quota_group] = need.get(t.item.quota_group, 0) + t.quantity

@@ -7,6 +7,7 @@
 	<div class="card shadow-lg pt-0 rounded">
 		<div class="card-header">{{ legend|upper }}</div>
 		<div class="card-body">
+			{% for w in warnings %}<div class="alert alert-warning p-2"><i class="fa fa-exclamation-triangle"></i> {{ w }}</div>{% endfor %}
 			{% if can_add %}<a class="btn btn-sm btn-primary mb-2" href="{% url key|add:'-add' %}">{% trans "Aumenta" %} <i class="fa fa-plus"></i></a>{% endif %}
 			<div class="table-responsive">
 			<table class="table table-sm" id="example" width="100%">

@@ -36,6 +36,7 @@ class Crud:
 	def list(self, request):
 		rows = [{'obj': o, 'cells': [c(o) for _h, c in self.columns]} for o in self.qs()]
 		ctx = self._ctx(request, legend=self.title, headers=[h for h, _c in self.columns], rows=rows,
+			warnings=age_coverage_warnings() if self.key == 'fareitem' else [],
 			can_add=request.user.has_perm(self.add_perm), can_delete=request.user.has_perm(self.del_perm))
 		return render(request, 'custom/list.html', ctx)
 
@@ -96,6 +97,34 @@ CRUDS = [
 		(_l("Estranjeiru"), lambda o: yes(o.foreigner_only)), (_l("Plaka"), lambda o: yes(o.requires_plate)), (_l("Ativu"), lambda o: yes(o.is_active))],
 		queryset=lambda: order_items(FareItem.objects.all())),
 ]
+
+
+def _runs(counts, bad):
+	"""'0-4, 7' style ranges of ages whose category count satisfies `bad`."""
+	out, start = [], None
+	for age, c in enumerate(counts + [None]):  # sentinel closes a run that reaches the last age
+		hit = c is not None and bad(c)
+		if hit and start is None:
+			start = age
+		elif not hit and start is not None:
+			out.append(str(start) if start == age - 1 else f'{start}–{age - 1}')
+			start = None
+	return out
+
+
+def age_coverage_warnings():
+	"""Gaps and overlaps in the ages (0-110) of the active, non-foreigner passenger categories."""
+	items = list(FareItem.objects.filter(is_active=True, quota_group=QuotaGroup.PASSENGER, foreigner_only=False))
+	if not items:
+		return []
+	counts = [sum(1 for i in items if (i.age_min is None or a >= i.age_min) and (i.age_max is None or a <= i.age_max)) for a in range(111)]
+	out = []
+	gaps, overlaps = _runs(counts, lambda c: c == 0), _runs(counts, lambda c: c > 1)
+	if gaps:
+		out.append(_("Idade ne'ebé la iha kategoria") + ': ' + ', '.join(gaps))
+	if overlaps:
+		out.append(_("Idade ne'ebé iha kategoria liu ida") + ': ' + ', '.join(overlaps))
+	return out
 
 
 # ------------------------------------------------------------------------------------- fare matrix

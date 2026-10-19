@@ -52,7 +52,15 @@ Teks sumber = Tetun. Tambah di `scripts/translations.py`, lalu `python scripts/b
   admin yang menutup sesi lama), halaman akun sendiri, lupa password lewat email (link 24 jam, dibatasi 5/jam/IP),
   log audit. Pengaman: admin tidak bisa mengunci dirinya atau menghapus admin terakhir; tidak ada penghapusan pengguna
   (nonaktifkan saja); hapus data yang sudah dipakai ditolak dengan penjelasan. `/admin/` Django hanya untuk staf teknis.
-- Berikut: deploy (gunicorn, nginx, PostgreSQL, HTTPS, backup), WhatsApp.
+- Fase 6b: **kategori & jenis penjualan** — penumpang hanya tiga kelas: *Labarik* (anak-anak), *Adultu* (dewasa),
+  *Idozu* (lansia); batas umur diatur admin dan layar Kategoria memperingatkan jika ada umur tanpa kelas atau kelas
+  yang tumpang-tindih. Orang asing (paspor) memakai kelas yang sama, kecuali admin membuat tarif khusus asing.
+  **Aluga ró (charter)**: satu pemesanan per pelayaran (kuota charter 1), harga tarif atau hasil negosiasi (tercatat
+  di audit), mengunci pelayaran dari penjualan kursi (dan sebaliknya); butuh izin `issue_charter`.
+  **Bonus (gratis)** untuk pejabat pemerintah: pembayaran "Bonus", wajib referensi surat/ministerium, hanya
+  penumpang, tetap memakai kursi, harga normal tersimpan untuk laporan (jumlah & nilai bonus), tidak bisa
+  di-refund; butuh izin `issue_complimentary`. Kedua izin hanya dimiliki admin sampai diberikan per orang.
+- Berikut: deploy (gunicorn, nginx, PostgreSQL, HTTPS, backup) menunggu server baru dari APORTIL; WhatsApp.
 
 ### Aturan hitung laporan (USD, hari = hari kalender Asia/Dili)
 - **Bruto** = tiket yang dibuat pada periode, kecuali yang dibatalkan karena salah emisi (*void*, tidak dihitung).

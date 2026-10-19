@@ -9,6 +9,10 @@ msgstr ""
 msgid " Fila fali osan: $%(a)s."
 msgstr " Refund: $%(a)s."
 
+#: ticketing/templates/ticketing/print.html
+msgid "ALUGA RÓ / CHARTER"
+msgstr "VESSEL CHARTER"
+
 #: users/forms.py
 msgid "Admin APORTIL"
 msgstr "APORTIL Admin"
@@ -24,6 +28,14 @@ msgstr "Scheduled"
 #: main/templates/home/403.html
 msgid "Aksesu la permite"
 msgstr "Access denied"
+
+#: ticketing/templates/ticketing/sell_sailings.html
+msgid "Aluga ona (charter)"
+msgstr "Chartered"
+
+#: custom/models.py
+msgid "Aluga ró (charter)"
+msgstr "Vessel charter"
 
 #: main/context_processors.py
 msgid "Anúnsiu"
@@ -76,6 +88,10 @@ msgstr "Add"
 #: users/views.py
 msgid "Aumenta uza-na'in"
 msgstr "Add user"
+
+#: ticketing/templates/ticketing/print.html
+msgid "BONUS — GRATIS"
+msgstr "COMPLIMENTARY — FREE"
 
 #: custom/forms.py
 msgid "Ba"
@@ -176,8 +192,28 @@ msgid "Bilhetes anulados (erro, não contam)"
 msgstr "Voided tickets (mistakes, not counted)"
 
 #: report/emails.py
+msgid "Bilhetes bónus (gratuitos)"
+msgstr "Complimentary tickets (free)"
+
+#: report/emails.py
 msgid "Bilhetes vendidos"
 msgstr "Tickets sold"
+
+#: ticketing/models.py
+msgid "Bonus (gratis)"
+msgstr "Complimentary (free)"
+
+#: report/exports.py
+msgid "Bonus (gratis) — bilhete"
+msgstr "Complimentary (free) — tickets"
+
+#: report/exports.py
+msgid "Bonus (gratis) — valor normal (USD)"
+msgstr "Complimentary (free) — normal value (USD)"
+
+#: ticketing/forms.py
+msgid "Bonus ba pasajeiru de'it."
+msgstr "Complimentary applies to passengers only."
 
 #: report/exports.py
 msgid "Bruto (USD)"
@@ -255,10 +291,6 @@ msgstr "Email"
 msgid "Email (ba notifikasaun)"
 msgstr "Email (for notifications)"
 
-#: ticketing/forms.py
-msgid "Email (opsionál)"
-msgstr "Email (optional)"
-
 #: users/views.py
 msgid "Email la haruka."
 msgstr "The email was not sent."
@@ -282,6 +314,10 @@ msgstr "Foreigner"
 #: custom/forms.py
 msgid "Estranjeiru (pasaporte) de'it"
 msgstr "Foreigners (passport) only"
+
+#: users/forms.py
+msgid "Faan aluga ró (charter)"
+msgstr "Sell a vessel charter"
 
 #: users/forms.py
 msgid "Faan bilhete"
@@ -346,6 +382,10 @@ msgstr "Document photo is required."
 #: report/templates/report/chart_dash.html
 msgid "Fulan ida-ne'e"
 msgstr "This month"
+
+#: users/forms.py
+msgid "Fó bilhete bonus (gratis) ba ofisiál governu"
+msgstr "Issue complimentary (free) tickets for government officials"
 
 #: ticketing/views_scan.py
 msgid "Hahú kámera"
@@ -475,6 +515,14 @@ msgstr "Maximum age must be above the minimum."
 msgid "Idade minimu"
 msgstr "Minimum age"
 
+#: custom/views.py
+msgid "Idade ne'ebé iha kategoria liu ida"
+msgstr "Ages that fall in more than one category"
+
+#: custom/views.py
+msgid "Idade ne'ebé la iha kategoria"
+msgstr "Ages with no category"
+
 #: custom/forms.py
 msgid "Idade no estranjeiru ba pasajeiru de'it."
 msgstr "Age and foreigner apply to passengers only."
@@ -575,6 +623,10 @@ msgstr "Confirm password"
 msgid "Konta"
 msgstr "Account"
 
+#: ticketing/forms.py
+msgid "Kontaktu (WhatsApp ka email) obrigatóriu."
+msgstr "A contact (WhatsApp or email) is required."
+
 #: users/templates/users/list.html
 msgid "Konvite pendente"
 msgstr "Invitation pending"
@@ -587,17 +639,21 @@ msgstr "Quantity"
 msgid "Kuota"
 msgstr "Quota"
 
+#: ticketing/forms_sched.py
+msgid "Kuota aluga ró (0 = la bele aluga)"
+msgstr "Charter quota (0 = cannot be chartered)"
+
 #: ticketing/views_sched.py
 msgid "Kuota la to'o iha viajen foun: %(s)s"
 msgstr "Not enough quota on the new sailing: %(s)s"
 
+#: ticketing/views.py
+msgid "Kuota la to'o ka viajen muda ona. Tenta fali."
+msgstr "Not enough quota, or the sailing changed. Please try again."
+
 #: ticketing/forms.py
 msgid "Kuota la to'o. Sobra: %(n)d."
 msgstr "Not enough quota. Remaining: %(n)d."
-
-#: ticketing/views.py
-msgid "Kuota la to'o. Tenta fali."
-msgstr "Not enough quota. Please try again."
 
 #: ticketing/forms_sched.py
 msgid "Kuota pasajeiru"
@@ -754,6 +810,10 @@ msgstr "Modules (ticket sales, scanning, reports) come in the next phases."
 #: users/forms.py
 msgid "Naran"
 msgstr "Name"
+
+#: ticketing/forms.py
+msgid "Naran ema/instituisaun ne'ebé aluga obrigatóriu."
+msgstr "The name of the person/institution chartering is required."
 
 #: ticketing/forms.py
 msgid "Naran kompletu"
@@ -951,6 +1011,10 @@ msgstr "Requires plate number"
 msgid "Presu"
 msgstr "Prices"
 
+#: ticketing/forms.py
+msgid "Presu aluga (USD) — husik mamuk = tarif"
+msgstr "Charter price (USD) — empty = tariff"
+
 #: custom/views.py
 msgid "Presu atualiza ona (%(n)d). Bilhete ne'ebé faan ona la muda."
 msgstr "Prices updated (%(n)d). Tickets already sold are unchanged."
@@ -1006,6 +1070,22 @@ msgstr "Reason / details"
 #: report/emails.py
 msgid "Reembolsos (USD)"
 msgstr "Refunds (USD)"
+
+#: ticketing/templates/ticketing/print.html
+msgid "Ref."
+msgstr "Ref."
+
+#: ticketing/templates/ticketing/detail.html
+msgid "Referénsia bonus"
+msgstr "Complimentary reference"
+
+#: ticketing/forms.py
+msgid "Referénsia bonus (karta / ministériu / naran ofisiál)"
+msgstr "Complimentary reference (letter / ministry / official's name)"
+
+#: ticketing/forms.py
+msgid "Referénsia bonus obrigatóriu (minimu karakter 5)."
+msgstr "A complimentary reference is required (min. 5 characters)."
 
 #: report/emails.py
 msgid "Relatório de vendas"
@@ -1334,6 +1414,14 @@ msgstr "Sailing cancelled. Emails sent: %(n)d."
 msgid "Viajen la los"
 msgstr "Wrong sailing"
 
+#: ticketing/forms.py
+msgid "Viajen ne'e aluga ona (charter). La bele faan bilhete seluk."
+msgstr "This sailing is chartered. No other tickets can be sold."
+
+#: ticketing/forms.py
+msgid "Viajen ne'e iha bilhete ona, la bele aluga hotu."
+msgstr "This sailing already has tickets, so it cannot be chartered."
+
 #: ticketing/views_sched.py
 msgid "Viajen ne'e la bele edita ona."
 msgstr "This sailing can no longer be edited."
@@ -1347,8 +1435,8 @@ msgid "Viajen tuir mai"
 msgstr "Upcoming sailings"
 
 #: ticketing/forms.py
-msgid "WhatsApp (opsionál)"
-msgstr "WhatsApp (optional)"
+msgid "WhatsApp"
+msgstr "WhatsApp"
 
 #: report/emails.py
 msgid "anual"
@@ -1393,6 +1481,10 @@ msgstr "passengers"
 #: ticketing/templates/ticketing/sailing_detail.html
 msgid "uluk"
 msgstr "was"
+
+#: report/emails.py
+msgid "valor normal"
+msgstr "normal value"
 
 #: report/templates/report/boarding.html
 msgid "viajen sala"

@@ -25,6 +25,7 @@ class SailingForm(forms.ModelForm):
 	cap_passenger = forms.IntegerField(label=_("Kuota pasajeiru"), min_value=0, initial=0)
 	cap_vehicle = forms.IntegerField(label=_("Kuota veíkulu"), min_value=0, initial=0)
 	cap_goods = forms.IntegerField(label=_("Kuota sasán / animál"), min_value=0, initial=0)
+	cap_charter = forms.IntegerField(label=_("Kuota aluga ró (0 = la bele aluga)"), min_value=0, max_value=1, initial=1)
 
 	class Meta:
 		model = Sailing
@@ -51,8 +52,8 @@ class SailingForm(forms.ModelForm):
 		self.helper.layout = Layout(
 			Row(Column('vessel', css_class='col-md-6'), Column('route', css_class='col-md-6')),
 			Row(Column('departure', css_class='col-md-6'), Column('sales_close_minutes', css_class='col-md-6')),
-			Row(Column('cap_passenger', css_class='col-md-4'), Column('cap_vehicle', css_class='col-md-4'),
-				Column('cap_goods', css_class='col-md-4')),
+			Row(Column('cap_passenger', css_class='col-md-3'), Column('cap_vehicle', css_class='col-md-3'),
+				Column('cap_goods', css_class='col-md-3'), Column('cap_charter', css_class='col-md-3')),
 			'note',
 		)
 
@@ -157,10 +158,11 @@ class TicketCancelForm(forms.Form):
 	kind = forms.ChoiceField(label=_("Tipu"), choices=KINDS, widget=forms.RadioSelect)
 	reason = forms.CharField(label=_("Razaun / detallu"), min_length=5, max_length=200)
 
-	def __init__(self, *args, user=None, **kwargs):
+	def __init__(self, *args, user=None, ticket=None, **kwargs):
 		super().__init__(*args, **kwargs)
 		allowed = []
-		if user.has_perm('ticketing.refund_ticket'):
+		free = ticket is not None and ticket.payment_method == Ticket.Payment.COMPLIMENTARY  # a bonus ticket paid nothing: nothing to refund
+		if user.has_perm('ticketing.refund_ticket') and not free:
 			allowed.append(self.KINDS[0])
 		if user.has_perm('ticketing.cancel_ticket'):
 			allowed.append(self.KINDS[1])

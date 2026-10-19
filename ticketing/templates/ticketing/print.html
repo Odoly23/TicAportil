@@ -31,6 +31,8 @@
 		<div><small>{% trans "Bilhete Ró" %}</small></div>
 	</div>
 	<hr>
+	{% if obj.item.quota_group == 'charter' %}<div class="c big">{% trans "ALUGA RÓ / CHARTER" %}</div>{% endif %}
+	{% if obj.payment_method == 'complimentary' %}<div class="c big">{% trans "BONUS — GRATIS" %}</div>{% endif %}
 	<div class="c big">{{ obj.sailing.route.origin }} ➔ {{ obj.sailing.route.destination }}</div>
 	<table>
 		<tr><td>{% trans "Ró" %}</td><td>{{ obj.sailing.vessel }}</td></tr>
@@ -40,6 +42,7 @@
 		<tr><td>{% trans "Dokumentu" %}</td><td>{{ obj.get_document_type_display }} {{ obj.document_number }}</td></tr>{% endif %}
 		{% if obj.plate_number %}<tr><td>{% trans "Plaka" %}</td><td>{{ obj.plate_number }}</td></tr>{% endif %}
 		<tr><td>USD</td><td><strong>${{ obj.total }}</strong> ({{ obj.get_payment_method_display }})</td></tr>
+		{% if obj.bonus_reference %}<tr><td>{% trans "Ref." %}</td><td>{{ obj.bonus_reference }}</td></tr>{% endif %}
 	</table>
 	<hr>
 	<div class="qr">{{ qr|safe }}</div>

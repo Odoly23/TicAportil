@@ -9,6 +9,10 @@ msgstr ""
 msgid " Fila fali osan: $%(a)s."
 msgstr " Dana dikembalikan: $%(a)s."
 
+#: ticketing/templates/ticketing/print.html
+msgid "ALUGA RÓ / CHARTER"
+msgstr "SEWA KAPAL / CHARTER"
+
 #: users/forms.py
 msgid "Admin APORTIL"
 msgstr "Admin APORTIL"
@@ -24,6 +28,14 @@ msgstr "Terjadwal"
 #: main/templates/home/403.html
 msgid "Aksesu la permite"
 msgstr "Akses ditolak"
+
+#: ticketing/templates/ticketing/sell_sailings.html
+msgid "Aluga ona (charter)"
+msgstr "Disewa (charter)"
+
+#: custom/models.py
+msgid "Aluga ró (charter)"
+msgstr "Sewa kapal (charter)"
 
 #: main/context_processors.py
 msgid "Anúnsiu"
@@ -76,6 +88,10 @@ msgstr "Tambah"
 #: users/views.py
 msgid "Aumenta uza-na'in"
 msgstr "Tambah pengguna"
+
+#: ticketing/templates/ticketing/print.html
+msgid "BONUS — GRATIS"
+msgstr "BONUS — GRATIS"
 
 #: custom/forms.py
 msgid "Ba"
@@ -174,8 +190,28 @@ msgid "Bilhetes anulados (erro, não contam)"
 msgstr "Tiket dibatalkan (salah, tidak dihitung)"
 
 #: report/emails.py
+msgid "Bilhetes bónus (gratuitos)"
+msgstr "Tiket bonus (gratis)"
+
+#: report/emails.py
 msgid "Bilhetes vendidos"
 msgstr "Tiket terjual"
+
+#: ticketing/models.py
+msgid "Bonus (gratis)"
+msgstr "Bonus (gratis)"
+
+#: report/exports.py
+msgid "Bonus (gratis) — bilhete"
+msgstr "Bonus (gratis) — tiket"
+
+#: report/exports.py
+msgid "Bonus (gratis) — valor normal (USD)"
+msgstr "Bonus (gratis) — nilai normal (USD)"
+
+#: ticketing/forms.py
+msgid "Bonus ba pasajeiru de'it."
+msgstr "Bonus hanya untuk penumpang."
 
 #: report/exports.py
 msgid "Bruto (USD)"
@@ -253,10 +289,6 @@ msgstr "Email"
 msgid "Email (ba notifikasaun)"
 msgstr "Email (untuk notifikasi)"
 
-#: ticketing/forms.py
-msgid "Email (opsionál)"
-msgstr "Email (opsional)"
-
 #: users/views.py
 msgid "Email la haruka."
 msgstr "Email tidak terkirim."
@@ -280,6 +312,10 @@ msgstr "Orang asing"
 #: custom/forms.py
 msgid "Estranjeiru (pasaporte) de'it"
 msgstr "Hanya orang asing (paspor)"
+
+#: users/forms.py
+msgid "Faan aluga ró (charter)"
+msgstr "Jual sewa kapal (charter)"
 
 #: users/forms.py
 msgid "Faan bilhete"
@@ -344,6 +380,10 @@ msgstr "Foto dokumen wajib diisi."
 #: report/templates/report/chart_dash.html
 msgid "Fulan ida-ne'e"
 msgstr "Bulan ini"
+
+#: users/forms.py
+msgid "Fó bilhete bonus (gratis) ba ofisiál governu"
+msgstr "Terbitkan tiket bonus (gratis) untuk pejabat pemerintah"
 
 #: ticketing/views_scan.py
 msgid "Hahú kámera"
@@ -473,6 +513,14 @@ msgstr "Usia maksimum harus lebih besar dari minimum."
 msgid "Idade minimu"
 msgstr "Usia minimum"
 
+#: custom/views.py
+msgid "Idade ne'ebé iha kategoria liu ida"
+msgstr "Usia yang masuk lebih dari satu kategori"
+
+#: custom/views.py
+msgid "Idade ne'ebé la iha kategoria"
+msgstr "Usia tanpa kategori"
+
 #: custom/forms.py
 msgid "Idade no estranjeiru ba pasajeiru de'it."
 msgstr "Usia dan orang asing hanya untuk penumpang."
@@ -573,6 +621,10 @@ msgstr "Konfirmasi kata sandi"
 msgid "Konta"
 msgstr "Akun"
 
+#: ticketing/forms.py
+msgid "Kontaktu (WhatsApp ka email) obrigatóriu."
+msgstr "Kontak (WhatsApp atau email) wajib diisi."
+
 #: users/templates/users/list.html
 msgid "Konvite pendente"
 msgstr "Undangan tertunda"
@@ -585,17 +637,21 @@ msgstr "Jumlah"
 msgid "Kuota"
 msgstr "Kuota"
 
+#: ticketing/forms_sched.py
+msgid "Kuota aluga ró (0 = la bele aluga)"
+msgstr "Kuota sewa kapal (0 = tidak bisa disewa)"
+
 #: ticketing/views_sched.py
 msgid "Kuota la to'o iha viajen foun: %(s)s"
 msgstr "Kuota tidak cukup di pelayaran baru: %(s)s"
 
+#: ticketing/views.py
+msgid "Kuota la to'o ka viajen muda ona. Tenta fali."
+msgstr "Kuota tidak cukup atau pelayaran berubah. Coba lagi."
+
 #: ticketing/forms.py
 msgid "Kuota la to'o. Sobra: %(n)d."
 msgstr "Kuota tidak cukup. Sisa: %(n)d."
-
-#: ticketing/views.py
-msgid "Kuota la to'o. Tenta fali."
-msgstr "Kuota tidak cukup. Coba lagi."
 
 #: ticketing/forms_sched.py
 msgid "Kuota pasajeiru"
@@ -753,6 +809,10 @@ msgstr ""
 #: users/forms.py
 msgid "Naran"
 msgstr "Nama"
+
+#: ticketing/forms.py
+msgid "Naran ema/instituisaun ne'ebé aluga obrigatóriu."
+msgstr "Nama orang/lembaga penyewa wajib diisi."
 
 #: ticketing/forms.py
 msgid "Naran kompletu"
@@ -950,6 +1010,10 @@ msgstr "Perlu nomor plat"
 msgid "Presu"
 msgstr "Harga"
 
+#: ticketing/forms.py
+msgid "Presu aluga (USD) — husik mamuk = tarif"
+msgstr "Harga sewa (USD) — kosong = tarif"
+
 #: custom/views.py
 msgid "Presu atualiza ona (%(n)d). Bilhete ne'ebé faan ona la muda."
 msgstr "Harga diperbarui (%(n)d). Tiket yang sudah terjual tidak berubah."
@@ -1005,6 +1069,22 @@ msgstr "Alasan / rincian"
 #: report/emails.py
 msgid "Reembolsos (USD)"
 msgstr "Pengembalian dana (USD)"
+
+#: ticketing/templates/ticketing/print.html
+msgid "Ref."
+msgstr "Ref."
+
+#: ticketing/templates/ticketing/detail.html
+msgid "Referénsia bonus"
+msgstr "Referensi bonus"
+
+#: ticketing/forms.py
+msgid "Referénsia bonus (karta / ministériu / naran ofisiál)"
+msgstr "Referensi bonus (surat / kementerian / nama pejabat)"
+
+#: ticketing/forms.py
+msgid "Referénsia bonus obrigatóriu (minimu karakter 5)."
+msgstr "Referensi bonus wajib diisi (min. 5 karakter)."
 
 #: report/emails.py
 msgid "Relatório de vendas"
@@ -1332,6 +1412,14 @@ msgstr "Pelayaran dibatalkan. Email terkirim: %(n)d."
 msgid "Viajen la los"
 msgstr "Pelayaran salah"
 
+#: ticketing/forms.py
+msgid "Viajen ne'e aluga ona (charter). La bele faan bilhete seluk."
+msgstr "Pelayaran ini disewa (charter). Tiket lain tidak dapat dijual."
+
+#: ticketing/forms.py
+msgid "Viajen ne'e iha bilhete ona, la bele aluga hotu."
+msgstr "Pelayaran ini sudah punya tiket, tidak dapat disewa penuh."
+
 #: ticketing/views_sched.py
 msgid "Viajen ne'e la bele edita ona."
 msgstr "Pelayaran ini tidak dapat diubah lagi."
@@ -1345,8 +1433,8 @@ msgid "Viajen tuir mai"
 msgstr "Pelayaran mendatang"
 
 #: ticketing/forms.py
-msgid "WhatsApp (opsionál)"
-msgstr "WhatsApp (opsional)"
+msgid "WhatsApp"
+msgstr "WhatsApp"
 
 #: report/emails.py
 msgid "anual"
@@ -1391,6 +1479,10 @@ msgstr "penumpang"
 #: ticketing/templates/ticketing/sailing_detail.html
 msgid "uluk"
 msgstr "semula"
+
+#: report/emails.py
+msgid "valor normal"
+msgstr "nilai normal"
 
 #: report/templates/report/boarding.html
 msgid "viajen sala"

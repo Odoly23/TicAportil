@@ -308,3 +308,17 @@ class AuditViewTests(AdminBase):
 		self.assertEqual({a.action for a in r.context['objects']}, {'ticket_sold'})
 		self.assertIn('login', set(r.context['actions']))
 		self.assertEqual(self.client.get(reverse('audit-list')).status_code, 200)
+
+
+class SpecialPermissionTests(AdminBase):
+	def test_charter_and_bonus_are_grantable_per_person_and_admin_only_by_default(self):
+		clerk = self.make('clerk', 'resepsionista')
+		self.assertFalse(clerk.has_perm('ticketing.issue_charter') or clerk.has_perm('ticketing.issue_complimentary'))
+		form = self.client.get(reverse('user-edit', args=[clerk.pk])).context['form']
+		self.assertTrue({'issue_charter', 'issue_complimentary'} <= {c for c, _ in form.fields['extra_perms'].choices})
+		data = {'username': 'clerk', 'first_name': '', 'last_name': '', 'email': '', 'phone': '', 'preferred_language': 'tet',
+			'role': 'resepsionista', 'is_active': 'on', 'extra_perms': ['issue_complimentary']}
+		self.client.post(reverse('user-edit', args=[clerk.pk]), data)
+		clerk = User.objects.get(pk=clerk.pk)
+		self.assertTrue(clerk.has_perm('ticketing.issue_complimentary')); self.assertFalse(clerk.has_perm('ticketing.issue_charter'))
+		self.assertTrue(self.admin.has_perm('ticketing.issue_charter'))   # the admin role holds everything
