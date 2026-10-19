@@ -315,3 +315,39 @@ class EmailTests(Base):
 			call_command('send_reports', period='daily', date='nope')
 		with mock.patch('django.core.mail.EmailMessage.send', side_effect=OSError('x')), self.assertRaises(CommandError):
 			call_command('send_reports', period='daily', date='2026-10-11')
+
+
+@override_settings(REPORT_RECIPIENTS=['boss@example.com'])
+class DueReportsTests(Base):
+	def run_on(self, day):
+		out = io.StringIO()
+		with mock.patch('django.utils.timezone.localdate', return_value=day):
+			call_command('send_due_reports', stdout=out)
+		return out.getvalue()
+
+	def kinds(self):
+		return sorted(ReportLog.objects.filter(ok=True).values_list('period', 'key'))
+
+	def test_ordinary_day_sends_only_yesterdays_daily_report(self):
+		self.run_on(date(2026, 10, 14))
+		self.assertEqual(self.kinds(), [('daily', '2026-10-13')])
+
+	def test_first_of_month_adds_the_monthly_report_for_the_month_that_ended(self):
+		self.run_on(date(2026, 11, 1))
+		self.assertEqual(self.kinds(), [('daily', '2026-10-31'), ('monthly', '2026-10')])
+
+	def test_first_of_january_adds_monthly_and_yearly(self):
+		self.run_on(date(2027, 1, 1))
+		self.assertEqual(self.kinds(), [('daily', '2026-12-31'), ('monthly', '2026-12'), ('yearly', '2026')])
+
+	def test_running_twice_does_not_send_twice(self):
+		self.run_on(date(2026, 10, 14)); first = len(mail.outbox)
+		self.assertIn('already sent', self.run_on(date(2026, 10, 14)))
+		self.assertEqual(len(mail.outbox), first)
+
+	def test_failure_exits_non_zero_and_a_retry_still_works(self):
+		with mock.patch('django.core.mail.EmailMessage.send', side_effect=OSError('smtp down')), self.assertRaises(SystemExit):
+			self.run_on(date(2026, 10, 14))
+		self.assertEqual(self.kinds(), [])
+		self.run_on(date(2026, 10, 14))
+		self.assertEqual(self.kinds(), [('daily', '2026-10-13')])

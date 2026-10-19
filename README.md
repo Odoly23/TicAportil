@@ -66,7 +66,9 @@ Teks sumber = Tetun. Tambah di `scripts/translations.py`, lalu `python scripts/b
   **Batas bonus** (menu Jestaun → Batas Bonus): maksimal per orang per bulan (berdasarkan nomor dokumen) dan batas per
   pelayaran (nilai awal untuk pelayaran baru, bisa diubah per pelayaran); kosong = tanpa batas. Dicek di form dan sekali
   lagi di dalam transaksi berkunci; bonus yang dibatalkan melepas jatahnya.
-- Berikut: deploy (gunicorn, nginx, PostgreSQL, HTTPS, backup) menunggu server baru dari APORTIL; WhatsApp.
+- Uji coba hosting: lihat **DEPLOY_PYTHONANYWHERE.md** (sudah diuji di mode produksi: DEBUG mati, proxy HTTPS, WhiteNoise;
+  `collectstatic` bersih; perintah harian tunggal `send_due_reports` untuk host yang hanya punya satu jadwal harian).
+- Berikut: deploy produksi (gunicorn, nginx, PostgreSQL, HTTPS, backup) menunggu server baru dari APORTIL; WhatsApp.
 
 ### Aturan hitung laporan (USD, hari = hari kalender Asia/Dili)
 - **Bruto** = tiket yang dibuat pada periode, kecuali yang dibatalkan karena salah emisi (*void*, tidak dihitung).
