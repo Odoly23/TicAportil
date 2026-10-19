@@ -1,0 +1,22 @@
+{% extends "main/layout.html" %}{% load i18n %}
+{% block content %}
+	<ol class="breadcrumb mb-2 mt-1">
+		<li class="breadcrumb-item"><a href="{% url 'home' %}">VARANDA</a></li>
+		<li class="breadcrumb-item active" aria-current="page">{{ legend|upper }}</li>
+	</ol>
+	<div class="card shadow-lg rounded"><div class="card-header">{{ legend|upper }}</div>
+		<ul class="list-group list-group-flush">
+		{% for n in objects %}
+			{% with t=n.text %}
+			<li class="list-group-item {% if not n.read_at %}bg-light{% endif %}">
+				<div class="d-flex justify-content-between"><strong>{{ t.0 }}</strong><small class="text-muted">{{ n.created_at|date:"d/m/Y H:i" }}</small></div>
+				<div>{{ t.1 }}</div>
+				{% if n.sailing_id %}<a class="small" href="{% url 'sailing-detail' n.sailing_id %}">{% trans "Haree viajen" %}</a>{% endif %}
+			</li>
+			{% endwith %}
+		{% empty %}
+			<li class="list-group-item text-muted">{% trans "Seidauk iha notifikasaun." %}</li>
+		{% endfor %}
+		</ul>
+	</div>
+{% endblock %}

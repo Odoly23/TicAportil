@@ -1,0 +1,47 @@
+{% extends "main/layout.html" %}{% load i18n crispy_forms_tags %}
+{% block content %}
+	<ol class="breadcrumb mb-2 mt-1">
+		<li class="breadcrumb-item"><a href="{% url 'home' %}">VARANDA</a></li>
+		<li class="breadcrumb-item"><a href="{% url 'report-dash' %}">{% trans "Relatóriu" %}</a></li>
+		<li class="breadcrumb-item active" aria-current="page">{{ legend|upper }}</li>
+	</ol>
+	<div class="card shadow-lg rounded mb-3">
+		<div class="card-header">{{ legend|upper }}</div>
+		<div class="card-body">
+			<form method="get">
+				{% if form.non_field_errors %}<div class="alert alert-danger p-2">{{ form.non_field_errors }}</div>{% endif %}
+				{% crispy form %}
+				<button class="btn btn-info" type="submit"><i class="fa fa-search"></i> {% trans "Buka" %}</button>
+				{% if ok %}
+				<a class="btn btn-outline-success" href="?{{ query }}{% if query %}&{% endif %}fmt=xlsx"><i class="fa fa-file-excel-o"></i> Excel</a>
+				<a class="btn btn-outline-danger" href="?{{ query }}{% if query %}&{% endif %}fmt=pdf"><i class="fa fa-file-pdf-o"></i> PDF</a>
+				{% endif %}
+			</form>
+		</div>
+	</div>
+	{% if summary %}
+	<div class="row">
+		<div class="col-6 col-md mb-3"><div class="card kpi h-100"><div class="card-body"><div class="text-muted small">{% trans "Bruto (USD)" %}</div><div class="kpi-value">${{ summary.gross|floatformat:2 }}</div><div class="small">{{ summary.tickets }} {% trans "bilhete" %} · {{ summary.pax }} {% trans "pasajeiru" %}</div></div></div></div>
+		<div class="col-6 col-md mb-3"><div class="card kpi h-100"><div class="card-body"><div class="text-muted small">{% trans "Fila osan (USD)" %}</div><div class="kpi-value text-danger">−${{ summary.refunds|floatformat:2 }}</div><div class="small">{{ summary.refund_tickets }} {% trans "bilhete" %}</div></div></div></div>
+		<div class="col-6 col-md mb-3"><div class="card kpi h-100"><div class="card-body"><div class="text-muted small">{% trans "Liquidu (USD)" %}</div><div class="kpi-value text-success">${{ summary.net|floatformat:2 }}</div></div></div></div>
+		<div class="col-6 col-md mb-3"><div class="card kpi h-100"><div class="card-body"><div class="text-muted small">{% trans "Bonus (gratis)" %}</div><div class="kpi-value">{{ summary.bonus_tickets }}</div><div class="small">{% trans "valor normal" %} ${{ summary.bonus_value|floatformat:2 }}</div></div></div></div>
+		<div class="col-6 col-md mb-3"><div class="card kpi h-100"><div class="card-body"><div class="text-muted small">{% trans "Bilhete kansela (sala) — la konta" %}</div><div class="kpi-value">{{ summary.void_tickets }}</div><div class="small">${{ summary.voided|floatformat:2 }}</div></div></div></div>
+	</div>
+	{% for title, rows in tables %}
+		<div class="card shadow-sm mb-3">
+			<div class="card-header">{{ title }}</div>
+			<div class="table-responsive">
+			<table class="table table-sm mb-0">
+				<thead><tr><th>{% trans "Deskrisaun" %}</th><th class="text-right">{% trans "Bilhete" %}</th><th class="text-right">{% trans "Pasajeiru" %}</th><th class="text-right">{% trans "Bruto (USD)" %}</th><th class="text-right">{% trans "Fila osan (USD)" %}</th><th class="text-right">{% trans "Liquidu (USD)" %}</th></tr></thead>
+				<tbody>
+				{% for r in rows %}
+					<tr><td>{% if r.label.year %}{{ r.label|date:"d/m/Y" }}{% else %}{{ r.label }}{% endif %}</td><td class="text-right">{{ r.tickets }}</td><td class="text-right">{{ r.pax }}</td>
+						<td class="text-right">{{ r.gross|floatformat:2 }}</td><td class="text-right">{{ r.refunds|floatformat:2 }}</td><td class="text-right"><strong>{{ r.net|floatformat:2 }}</strong></td></tr>
+				{% empty %}<tr><td colspan="6" class="text-muted">—</td></tr>{% endfor %}
+				</tbody>
+			</table>
+			</div>
+		</div>
+	{% endfor %}
+	{% endif %}
+{% endblock %}

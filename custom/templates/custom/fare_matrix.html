@@ -1,0 +1,32 @@
+{% extends "main/layout.html" %}{% load i18n %}
+{% block content %}
+	<ol class="breadcrumb mb-2 mt-1">
+		<li class="breadcrumb-item"><a href="{% url 'home' %}">VARANDA</a></li>
+		<li class="breadcrumb-item active" aria-current="page">{{ legend|upper }}</li>
+	</ol>
+	<div class="card shadow-lg rounded">
+		<div class="card-header">{{ legend|upper }} (USD)</div>
+		<div class="card-body">
+			<p class="text-muted small">{% trans "Husik mamuk = kategoria ne'e la faan iha rota ne'e. Presu foun vale ba faan tuir mai; bilhete ne'ebé faan ona la muda." %}</p>
+			<form method="post" novalidate>{% csrf_token %}
+				<div class="table-responsive">
+				<table class="table table-sm table-bordered fare-matrix">
+					<thead><tr><th>{% trans "Kategoria" %}</th>{% for r in routes %}<th class="text-center">{{ r }}</th>{% endfor %}</tr></thead>
+					<tbody>
+					{% for row in rows %}
+						<tr>
+							<th class="align-middle">{{ row.item.name_tet }}<div class="small text-muted font-weight-normal">{{ row.item.get_quota_group_display }}</div></th>
+							{% for c in row.cells %}
+							<td><input name="{{ c.name }}" value="{{ c.value }}" inputmode="decimal" placeholder="—" class="form-control text-right{% if c.error %} is-invalid{% endif %}" aria-label="{{ row.item.name_tet }} {{ forloop.counter }}"></td>
+							{% endfor %}
+						</tr>
+					{% empty %}<tr><td class="text-muted">{% trans "Seidauk iha kategoria ativu." %}</td></tr>{% endfor %}
+					</tbody>
+				</table>
+				</div>
+				<button class="btn btn-success" type="submit"><i class="fa fa-save"></i> {% trans "Rai" %}</button>
+				<a class="btn btn-outline-secondary" href="{% url 'fareitem-list' %}">{% trans "Jere kategoria" %}</a>
+			</form>
+		</div>
+	</div>
+{% endblock %}

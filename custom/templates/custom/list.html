@@ -1,0 +1,33 @@
+{% extends "main/layout.html" %}{% load i18n %}
+{% block content %}
+	<ol class="breadcrumb mb-2 mt-1">
+		<li class="breadcrumb-item"><a href="{% url 'home' %}">VARANDA</a></li>
+		<li class="breadcrumb-item active" aria-current="page">{{ legend|upper }}</li>
+	</ol>
+	<div class="card shadow-lg pt-0 rounded">
+		<div class="card-header">{{ legend|upper }}</div>
+		<div class="card-body">
+			{% for w in warnings %}<div class="alert alert-warning p-2"><i class="fa fa-exclamation-triangle"></i> {{ w }}</div>{% endfor %}
+			{% if can_add %}<a class="btn btn-sm btn-primary mb-2" href="{% url key|add:'-add' %}">{% trans "Aumenta" %} <i class="fa fa-plus"></i></a>{% endif %}
+			<div class="table-responsive">
+			<table class="table table-sm" id="example" width="100%">
+				<thead><tr><th>Nu.</th>{% for h in headers %}<th>{{ h }}</th>{% endfor %}<th>#</th></tr></thead>
+				<tbody>
+				{% for r in rows %}
+					<tr>
+						<td>{{ forloop.counter }}</td>
+						{% for c in r.cells %}<td>{{ c }}</td>{% endfor %}
+						<td class="text-nowrap">
+							<a class="btn btn-sm btn-success" href="{% url key|add:'-edit' r.obj.pk %}"><i class="fa fa-edit"></i></a>
+							{% if can_delete %}{% trans "Hamoos item ne'e?" as q %}
+							<form method="post" action="{% url key|add:'-delete' r.obj.pk %}" class="d-inline" onsubmit="return confirm('{{ q|escapejs }}')">{% csrf_token %}<button class="btn btn-sm btn-outline-danger"><i class="fa fa-trash"></i></button></form>{% endif %}
+						</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block scripts %}<script>$(document).ready(function () { $('#example').DataTable(); });</script>{% endblock %}

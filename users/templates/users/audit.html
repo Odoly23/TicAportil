@@ -1,0 +1,29 @@
+{% extends "main/layout.html" %}{% load i18n %}
+{% block content %}
+	<ol class="breadcrumb mb-2 mt-1">
+		<li class="breadcrumb-item"><a href="{% url 'home' %}">VARANDA</a></li>
+		<li class="breadcrumb-item active" aria-current="page">{{ legend|upper }}</li>
+	</ol>
+	<div class="card shadow-lg pt-0 rounded">
+		<div class="card-header">{{ legend|upper }}</div>
+		<div class="card-body">
+			<form method="get" class="form-inline mb-3">
+				<select name="action" class="form-control mr-2 mb-2"><option value="">— {% trans "Hotu" %} —</option>
+					{% for a in actions %}<option value="{{ a }}" {% if a == action %}selected{% endif %}>{{ a }}</option>{% endfor %}</select>
+				<button class="btn btn-sm btn-info mb-2">{% trans "Buka" %}</button>
+				<span class="ml-2 mb-2 small text-muted">{% trans "Hatudu 1500 ikus." %}</span>
+			</form>
+			<div class="table-responsive">
+			<table class="table table-sm" id="example" width="100%">
+				<thead><tr><th>{% trans "Oras" %}</th><th>{% trans "Naran uza-na'in" %}</th><th>{% trans "Asaun" %}</th><th>{% trans "Detallu" %}</th><th>IP</th></tr></thead>
+				<tbody>
+				{% for a in objects %}
+					<tr><td data-order="{{ a.created_at|date:'c' }}">{{ a.created_at|date:"d/m/Y H:i:s" }}</td><td>{{ a.username|default:"—" }}</td><td><code>{{ a.action }}</code></td><td class="small">{{ a.detail|truncatechars:160 }}</td><td class="small">{{ a.ip|default:"" }}</td></tr>
+				{% endfor %}
+				</tbody>
+			</table>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block scripts %}<script>$(document).ready(function () { $('#example').DataTable({order: [[0, 'desc']]}); });</script>{% endblock %}

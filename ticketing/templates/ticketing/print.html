@@ -1,0 +1,60 @@
+{% load i18n static %}<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ obj.serial }}</title>
+<style>
+	@page { size: 80mm auto; margin: 3mm; }
+	* { box-sizing: border-box; }
+	body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; color: #000; font-size: 12px; }
+	.t { width: 74mm; margin: 0 auto; padding: 4px 0; }
+	.c { text-align: center; }
+	.logo { max-width: 52mm; height: auto; }
+	h1 { font-size: 14px; margin: 4px 0; }
+	hr { border: 0; border-top: 1px dashed #000; margin: 6px 0; }
+	table { width: 100%; border-collapse: collapse; }
+	td { padding: 1px 0; vertical-align: top; } td:first-child { width: 30%; color: #333; }
+	.big { font-size: 20px; font-weight: 700; }
+	.qr { width: 38mm; margin: 4px auto; } .qr svg { width: 100%; height: auto; }
+	.stamp { border: 1px dashed #000; height: 22mm; margin-top: 6px; text-align: center; color: #666; font-size: 10px; padding-top: 2px; }
+	.noprint { text-align: center; margin: 12px; }
+	.noprint a, .noprint button { display: inline-block; padding: 12px 18px; margin: 4px; border: 0; border-radius: 8px; background: #009ea0; color: #fff; font-size: 16px; text-decoration: none; cursor: pointer; }
+	.noprint a.gray { background: #6c757d; }
+	@media print { .noprint { display: none; } }
+</style>
+</head>
+<body>
+<div class="t">
+	<div class="c">
+		{% if logo_url %}<img class="logo" src="{{ logo_url }}" alt="APORTIL">{% else %}<h1>APORTIL</h1>{% endif %}
+		<div><small>{% trans "Bilhete Ró" %}</small></div>
+	</div>
+	<hr>
+	{% if obj.item.quota_group == 'charter' %}<div class="c big">{% trans "ALUGA RÓ / CHARTER" %}</div>{% elif obj.item.is_block %}<div class="c big">{% trans "ALUGA PARTE / BLOK" %}</div>{% endif %}
+	{% if obj.payment_method == 'complimentary' %}<div class="c big">{% trans "BONUS — GRATIS" %}</div>{% endif %}
+	<div class="c big">{{ obj.sailing.route.origin }} ➔ {{ obj.sailing.route.destination }}</div>
+	<table>
+		<tr><td>{% trans "Ró" %}</td><td>{{ obj.sailing.vessel }}</td></tr>
+		<tr><td>{% trans "Partida" %}</td><td><strong>{{ obj.sailing.departure|date:"d/m/Y H:i" }}</strong></td></tr>
+		<tr><td>{% trans "Tipu" %}</td><td>{{ obj.item.display_name }}{% if obj.quantity > 1 %} ×{{ obj.quantity }}{% endif %}</td></tr>
+		{% if obj.full_name %}<tr><td>{% trans "Naran" %}</td><td><strong>{{ obj.full_name }}</strong></td></tr>
+		<tr><td>{% trans "Dokumentu" %}</td><td>{{ obj.get_document_type_display }} {{ obj.document_number }}</td></tr>{% endif %}
+		{% if obj.plate_number %}<tr><td>{% trans "Plaka" %}</td><td>{{ obj.plate_number }}</td></tr>{% endif %}
+		<tr><td>USD</td><td><strong>${{ obj.total }}</strong> ({{ obj.get_payment_method_display }})</td></tr>
+		{% if obj.bonus_reference %}<tr><td>{% trans "Ref." %}</td><td>{{ obj.bonus_reference }}</td></tr>{% endif %}
+	</table>
+	<hr>
+	<div class="qr">{{ qr|safe }}</div>
+	<div class="c"><strong>{{ obj.serial }}</strong></div>
+	<div class="c"><small>{{ obj.created_at|date:"d/m/Y H:i" }} · {{ obj.sold_by|default:"—" }}</small></div>
+	<div class="stamp">{% trans "Stampel" %}</div>
+</div>
+<div class="noprint">
+	<button onclick="window.print()">{% trans "Imprime" %}</button>
+	<a href="{% url 'ticket-sell' obj.sailing_id %}" class="gray">{% trans "Sosa seluk" %}</a>
+	<a href="{% url 'ticket-detail' obj.pk %}" class="gray">{% trans "Detallu" %}</a>
+</div>
+<script>window.addEventListener('load', function () { setTimeout(function () { window.print(); }, 400); });</script>
+</body>
+</html>

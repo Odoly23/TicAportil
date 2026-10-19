@@ -1,0 +1,48 @@
+{% extends "main/layout.html" %}
+{% load static i18n %}
+{% block content %}
+	<ol class="breadcrumb mb-2 mt-1">
+		<li class="breadcrumb-item"><a href="{% url 'home' %}">VARANDA</a></li>
+		<li class="breadcrumb-item active" aria-current="page">{{ legend|upper }}</li>
+	</ol>
+	<div class="row">
+		{% for k in kpis %}
+		<div class="col-md-4 mb-3">
+			<div class="card kpi h-100"><div class="card-body">
+				<div class="text-muted small text-uppercase">{% if k.key == 'today' %}{% trans "Ohin" %}{% elif k.key == 'month' %}{% trans "Fulan ida-ne'e" %}{% else %}{% trans "Tinan ida-ne'e" %}{% endif %}</div>
+				<div class="kpi-value">${{ k.net|floatformat:2 }}</div>
+				<div class="small">{{ k.tickets }} {% trans "bilhete" %} · {{ k.pax }} {% trans "pasajeiru" %}{% if k.refunds %} · <span class="text-danger">−${{ k.refunds|floatformat:2 }} {% trans "fila osan" %}</span>{% endif %}</div>
+			</div></div>
+		</div>
+		{% endfor %}
+	</div>
+	<div class="mb-3">
+		<a class="btn btn-sm btn-primary" href="{% url 'report-sales' %}"><i class="fa fa-table"></i> {% trans "Relatóriu detallu" %}</a>
+		<a class="btn btn-sm btn-outline-secondary" href="{% url 'report-boarding' %}"><i class="fa fa-ship"></i> {% trans "Embarke" %}</a>
+	</div>
+	<div class="row">
+		<div class="col-lg-8"><div class="card mb-3"><div class="card-header">{% trans "Pendapatan loron-loron (loron 30 ikus)" %}</div>
+			<div class="card-body"><figure class="highcharts-figure"><div id="chart_diaria"></div></figure></div></div></div>
+		<div class="col-lg-4"><div class="card mb-3"><div class="card-header">{% trans "Bazeia pagamentu" %}</div>
+			<div class="card-body"><figure class="highcharts-figure"><div id="chart_pagamentu"></div></figure></div></div></div>
+	</div>
+	<div class="row">
+		<div class="col-lg-6"><div class="card mb-3"><div class="card-header">{% trans "Bazeia rota" %}</div>
+			<div class="card-body"><figure class="highcharts-figure"><div id="chart_rota"></div></figure></div></div></div>
+		<div class="col-lg-6"><div class="card mb-3"><div class="card-header">{% trans "Bazeia ró" %}</div>
+			<div class="card-body"><figure class="highcharts-figure"><div id="chart_navio"></div></figure></div></div></div>
+	</div>
+{% endblock %}
+{% block scripts %}
+	<script src="{% static 'main/js_custom/highcharts.js' %}"></script>
+	<script src="{% static 'main/js_custom/accessibility.js' %}"></script>
+	<script src="{% static 'main/js_custom/exporting.js' %}"></script>
+	<script src="{% static 'main/js_custom/export-data.js' %}"></script>
+	<link rel="stylesheet" href="{% static 'main/js_custom/chart.css' %}">
+	<script>
+		{% include 'chart/venda_diaria.js' %}
+		{% include 'chart/venda_pagamentu.js' %}
+		{% include 'chart/venda_rota.js' %}
+		{% include 'chart/venda_navio.js' %}
+	</script>
+{% endblock %}

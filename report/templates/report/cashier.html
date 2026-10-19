@@ -1,0 +1,47 @@
+{% extends "main/layout.html" %}{% load i18n %}
+{% block content %}
+	<ol class="breadcrumb mb-2 mt-1 noprint">
+		<li class="breadcrumb-item"><a href="{% url 'home' %}">VARANDA</a></li>
+		<li class="breadcrumb-item active" aria-current="page">{{ legend|upper }}</li>
+	</ol>
+	<div class="card shadow-lg rounded mb-3">
+		<div class="card-header">{{ legend|upper }} — {{ day|date:"d/m/Y" }}</div>
+		<div class="card-body">
+			<form method="get" class="form-inline mb-3 noprint">
+				<input type="date" name="date" value="{{ day|date:'Y-m-d' }}" class="form-control mr-2">
+				<button class="btn btn-sm btn-info mr-2">{% trans "Buka" %}</button>
+				<button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.print()"><i class="fa fa-print"></i> {% trans "Imprime" %}</button>
+			</form>
+			{% if own_only %}<p class="text-muted small">{% trans "Ita-nia turnu rasik de'it." %}</p>{% endif %}
+			<div class="table-responsive">
+			<table class="table table-sm">
+				<thead><tr><th>{% trans "Kaixa" %}</th><th class="text-right">{% trans "Bilhete" %}</th><th class="text-right">{% trans "Osan kontante" %}</th><th class="text-right">{% trans "Transferénsia banku" %}</th><th class="text-right">{% trans "Fila osan (USD)" %}</th><th class="text-right">{% trans "Osan iha kaixa" %}</th></tr></thead>
+				<tbody>
+				{% for r in rows %}
+					<tr><td>{{ r.user.get_full_name|default:r.user.username|default:"—" }}</td><td class="text-right">{{ r.tickets }}</td>
+						<td class="text-right">{{ r.cash|floatformat:2 }}</td><td class="text-right">{{ r.transfer|floatformat:2 }}</td>
+						<td class="text-right">{{ r.refunds|floatformat:2 }}</td><td class="text-right"><strong>{{ r.drawer|floatformat:2 }}</strong></td></tr>
+				{% empty %}<tr><td colspan="6" class="text-muted">—</td></tr>{% endfor %}
+				</tbody>
+				{% if rows|length > 1 %}<tfoot><tr class="font-weight-bold"><td>{% trans "Total" %}</td><td class="text-right">{{ totals.tickets }}</td><td class="text-right">{{ totals.cash|floatformat:2 }}</td><td class="text-right">{{ totals.transfer|floatformat:2 }}</td><td class="text-right">{{ totals.refunds|floatformat:2 }}</td><td class="text-right">{{ totals.drawer|floatformat:2 }}</td></tr></tfoot>{% endif %}
+			</table>
+			</div>
+			<p class="small text-muted mb-0">{% trans "Osan iha kaixa = osan kontante faan − osan kontante fila fali. Transferénsia la tama iha kaixa." %}</p>
+		</div>
+	</div>
+	{% for r in rows %}
+	<div class="card shadow-sm mb-3">
+		<div class="card-header">{{ r.user.get_full_name|default:r.user.username|default:"—" }}</div>
+		<div class="table-responsive">
+		<table class="table table-sm mb-0">
+			<thead><tr><th>{% trans "Oras" %}</th><th>{% trans "Serial" %}</th><th>{% trans "Tipu" %}</th><th>{% trans "Viajen" %}</th><th>{% trans "Pagamentu" %}</th><th class="text-right">USD</th><th>Status</th></tr></thead>
+			<tbody>
+			{% for t in r.lines %}
+				<tr><td>{{ t.created_at|date:"H:i" }}</td><td>{{ t.serial }}</td><td>{{ t.item.display_name }}{% if t.quantity > 1 %} ×{{ t.quantity }}{% endif %}</td><td>{{ t.sailing.route }}</td><td>{{ t.get_payment_method_display }}</td><td class="text-right">{{ t.total }}</td><td>{{ t.get_status_display }}</td></tr>
+			{% endfor %}
+			</tbody>
+		</table>
+		</div>
+	</div>
+	{% endfor %}
+{% endblock %}

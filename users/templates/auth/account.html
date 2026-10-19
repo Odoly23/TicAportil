@@ -1,0 +1,18 @@
+{% extends "main/layout.html" %}{% load i18n crispy_forms_tags %}
+{% block content %}
+	<ol class="breadcrumb mb-2 mt-1">
+		<li class="breadcrumb-item"><a href="{% url 'home' %}">VARANDA</a></li>
+		<li class="breadcrumb-item active" aria-current="page">{{ legend|upper }}</li>
+	</ol>
+	<div class="row"><div class="col-lg-7">
+		<div class="card shadow-lg rounded mb-3">
+			<div class="card-header">{{ user.username }} <span class="badge badge-info">{{ role|default:"-" }}</span></div>
+			<div class="card-body">
+				<form method="post" novalidate>{% csrf_token %}{% crispy form %}
+					<button class="btn btn-success" type="submit"><i class="fa fa-save"></i> {% trans "Rai" %}</button>
+					<a class="btn btn-outline-secondary" href="{% url 'password_change' %}"><i class="fa fa-key"></i> {% trans "Muda liafuan-pase" %}</a>
+				</form>
+			</div>
+		</div>
+	</div></div>
+{% endblock %}
