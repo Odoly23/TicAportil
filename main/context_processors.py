@@ -23,6 +23,17 @@ MENU = [
 		('report-cashier', _("Relatóriu Kaixa"), 'fa-money', 'ticketing.issue_ticket'),
 		('report-boarding', _("Relatóriu Embarke"), 'fa-ship', 'ticketing.view_reports'),
 	]),
+	(None, _("Jestaun"), 'fa-cog', None, [
+		('fare-matrix', _("Presu"), 'fa-usd', 'custom.change_fare'),
+		('fareitem-list', _("Kategoria"), 'fa-tags', 'custom.change_fareitem'),
+		('route-list', _("Rota"), 'fa-road', 'custom.change_route'),
+		('port-list', _("Porta"), 'fa-anchor', 'custom.change_port'),
+		('operator-list', _("Operadór"), 'fa-building', 'custom.change_operator'),
+		('vessel-list', _("Ró"), 'fa-ship', 'custom.change_vessel'),
+		('user-list', _("Uza-na'in"), 'fa-users', 'users.change_user'),
+		('audit-list', _("Audit Log"), 'fa-history', 'users.view_auditlog'),
+		('admin:index', _("Django admin"), 'fa-wrench', '__staff__'),
+	]),
 ]
 
 
@@ -41,7 +52,10 @@ def role(request):
 
 	def leaf(e):
 		name, label, icon, perm = e
-		if perm is not None and not user.has_perm(perm):
+		if perm == '__staff__':
+			if not user.is_staff:
+				return None
+		elif perm is not None and not user.has_perm(perm):
 			return None
 		return {'url': name, 'label': label, 'icon': icon, 'active': name == current, 'badge': unread if name == 'notifications' else 0, 'children': None}
 

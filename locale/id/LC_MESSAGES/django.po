@@ -9,6 +9,14 @@ msgstr ""
 msgid " Fila fali osan: $%(a)s."
 msgstr " Dana dikembalikan: $%(a)s."
 
+#: users/forms.py
+msgid "Admin APORTIL"
+msgstr "Admin APORTIL"
+
+#: users/forms.py
+msgid "Admin ikus la bele hasai ka halo la ativu."
+msgstr "Admin terakhir tidak boleh dicopot atau dinonaktifkan."
+
 #: ticketing/models.py
 msgid "Agendadu"
 msgstr "Terjadwal"
@@ -25,9 +33,21 @@ msgstr "Pengumuman"
 msgid "Anúnsiu rai ona. Email haruka: %(n)d."
 msgstr "Pengumuman disimpan. Email terkirim: %(n)d."
 
+#: users/forms.py
+msgid "Apelidu"
+msgstr "Nama belakang"
+
+#: users/templates/users/audit.html
+msgid "Asaun"
+msgstr "Tindakan"
+
 #: ticketing/views_sched.py
 msgid "Asaun la bele."
 msgstr "Tindakan tidak diizinkan."
+
+#: users/forms.py
+msgid "Ativu"
+msgstr "Aktif"
 
 #: ticketing/models.py
 msgid "Atrazadu"
@@ -41,9 +61,25 @@ msgstr "Tunda"
 msgid "Atrazu no haruka notifikasaun"
 msgstr "Tunda dan kirim notifikasi"
 
-#: ticketing/templates/ticketing/sailing_list.html
+#: users/views.py
+msgid "Atualiza ona."
+msgstr "Diperbarui."
+
+#: main/context_processors.py
+msgid "Audit Log"
+msgstr "Log audit"
+
+#: custom/views.py
 msgid "Aumenta"
 msgstr "Tambah"
+
+#: users/views.py
+msgid "Aumenta uza-na'in"
+msgstr "Tambah pengguna"
+
+#: custom/forms.py
+msgid "Ba"
+msgstr "Ke"
 
 #: report/exports.py
 msgid "Bazeia kaixa"
@@ -189,6 +225,10 @@ msgstr "Keterangan"
 msgid "Detallu"
 msgstr "Detail"
 
+#: main/context_processors.py
+msgid "Django admin"
+msgstr "Django admin"
+
 #: ticketing/templates/ticketing/detail.html
 msgid "Dokumentu"
 msgstr "Dokumen"
@@ -197,7 +237,7 @@ msgstr "Dokumen"
 msgid "Download lista (offline)"
 msgstr "Unduh daftar (offline)"
 
-#: ticketing/templates/ticketing/sailing_detail.html
+#: users/views.py
 msgid "Edita"
 msgstr "Ubah"
 
@@ -205,9 +245,25 @@ msgstr "Ubah"
 msgid "Em anexo: relatório detalhado em PDF e Excel."
 msgstr "Terlampir: laporan rinci dalam PDF dan Excel."
 
+#: users/forms.py
+msgid "Email"
+msgstr "Email"
+
+#: custom/forms.py
+msgid "Email (ba notifikasaun)"
+msgstr "Email (untuk notifikasi)"
+
 #: ticketing/forms.py
 msgid "Email (opsionál)"
 msgstr "Email (opsional)"
+
+#: users/views.py
+msgid "Email la haruka."
+msgstr "Email tidak terkirim."
+
+#: users/forms.py
+msgid "Email obrigatóriu atu haruka konvite."
+msgstr "Email wajib diisi untuk mengirim undangan."
 
 #: report/templates/report/chart_dash.html
 msgid "Embarke"
@@ -216,6 +272,18 @@ msgstr "Naik kapal"
 #: ticketing/models.py
 msgid "Emite ona"
 msgstr "Diterbitkan"
+
+#: custom/views.py
+msgid "Estranjeiru"
+msgstr "Orang asing"
+
+#: custom/forms.py
+msgid "Estranjeiru (pasaporte) de'it"
+msgstr "Hanya orang asing (paspor)"
+
+#: users/forms.py
+msgid "Faan bilhete"
+msgstr "Jual tiket"
 
 #: ticketing/forms.py
 msgid "Faan bilhete ba viajen ne'e taka ona."
@@ -237,6 +305,10 @@ msgstr "Berkas bukan gambar yang valid."
 msgid "Fila"
 msgstr "Kembali"
 
+#: users/templates/auth/password_reset.html
+msgid "Fila ba login"
+msgstr "Kembali ke login"
+
 #: main/templates/home/500.html
 msgid "Fila ba pájina inisiál"
 msgstr "Kembali ke beranda"
@@ -252,6 +324,10 @@ msgstr "Pengembalian dana — alasan kesehatan"
 #: report/exports.py
 msgid "Fila osan (USD)"
 msgstr "Pengembalian dana (USD)"
+
+#: users/forms.py
+msgid "Fila osan (razaun saúde)"
+msgstr "Pengembalian dana (alasan kesehatan)"
 
 #: ticketing/forms.py
 msgid "Foto dokumentu"
@@ -273,6 +349,22 @@ msgstr "Bulan ini"
 msgid "Hahú kámera"
 msgstr "Mulai kamera"
 
+#: users/templates/auth/password_reset.html
+msgid ""
+"Hakerek email ne'ebé rejistu. Ami haruka link atu define liafuan-pase foun "
+"(vale oras 24)."
+msgstr ""
+"Masukkan email terdaftar. Kami kirim tautan untuk mengatur kata sandi baru "
+"(berlaku 24 jam)."
+
+#: users/templates/auth/password_reset.html
+msgid "Haluha liafuan-pase"
+msgstr "Lupa kata sandi"
+
+#: main/templates/home/login.html
+msgid "Haluha liafuan-pase?"
+msgstr "Lupa kata sandi?"
+
 #: ticketing/templates/ticketing/announcement_list.html
 msgid "Hamoos anúnsiu ne'e?"
 msgstr "Hapus pengumuman ini?"
@@ -281,13 +373,45 @@ msgstr "Hapus pengumuman ini?"
 msgid "Hamoos dadus offline husi telemovel ne'e?"
 msgstr "Hapus data offline dari ponsel ini?"
 
+#: custom/templates/custom/list.html
+msgid "Hamoos item ne'e?"
+msgstr "Hapus item ini?"
+
+#: custom/views.py
+msgid "Hamoos ona."
+msgstr "Dihapus."
+
+#: users/forms.py
+msgid "Haree foto dokumentu"
+msgstr "Lihat foto dokumen"
+
+#: users/forms.py
+msgid "Haree relatóriu"
+msgstr "Lihat laporan"
+
 #: ticketing/templates/ticketing/notifications.html
 msgid "Haree viajen"
 msgstr "Lihat pelayaran"
 
+#: users/forms.py
+msgid "Haruka email atu define liafuan-pase (la presiza hakerek agora)"
+msgstr "Kirim email untuk mengatur kata sandi (tidak perlu diisi sekarang)"
+
 #: ticketing/forms_sched.py
 msgid "Haruka email ba bilhete nain viajen ne'e"
 msgstr "Kirim email ke pemegang tiket pelayaran ini"
+
+#: users/templates/auth/password_reset.html
+msgid "Haruka link"
+msgstr "Kirim tautan"
+
+#: users/templates/users/list.html
+msgid "Haruka link define liafuan-pase"
+msgstr "Kirim tautan atur kata sandi"
+
+#: users/templates/users/audit.html
+msgid "Hatudu 1500 ikus."
+msgstr "Menampilkan 1500 terakhir."
 
 #: ticketing/templates/ticketing/sailing_list.html
 msgid "Hatudu hotu"
@@ -309,9 +433,49 @@ msgstr "Pilih pelayaran dulu."
 msgid "Horáriu Ró-Laran"
 msgstr "Jadwal Kapal"
 
+#: users/templates/users/audit.html
+msgid "Hotu"
+msgstr "Semua"
+
 #: report/forms.py
 msgid "Husi"
 msgstr "Dari"
+
+#: custom/forms.py
+msgid "Husi no ba la bele hanesan."
+msgstr "Asal dan tujuan tidak boleh sama."
+
+#: custom/templates/custom/fare_matrix.html
+msgid ""
+"Husik mamuk = kategoria ne'e la faan iha rota ne'e. Presu foun vale ba faan "
+"tuir mai; bilhete ne'ebé faan ona la muda."
+msgstr ""
+"Kosong = kategori ini tidak dijual di rute ini. Harga baru berlaku untuk "
+"penjualan berikutnya; tiket yang sudah terjual tidak berubah."
+
+#: users/templates/auth/password_reset_confirm.html
+msgid "Husu link foun"
+msgstr "Minta tautan baru"
+
+#: custom/views.py
+msgid "Idade"
+msgstr "Usia"
+
+#: custom/forms.py
+msgid "Idade maximu"
+msgstr "Usia maksimum"
+
+#: custom/forms.py
+msgid "Idade maximu tenke boot liu minimu."
+msgstr "Usia maksimum harus lebih besar dari minimum."
+
+#: custom/forms.py
+msgid "Idade minimu"
+msgstr "Usia minimum"
+
+#: custom/forms.py
+msgid "Idade no estranjeiru ba pasajeiru de'it."
+msgstr "Usia dan orang asing hanya untuk penumpang."
 
 #: ticketing/forms.py
 msgid "Idade pasajeiru (%(a)d) la tuir kategoria ne'e."
@@ -325,15 +489,39 @@ msgstr "Gambar terlalu besar (maks. 10 MB)."
 msgid "Imprime"
 msgstr "Cetak"
 
+#: users/forms.py
+msgid "Inspector (boarding)"
+msgstr "Inspektur (naik kapal)"
+
+#: users/forms.py
+msgid "Ita la bele hasai ita-nia aksesu rasik."
+msgstr "Anda tidak dapat mencabut akses Anda sendiri."
+
 #: report/templates/report/cashier.html
 msgid "Ita-nia turnu rasik de'it."
 msgstr "Hanya shift Anda sendiri."
+
+#: users/forms.py
+msgid "Izin adisionál"
+msgstr "Izin tambahan"
+
+#: users/templates/users/form.html
+msgid "Izin husi papél"
+msgstr "Izin dari peran"
 
 #: main/context_processors.py
 msgid "Jadwal"
 msgstr "Jadwal"
 
-#: main/templates/main/navbar.html
+#: users/forms.py
+msgid "Jere jadwal no anúnsiu"
+msgstr "Kelola jadwal dan pengumuman"
+
+#: custom/templates/custom/fare_matrix.html
+msgid "Jere kategoria"
+msgstr "Kelola kategori"
+
+#: main/context_processors.py
 msgid "Jestaun"
 msgstr "Administrasi"
 
@@ -353,6 +541,10 @@ msgstr "Batalkan (salah terbit) — tanpa pengembalian dana"
 msgid "Kansela bilhete"
 msgstr "Batalkan tiket"
 
+#: users/forms.py
+msgid "Kansela bilhete (sala emisaun)"
+msgstr "Batalkan tiket (salah terbit)"
+
 #: ticketing/views_sched.py
 msgid "Kansela viajen"
 msgstr "Batalkan pelayaran"
@@ -360,6 +552,10 @@ msgstr "Batalkan pelayaran"
 #: ticketing/models.py
 msgid "Kartaun Eleitorál"
 msgstr "Kartu Pemilih"
+
+#: main/context_processors.py
+msgid "Kategoria"
+msgstr "Kategori"
 
 #: ticketing/forms.py
 msgid "Kategoria ne'e ba estranjeiru ho pasaporte de'it."
@@ -369,11 +565,23 @@ msgstr "Kategori ini hanya untuk orang asing dengan paspor."
 msgid "Konfirma kansela"
 msgstr "Konfirmasi pembatalan"
 
+#: users/forms.py
+msgid "Konfirma liafuan-pase"
+msgstr "Konfirmasi kata sandi"
+
+#: main/templates/main/navbar.html
+msgid "Konta"
+msgstr "Akun"
+
+#: users/templates/users/list.html
+msgid "Konvite pendente"
+msgstr "Undangan tertunda"
+
 #: ticketing/forms.py
 msgid "Kuantidade"
 msgstr "Jumlah"
 
-#: ticketing/templates/ticketing/sailing_detail.html
+#: custom/forms.py
 msgid "Kuota"
 msgstr "Kuota"
 
@@ -409,6 +617,18 @@ msgstr "Kuota kendaraan"
 msgid "Kámera la bele loke. Uza input manual."
 msgstr "Kamera tidak bisa dibuka. Gunakan input manual."
 
+#: custom/forms.py
+msgid "Kódigu"
+msgstr "Kode"
+
+#: users/forms.py
+msgid "La ativu = la bele login. Uza ne'e, la hamoos konta."
+msgstr "Nonaktif = tidak bisa masuk. Gunakan ini, bukan menghapus akun."
+
+#: custom/views.py
+msgid "La bele hamoos %(o)s: iha dadus ne'ebé uza ona. Hasai ativu de'it."
+msgstr "%(o)s tidak dapat dihapus: sedang dipakai. Cukup nonaktifkan."
+
 #: ticketing/forms_sched.py
 msgid "La bele menus husi %(n)d (faan ona)."
 msgstr "Tidak boleh kurang dari %(n)d (sudah terjual)."
@@ -433,9 +653,37 @@ msgstr "Tidak naik"
 msgid "Liafuan-pase"
 msgstr "Kata sandi"
 
+#: users/templates/auth/password_reset_complete.html
+msgid "Liafuan-pase define ona. Bele login agora."
+msgstr "Kata sandi diatur. Anda dapat masuk sekarang."
+
+#: users/templates/auth/password_reset_confirm.html
+msgid "Liafuan-pase foun"
+msgstr "Kata sandi baru"
+
+#: users/forms.py
+msgid "Liafuan-pase la hanesan."
+msgstr "Kata sandi tidak sama."
+
+#: users/views.py
+msgid "Liafuan-pase muda ona."
+msgstr "Kata sandi diubah."
+
+#: users/views.py
+msgid "Liafuan-pase muda ona. Sesaun antigu taka ona."
+msgstr "Kata sandi diubah. Sesi lama ditutup."
+
 #: users/models.py
 msgid "Lian"
 msgstr "Bahasa"
+
+#: users/views.py
+msgid "Link haruka ona ba %(e)s."
+msgstr "Tautan dikirim ke %(e)s."
+
+#: users/templates/auth/password_reset_confirm.html
+msgid "Link la válidu ka expira ona."
+msgstr "Tautan tidak valid atau kedaluwarsa."
 
 #: report/exports.py
 msgid "Liquidu (USD)"
@@ -452,6 +700,10 @@ msgstr "Daftar diunduh: %s tiket."
 #: main/templates/main/navbar.html
 msgid "Login"
 msgstr "Masuk"
+
+#: users/templates/users/list.html
+msgid "Login ikus"
+msgstr "Login terakhir"
 
 #: main/templates/main/navbar.html
 msgid "Login staff"
@@ -473,6 +725,10 @@ msgstr "Tandai sudah berangkat"
 msgid "Marka remata"
 msgstr "Tandai selesai"
 
+#: users/forms.py
+msgid "Maximu karakter 150. Letra, númeru no @/./+/-/_ de'it."
+msgstr "Maks. 150 karakter. Hanya huruf, angka, dan @/./+/-/_."
+
 #: ticketing/forms_sched.py
 msgid "Mensajen"
 msgstr "Pesan"
@@ -485,12 +741,16 @@ msgstr "Pindahkan tiket"
 msgid "Muda bilhete ba viajen"
 msgstr "Pindahkan tiket ke pelayaran"
 
+#: users/views.py
+msgid "Muda liafuan-pase"
+msgstr "Ubah kata sandi"
+
 #: main/templates/main/dashboard.html
 msgid "Módulu sira (venda bilhete, scan, relatóriu) sei iha faze tuir mai."
 msgstr ""
 "Modul (penjualan tiket, pemindaian, laporan) hadir di fase berikutnya."
 
-#: custom/models.py
+#: users/forms.py
 msgid "Naran"
 msgstr "Nama"
 
@@ -505,6 +765,10 @@ msgstr "Nama pengguna"
 #: users/forms.py
 msgid "Naran uza-na'in ka liafuan-pase la los. Tenta fali."
 msgstr "Nama pengguna atau kata sandi salah. Coba lagi."
+
+#: users/forms.py
+msgid "Naran uza-na'in ne'e iha ona."
+msgstr "Nama pengguna ini sudah ada."
 
 #: ticketing/forms.py
 msgid "Nasionalidade"
@@ -526,6 +790,10 @@ msgstr "No. dokumen"
 msgid "Nú. plaka"
 msgstr "Nomor plat"
 
+#: custom/forms.py
+msgid "Nú. plaka ba veíkulu de'it."
+msgstr "Nomor plat hanya untuk kendaraan."
+
 #: ticketing/forms.py
 msgid "Nú. plaka obrigatóriu."
 msgstr "Nomor plat wajib diisi."
@@ -538,7 +806,7 @@ msgstr "No. referensi transfer"
 msgid "Nú. serial manual"
 msgstr "No. serial manual"
 
-#: ticketing/forms.py
+#: users/forms.py
 msgid "Obrigatóriu."
 msgstr "Wajib diisi."
 
@@ -562,6 +830,14 @@ msgstr "Online"
 msgid "Operadór"
 msgstr "Operator"
 
+#: users/forms.py
+msgid "Operadór obrigatóriu ba papél operadór."
+msgstr "Operator wajib untuk peran operator."
+
+#: users/forms.py
+msgid "Operadór ró"
+msgstr "Operator kapal"
+
 #: report/templates/report/cashier.html
 msgid "Oras"
 msgstr "Jam"
@@ -569,6 +845,10 @@ msgstr "Jam"
 #: ticketing/forms_sched.py
 msgid "Oras hanesan ho uluk."
 msgstr "Jam sama dengan sebelumnya."
+
+#: custom/forms.py
+msgid "Orden"
+msgstr "Urutan"
 
 #: report/templates/report/cashier.html
 msgid "Osan iha kaixa"
@@ -593,6 +873,10 @@ msgstr "Pembayaran"
 #: main/context_processors.py
 msgid "Painel"
 msgstr "Dasbor"
+
+#: users/forms.py
+msgid "Papél"
+msgstr "Peran"
 
 #: ticketing/views_scan.py
 msgid "Para kámera"
@@ -642,7 +926,7 @@ msgstr "Pendapatan harian (30 hari terakhir)"
 msgid "Períodu naruk liu."
 msgstr "Periode terlalu panjang."
 
-#: ticketing/templates/ticketing/print.html
+#: custom/views.py
 msgid "Plaka"
 msgstr "Plat"
 
@@ -650,13 +934,33 @@ msgstr "Plat"
 msgid "Por rota"
 msgstr "Per rute"
 
+#: main/context_processors.py
+msgid "Porta"
+msgstr "Pelabuhan"
+
 #: main/templates/home/login.html
 msgid "Portal Sistema Bilheteira"
 msgstr "Portal Sistem Tiket"
 
+#: custom/forms.py
+msgid "Presiza nú. plaka"
+msgstr "Perlu nomor plat"
+
+#: main/context_processors.py
+msgid "Presu"
+msgstr "Harga"
+
+#: custom/views.py
+msgid "Presu atualiza ona (%(n)d). Bilhete ne'ebé faan ona la muda."
+msgstr "Harga diperbarui (%(n)d). Tiket yang sudah terjual tidak berubah."
+
 #: main/templates/home/home.html
 msgid "Presu bilhete"
 msgstr "Harga tiket"
+
+#: custom/views.py
+msgid "Presu la válidu. La rai ruma."
+msgstr "Harga tidak valid. Tidak ada yang disimpan."
 
 #: ticketing/forms.py
 msgid "Prova transferénsia"
@@ -685,6 +989,10 @@ msgstr "Simpan"
 #: ticketing/templates/ticketing/sell_form.html
 msgid "Rai no imprime"
 msgstr "Simpan dan cetak"
+
+#: custom/views.py
+msgid "Rai ona."
+msgstr "Disimpan."
 
 #: ticketing/forms_sched.py
 msgid "Razaun (ba pasajeiru)"
@@ -730,6 +1038,10 @@ msgstr "Laporan rinci"
 msgid "Remata"
 msgstr "Selesai"
 
+#: users/forms.py
+msgid "Resepsionista (loket)"
+msgstr "Resepsionis (loket)"
+
 #: report/exports.py
 msgid "Rezumu"
 msgstr "Ringkasan"
@@ -762,9 +1074,25 @@ msgstr "Barang / Hewan"
 msgid "Scan QR"
 msgstr "Pindai QR"
 
+#: users/forms.py
+msgid "Scan QR boarding"
+msgstr "Pindai QR saat naik kapal"
+
 #: report/templates/report/boarding.html
 msgid "Scan problema"
 msgstr "Masalah pemindaian"
+
+#: users/templates/auth/password_reset_done.html
+msgid ""
+"Se email ne'e rejistu, link atu define liafuan-pase haruka ona. Haree mós "
+"iha spam."
+msgstr ""
+"Jika email terdaftar, tautan untuk mengatur kata sandi telah dikirim. "
+"Periksa juga folder spam."
+
+#: custom/templates/custom/fare_matrix.html
+msgid "Seidauk iha kategoria ativu."
+msgstr "Belum ada kategori aktif."
 
 #: ticketing/templates/ticketing/notifications.html
 msgid "Seidauk iha notifikasaun."
@@ -789,6 +1117,10 @@ msgstr "Surat Baptis"
 #: ticketing/models.py
 msgid "Sertifikadu RDTL"
 msgstr "Sertifikat RDTL"
+
+#: users/templates/users/password_form.html
+msgid "Sesaun hotu husi uza-na'in ne'e sei taka."
+msgstr "Semua sesi pengguna ini akan ditutup."
 
 #: ticketing/views_scan.py
 msgid ""
@@ -822,6 +1154,10 @@ msgstr "Menyinkronkan..."
 #: main/templates/home/500.html
 msgid "Sistema iha problema"
 msgstr "Sistem mengalami masalah"
+
+#: users/forms.py
+msgid "Soma ba izin husi papél. La hasai izin husi papél."
+msgstr "Menambah izin dari peran. Tidak mengurangi izin peran."
 
 #: main/context_processors.py
 msgid "Sosa Bilhete"
@@ -902,6 +1238,27 @@ msgstr "Transfer bank"
 #: ticketing/forms_sched.py
 msgid "Títulu"
 msgstr "Judul"
+
+#: main/context_processors.py
+msgid "Uza-na'in"
+msgstr "Pengguna"
+
+#: users/views.py
+msgid "Uza-na'in kria ona, maibé email la haruka. Haruka link husi lista."
+msgstr ""
+"Pengguna dibuat, tetapi email tidak terkirim. Kirim tautan dari daftar."
+
+#: users/views.py
+msgid "Uza-na'in kria ona."
+msgstr "Pengguna dibuat."
+
+#: users/views.py
+msgid "Uza-na'in kria ona. Konvite haruka ona."
+msgstr "Pengguna dibuat. Undangan terkirim."
+
+#: users/views.py
+msgid "Uza-na'in ne'e la iha email."
+msgstr "Pengguna ini tidak punya email."
 
 #: users/models.py
 msgid "Uza-na'in operadór nia haree de'it dadus operadór rasik nian."
@@ -1018,6 +1375,10 @@ msgstr "pengembalian"
 #: ticketing/views_scan.py
 msgid "husi"
 msgstr "oleh"
+
+#: users/templates/users/list.html
+msgid "konvite"
+msgstr "undangan"
 
 #: report/emails.py
 msgid "mensal"

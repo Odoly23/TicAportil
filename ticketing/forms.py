@@ -1,11 +1,10 @@
 from django import forms
-from django.db.models import Case, IntegerField, Value, When
 from django.utils.translation import gettext_lazy as _
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Column, Div
 
 from config.utils import shrink_image
-from custom.models import Fare, FareItem, QuotaGroup
+from custom.models import Fare, FareItem, QuotaGroup, order_items
 from .models import DocumentType, Ticket
 
 MAX_UPLOAD = 10 * 1024 * 1024
@@ -54,9 +53,7 @@ class TicketForm(forms.ModelForm):
 		super().__init__(*args, **kwargs)
 		self.sailing = sailing
 		fares = {f.item_id: f.price for f in Fare.objects.filter(route=sailing.route, item__is_active=True).select_related('item')}
-		order = Case(When(quota_group=QuotaGroup.PASSENGER, then=Value(0)), When(quota_group=QuotaGroup.VEHICLE, then=Value(1)),
-			default=Value(2), output_field=IntegerField())
-		items = FareItem.objects.filter(pk__in=fares.keys()).order_by(order, 'sort_order', 'name_tet')
+		items = order_items(FareItem.objects.filter(pk__in=fares.keys()))
 		self.fares = fares
 		self.fields['item'].queryset = items
 		self.fields['item'].label_from_instance = lambda i: f"{i.display_name()} — ${fares[i.pk]}"

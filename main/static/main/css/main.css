@@ -139,3 +139,7 @@ body.sb-open .page-wrapper, body.sb-open footer { margin-left: var(--sb-w); }
 .nav-links .dropdown-menu a.dropdown-item { color: #212529; }
 .nav-links .dropdown-menu a.dropdown-item.text-danger { color: #dc3545; }
 .nav-links .dropdown-menu a.dropdown-item:hover { background: #eef1ff; color: #000; }
+
+/* Fare matrix */
+.fare-matrix input { min-width: 6.5rem; }
+.fare-matrix th:first-child, .fare-matrix td:first-child { white-space: nowrap; position: sticky; left: 0; background: #fff; z-index: 1; }

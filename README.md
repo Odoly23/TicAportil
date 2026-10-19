@@ -46,7 +46,13 @@ Teks sumber = Tetun. Tambah di `scripts/translations.py`, lalu `python scripts/b
   operator) dengan ekspor Excel & PDF, laporan kaixa per shift (kasir hanya melihat shift sendiri), laporan embarke
   (terjual vs naik, no-show, scan bermasalah), email otomatis harian/bulanan/tahunan ke `REPORT_RECIPIENTS` (Portugis,
   lampiran PDF + Excel). Operator hanya melihat angka kapalnya sendiri di semua halaman, grafik, dan ekspor.
-- Berikut: layar kelola (tarif, pengguna, data master), WhatsApp, deploy.
+- Fase 6: **layar kelola** (menu Jestaun) — matriks tarif (kategori × rute dalam satu layar; kosong = tidak dijual;
+  harga baru hanya untuk penjualan berikutnya, tiket lama tidak berubah), kategori/rute/porta/operator/kapal,
+  pengguna (satu peran + izin tambahan per orang, operator, undangan lewat email atau kata sandi awal, reset oleh
+  admin yang menutup sesi lama), halaman akun sendiri, lupa password lewat email (link 24 jam, dibatasi 5/jam/IP),
+  log audit. Pengaman: admin tidak bisa mengunci dirinya atau menghapus admin terakhir; tidak ada penghapusan pengguna
+  (nonaktifkan saja); hapus data yang sudah dipakai ditolak dengan penjelasan. `/admin/` Django hanya untuk staf teknis.
+- Berikut: deploy (gunicorn, nginx, PostgreSQL, HTTPS, backup), WhatsApp.
 
 ### Aturan hitung laporan (USD, hari = hari kalender Asia/Dili)
 - **Bruto** = tiket yang dibuat pada periode, kecuali yang dibatalkan karena salah emisi (*void*, tidak dihitung).

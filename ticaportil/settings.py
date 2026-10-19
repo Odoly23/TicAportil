@@ -189,3 +189,4 @@ REST_FRAMEWORK = {
 
 # Bump to invalidate the scanner PWA cache after a deploy.
 APP_VERSION = os.environ.get("APP_VERSION", "1")
+PASSWORD_RESET_TIMEOUT = 24 * 3600  # set/reset-password links expire after 24 hours

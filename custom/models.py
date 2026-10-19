@@ -101,3 +101,12 @@ class Fare(models.Model):
         return f"{self.route} / {self.item}: ${self.price}"
 
 
+
+
+def order_items(qs):
+    """Passenger categories first, then vehicles, then goods/animals; each by sort_order then name."""
+    from django.db.models import Case, IntegerField, Value, When
+
+    rank = Case(When(quota_group=QuotaGroup.PASSENGER, then=Value(0)), When(quota_group=QuotaGroup.VEHICLE, then=Value(1)),
+        default=Value(2), output_field=IntegerField())
+    return qs.order_by(rank, "sort_order", "name_tet")
