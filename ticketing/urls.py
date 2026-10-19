@@ -29,4 +29,5 @@ urlpatterns = [
 	path('scan/api/validate/', scan.ApiValidate, name='scan-validate'),
 	path('scan/api/sync/', scan.ApiSync, name='scan-sync'),
 	path('scan/api/manifest/<int:sailing_id>/', scan.ApiManifest, name='scan-sailing-manifest'),
+	path('bonus-policy/', sched.BonusPolicyView, name='bonus-policy'),
 ]

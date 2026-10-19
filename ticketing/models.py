@@ -28,6 +28,7 @@ class Sailing(models.Model):
     sales_close_minutes = models.PositiveSmallIntegerField(default=60)
     note = models.CharField(max_length=255, blank=True)
     original_departure = models.DateTimeField(null=True, blank=True)
+    bonus_limit = models.PositiveSmallIntegerField(null=True, blank=True)  # max complimentary tickets on this sailing; None = no limit
     replaced_by = models.ForeignKey("self", null=True, blank=True, on_delete=models.SET_NULL, related_name="replaces")
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL, related_name="+")
     created_at = models.DateTimeField(auto_now_add=True)
@@ -263,3 +264,17 @@ class ScanEvent(models.Model):
     class Meta:
         ordering = ["-scanned_at"]
         indexes = [models.Index(fields=["sailing", "result"])]
+
+
+class BonusPolicy(models.Model):
+    """Single row of limits for government complimentary tickets (None = no limit)."""
+
+    max_per_person_per_month = models.PositiveSmallIntegerField(null=True, blank=True)
+    default_sailing_limit = models.PositiveSmallIntegerField(null=True, blank=True)
+
+    @classmethod
+    def get(cls):
+        return cls.objects.get_or_create(pk=1)[0]
+
+    def __str__(self):
+        return "Bonus policy"

@@ -7,6 +7,7 @@ from crispy_forms.layout import Layout, Row, Column, Div
 from config.utils import shrink_image
 from custom.models import Fare, FareItem, QuotaGroup, order_items
 from .models import DocumentType, Ticket
+from .services import bonus_violation
 
 MAX_UPLOAD = 10 * 1024 * 1024
 
@@ -60,15 +61,16 @@ class TicketForm(forms.ModelForm):
 		can_bonus = user is None or user.has_perm('ticketing.issue_complimentary')
 		fares = {f.item_id: f.price for f in Fare.objects.filter(route=sailing.route, item__is_active=True).select_related('item')}
 		items = order_items(FareItem.objects.filter(pk__in=fares.keys()))
-		if not can_charter:  # charters are sold only by people the admin has trusted with them
-			items = items.exclude(quota_group=QuotaGroup.CHARTER)
+		if not can_charter:  # charters and rented blocks are sold only by people the admin has trusted with them
+			items = items.exclude(quota_group=QuotaGroup.CHARTER).exclude(is_block=True)
 		self.fares = fares
 		if not can_bonus:
 			self.fields['payment_method'].choices = [c for c in Ticket.Payment.choices if c[0] != Ticket.Payment.COMPLIMENTARY]
 		self.fields['item'].queryset = items
 		self.fields['item'].label_from_instance = lambda i: f"{i.display_name()} — ${fares[i.pk]}"
 		self.fields['item'].widget.option_data = {
-			i.pk: {'data-group': i.quota_group, 'data-price': str(fares[i.pk]), 'data-plate': '1' if i.requires_plate else '0'}
+			i.pk: {'data-group': i.quota_group, 'data-price': str(fares[i.pk]), 'data-plate': '1' if i.requires_plate else '0',
+				'data-block': '1' if i.is_block else '0'}
 			for i in items
 		}
 		self.fields['quantity'].initial = 1
@@ -129,7 +131,9 @@ class TicketForm(forms.ModelForm):
 			return cd
 		qty = cd['quantity'] = cd.get('quantity') or 1
 		group = item.quota_group
-		is_pax, is_charter = group == QuotaGroup.PASSENGER, group == QuotaGroup.CHARTER
+		is_block = item.is_block
+		is_pax = group == QuotaGroup.PASSENGER and not is_block      # a rented block of seats has no individual passenger data
+		is_charter = group == QuotaGroup.CHARTER
 		pay = cd.get('payment_method')
 		valid = Ticket.objects.filter(sailing=s, status__in=[Ticket.Status.ISSUED, Ticket.Status.BOARDED])
 		if is_charter:
@@ -142,6 +146,11 @@ class TicketForm(forms.ModelForm):
 				self.add_error('contact_whatsapp', _("Kontaktu (WhatsApp ka email) obrigatóriu."))
 		elif s.is_chartered:
 			raise forms.ValidationError(_("Viajen ne'e aluga ona (charter). La bele faan bilhete seluk."))
+		if is_block:
+			if not cd.get('full_name'):
+				self.add_error('full_name', _("Naran ema/instituisaun ne'ebé aluga obrigatóriu."))
+			if not (cd.get('contact_whatsapp') or cd.get('contact_email')):
+				self.add_error('contact_whatsapp', _("Kontaktu (WhatsApp ka email) obrigatóriu."))
 		if is_pax:
 			cd['quantity'] = qty = 1
 			for f in ('full_name', 'birth_date', 'sex', 'document_type', 'document_number'):
@@ -165,13 +174,19 @@ class TicketForm(forms.ModelForm):
 				elif foreign and not item.foreigner_only and age is not None and self._foreign_category_exists(age):
 					# only forced when the admin really defined a separate foreigner tariff; otherwise foreigners use the normal ones
 					self.add_error('item', _("Pasaporte uza kategoria estranjeiru."))
-		elif item.requires_plate and not cd.get('plate_number'):
+		elif item.requires_plate and not is_block and not cd.get('plate_number'):
 			self.add_error('plate_number', _("Nú. plaka obrigatóriu."))
 		if pay == Ticket.Payment.COMPLIMENTARY:
 			if not is_pax:
 				self.add_error('payment_method', _("Bonus ba pasajeiru de'it."))
 			if len((cd.get('bonus_reference') or '').strip()) < 5:
 				self.add_error('bonus_reference', _("Referénsia bonus obrigatóriu (minimu karakter 5)."))
+			elif is_pax:
+				hit = bonus_violation(s, cd.get('document_type'), cd.get('document_number'))
+				if hit and hit[0] == 'sailing':
+					self.add_error('payment_method', _("Batas bonus ba viajen ne'e to'o ona (%(n)d).") % {'n': hit[1]})
+				elif hit:
+					self.add_error('payment_method', _("Ema ne'e uza ona bonus %(n)d iha fulan ne'e (batas).") % {'n': hit[1]})
 		if pay == Ticket.Payment.TRANSFER:
 			if not cd.get('transfer_reference'):
 				self.add_error('transfer_reference', _("Obrigatóriu."))

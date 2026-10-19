@@ -94,7 +94,7 @@ CRUDS = [
 		(_l("Ativu"), lambda o: yes(o.is_active))], queryset=lambda: Vessel.objects.select_related('operator')),
 	Crud('fareitem', FareItem, FareItemForm, 'Kategoria', [(_l("Naran"), lambda o: o.name_tet), (_l("Kuota"), lambda o: o.get_quota_group_display()),
 		(_l("Idade"), lambda o: f"{o.age_min if o.age_min is not None else ''}–{o.age_max if o.age_max is not None else ''}" if (o.age_min is not None or o.age_max is not None) else '—'),
-		(_l("Estranjeiru"), lambda o: yes(o.foreigner_only)), (_l("Plaka"), lambda o: yes(o.requires_plate)), (_l("Ativu"), lambda o: yes(o.is_active))],
+		(_l("Estranjeiru"), lambda o: yes(o.foreigner_only)), (_l("Plaka"), lambda o: yes(o.requires_plate)), (_l("Blok"), lambda o: yes(o.is_block)), (_l("Ativu"), lambda o: yes(o.is_active))],
 		queryset=lambda: order_items(FareItem.objects.all())),
 ]
 
@@ -114,7 +114,7 @@ def _runs(counts, bad):
 
 def age_coverage_warnings():
 	"""Gaps and overlaps in the ages (0-110) of the active, non-foreigner passenger categories."""
-	items = list(FareItem.objects.filter(is_active=True, quota_group=QuotaGroup.PASSENGER, foreigner_only=False))
+	items = list(FareItem.objects.filter(is_active=True, quota_group=QuotaGroup.PASSENGER, foreigner_only=False, is_block=False))
 	if not items:
 		return []
 	counts = [sum(1 for i in items if (i.age_min is None or a >= i.age_min) and (i.age_max is None or a <= i.age_max)) for a in range(111)]

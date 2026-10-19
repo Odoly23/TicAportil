@@ -10,6 +10,10 @@ msgid " Fila fali osan: $%(a)s."
 msgstr " Reembolso: $%(a)s."
 
 #: ticketing/templates/ticketing/print.html
+msgid "ALUGA PARTE / BLOK"
+msgstr "ALUGUER PARCIAL / BLOCO"
+
+#: ticketing/templates/ticketing/print.html
 msgid "ALUGA RÓ / CHARTER"
 msgstr "ALUGUER DO BARCO / CHARTER"
 
@@ -33,9 +37,25 @@ msgstr "Acesso não permitido"
 msgid "Aluga ona (charter)"
 msgstr "Alugado (charter)"
 
+#: custom/forms.py
+msgid "Aluga parte (blok): ema ida aluga kursi / veíkulu / sasán balu de'it"
+msgstr ""
+"Aluguer parcial (bloco): uma pessoa aluga apenas alguns lugares / veículos /"
+" carga"
+
+#: custom/models.py
+msgid "Aluga parte: blok kursi / veíkulu / sasán ba ema ida"
+msgstr "Aluguer parcial: bloco de lugares / veículos / carga para uma pessoa"
+
 #: custom/models.py
 msgid "Aluga ró (charter)"
 msgstr "Aluguer do barco (charter)"
+
+#: custom/forms.py
+msgid "Aluga ró tomak la presiza blok. Hili kuota seluk ba aluga parte."
+msgstr ""
+"O aluguer total do barco não usa blocos. Escolha outra quota para o aluguer "
+"parcial."
 
 #: main/context_processors.py
 msgid "Anúnsiu"
@@ -96,6 +116,30 @@ msgstr "BÓNUS — GRÁTIS"
 #: custom/forms.py
 msgid "Ba"
 msgstr "Para"
+
+#: main/context_processors.py
+msgid "Batas Bonus"
+msgstr "Limites de bónus"
+
+#: ticketing/forms_sched.py
+msgid "Batas bonus (gratis) ba viajen ne'e — husik mamuk = la limita"
+msgstr "Limite de bónus (grátis) desta viagem — vazio = sem limite"
+
+#: ticketing/forms_sched.py
+msgid "Batas bonus ba ema ida iha fulan ida (husik mamuk = la limita)"
+msgstr "Limite de bónus por pessoa por mês (vazio = sem limite)"
+
+#: ticketing/forms_sched.py
+msgid "Batas bonus ba viajen foun (husik mamuk = la limita)"
+msgstr "Limite de bónus para novas viagens (vazio = sem limite)"
+
+#: ticketing/forms.py
+msgid "Batas bonus ba viajen ne'e to'o ona (%(n)d)."
+msgstr "O limite de bónus desta viagem foi atingido (%(n)d)."
+
+#: ticketing/views_sched.py
+msgid "Batas bonus rai ona."
+msgstr "Limites de bónus guardados."
 
 #: report/exports.py
 msgid "Bazeia kaixa"
@@ -200,6 +244,14 @@ msgstr "Bilhetes bónus (gratuitos)"
 msgid "Bilhetes vendidos"
 msgstr "Bilhetes vendidos"
 
+#: custom/views.py
+msgid "Blok"
+msgstr "Bloco"
+
+#: custom/forms.py
+msgid "Blok la uza idade, estranjeiru ka plaka."
+msgstr "O bloco não usa idade, estrangeiro nem matrícula."
+
 #: ticketing/models.py
 msgid "Bonus (gratis)"
 msgstr "Bónus (grátis)"
@@ -283,6 +335,10 @@ msgstr "Editar"
 #: report/emails.py
 msgid "Em anexo: relatório detalhado em PDF e Excel."
 msgstr "Em anexo: relatório detalhado em PDF e Excel."
+
+#: ticketing/forms.py
+msgid "Ema ne'e uza ona bonus %(n)d iha fulan ne'e (batas)."
+msgstr "Esta pessoa já usou %(n)d bónus neste mês (limite)."
 
 #: users/forms.py
 msgid "Email"

@@ -25,13 +25,15 @@ class SailingForm(forms.ModelForm):
 	cap_passenger = forms.IntegerField(label=_("Kuota pasajeiru"), min_value=0, initial=0)
 	cap_vehicle = forms.IntegerField(label=_("Kuota veíkulu"), min_value=0, initial=0)
 	cap_goods = forms.IntegerField(label=_("Kuota sasán / animál"), min_value=0, initial=0)
+	bonus_limit = forms.IntegerField(label=_("Batas bonus (gratis) ba viajen ne'e — husik mamuk = la limita"), min_value=0, required=False)
 	cap_charter = forms.IntegerField(label=_("Kuota aluga ró (0 = la bele aluga)"), min_value=0, max_value=1, initial=1)
 
 	class Meta:
 		model = Sailing
-		fields = ['vessel', 'route', 'departure', 'sales_close_minutes', 'note']
+		fields = ['vessel', 'route', 'departure', 'sales_close_minutes', 'bonus_limit', 'note']
 		labels = {'vessel': _("Ró"), 'route': _("Rota"), 'sales_close_minutes': _("Taka faan antes (minutu)"),
 			'note': _("Nota")}
+		# bonus_limit is declared above so it gets the clearer label
 
 	def __init__(self, *args, user=None, **kwargs):
 		super().__init__(*args, **kwargs)
@@ -40,6 +42,9 @@ class SailingForm(forms.ModelForm):
 			vessels = vessels.filter(operator_id=user.operator_id) if user.operator_id else vessels.none()
 		self.fields['vessel'].queryset = vessels
 		self.fields['route'].queryset = Route.objects.filter(is_active=True)
+		if not self.instance.pk:
+			from .models import BonusPolicy
+			self.fields['bonus_limit'].initial = BonusPolicy.get().default_sailing_limit
 		self.has_tickets = bool(self.instance.pk and self.instance.tickets.exists())
 		if self.instance.pk:
 			for q in self.instance.quotas.all():
@@ -51,7 +56,7 @@ class SailingForm(forms.ModelForm):
 		self.helper.form_tag = False
 		self.helper.layout = Layout(
 			Row(Column('vessel', css_class='col-md-6'), Column('route', css_class='col-md-6')),
-			Row(Column('departure', css_class='col-md-6'), Column('sales_close_minutes', css_class='col-md-6')),
+			Row(Column('departure', css_class='col-md-4'), Column('sales_close_minutes', css_class='col-md-4'), Column('bonus_limit', css_class='col-md-4')),
 			Row(Column('cap_passenger', css_class='col-md-3'), Column('cap_vehicle', css_class='col-md-3'),
 				Column('cap_goods', css_class='col-md-3'), Column('cap_charter', css_class='col-md-3')),
 			'note',
@@ -69,6 +74,10 @@ class SailingForm(forms.ModelForm):
 		if clash.exists():
 			self.add_error('departure', _("Ró ne'e iha viajen seluk besik oras ne'e."))
 		if self.instance.pk:
+			from .services import valid_bonus_tickets
+			used = valid_bonus_tickets(self.instance).count()
+			if cd.get('bonus_limit') is not None and cd['bonus_limit'] < used:
+				self.add_error('bonus_limit', _("La bele menus husi %(n)d (faan ona).") % {'n': used})
 			for g in QuotaGroup.values:
 				sold = SailingQuota(sailing=self.instance, quota_group=g).sold
 				if cd.get(f'cap_{g}') is not None and cd[f'cap_{g}'] < sold:
@@ -167,4 +176,20 @@ class TicketCancelForm(forms.Form):
 		if user.has_perm('ticketing.cancel_ticket'):
 			allowed.append(self.KINDS[1])
 		self.fields['kind'].choices = allowed
+		self.helper = FormHelper(); self.helper.form_tag = False
+
+
+class BonusPolicyForm(forms.ModelForm):
+	class Meta:
+		from .models import BonusPolicy
+		model = BonusPolicy
+		fields = ['max_per_person_per_month', 'default_sailing_limit']
+		labels = {'max_per_person_per_month': _("Batas bonus ba ema ida iha fulan ida (husik mamuk = la limita)"),
+			'default_sailing_limit': _("Batas bonus ba viajen foun (husik mamuk = la limita)")}
+
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		for f in self.fields.values():
+			f.required = False
+			f.min_value = 0
 		self.helper = FormHelper(); self.helper.form_tag = False

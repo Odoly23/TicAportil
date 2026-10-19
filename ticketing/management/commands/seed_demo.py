@@ -33,11 +33,13 @@ class Command(BaseCommand):
 			('Kareta', ('Carro', 'Car', 'Mobil'), 'vehicle', None, None, False, True, 2, '40.00'),
 			('Karau', ('Búfalo', 'Buffalo', 'Kerbau'), 'goods', None, None, False, False, 1, '10.00'),
 			('Fahi', ('Porco', 'Pig', 'Babi'), 'goods', None, None, False, False, 2, '5.00'),
+			('Aluga kursi (blok)', ('Aluguer de lugares (bloco)', 'Seat block charter', 'Sewa kursi (blok)'), 'passenger', None, None, False, False, 9, '3.00'),
 			('Aluga ró', ('Aluguer do barco', 'Vessel charter', 'Sewa kapal'), 'charter', None, None, False, False, 1, '500.00'),
 		]
 		for n, (pt, e, idn), g, amin, amax, fo, pl, so, price in items:
 			it = FareItem.objects.get_or_create(name_tet=n, defaults=dict(
-				name_pt=pt, name_en=e, name_id=idn, quota_group=g, age_min=amin, age_max=amax, foreigner_only=fo, requires_plate=pl, sort_order=so))[0]
+				name_pt=pt, name_en=e, name_id=idn, quota_group=g, age_min=amin, age_max=amax, foreigner_only=fo, requires_plate=pl, sort_order=so,
+				is_block=n.startswith('Aluga kursi')))[0]
 			for r in (r1, r2):
 				Fare.objects.get_or_create(route=r, item=it, defaults={'price': Decimal(price)})
 		base = timezone.now().replace(minute=0, second=0, microsecond=0)

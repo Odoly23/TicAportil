@@ -65,14 +65,15 @@ class VesselForm(CrispyModelForm):
 class FareItemForm(CrispyModelForm):
 	layout = [[('name_tet', 6), ('name_pt', 6)], [('name_en', 6), ('name_id', 6)],
 		[('quota_group', 4), ('sort_order', 4), ('is_active', 4)],
-		[('age_min', 3), ('age_max', 3), ('foreigner_only', 3), ('requires_plate', 3)]]
+		[('age_min', 3), ('age_max', 3), ('foreigner_only', 3), ('requires_plate', 3)], [('is_block', 12)]]
 
 	class Meta:
 		model = FareItem
 		fields = ['name_tet', 'name_pt', 'name_en', 'name_id', 'quota_group', 'sort_order', 'is_active',
-			'age_min', 'age_max', 'foreigner_only', 'requires_plate']
+			'age_min', 'age_max', 'foreigner_only', 'requires_plate', 'is_block']
 		labels = {'quota_group': _("Kuota"), 'sort_order': _("Orden"), 'is_active': _("Ativu"), 'age_min': _("Idade minimu"),
-			'age_max': _("Idade maximu"), 'foreigner_only': _("Estranjeiru (pasaporte) de'it"), 'requires_plate': _("Presiza nú. plaka")}
+			'age_max': _("Idade maximu"), 'foreigner_only': _("Estranjeiru (pasaporte) de'it"), 'requires_plate': _("Presiza nú. plaka"),
+			'is_block': _("Aluga parte (blok): ema ida aluga kursi / veíkulu / sasán balu de'it")}
 
 	def clean(self):
 		cd = super().clean()
@@ -82,6 +83,11 @@ class FareItemForm(CrispyModelForm):
 		if g and g != QuotaGroup.PASSENGER:
 			if lo is not None or hi is not None or cd.get('foreigner_only'):
 				raise forms.ValidationError(_("Idade no estranjeiru ba pasajeiru de'it."))
+		if cd.get('is_block'):
+			if g == QuotaGroup.CHARTER:
+				raise forms.ValidationError(_("Aluga ró tomak la presiza blok. Hili kuota seluk ba aluga parte."))
+			if lo is not None or hi is not None or cd.get('foreigner_only') or cd.get('requires_plate'):
+				raise forms.ValidationError(_("Blok la uza idade, estranjeiru ka plaka."))
 		if g and g != QuotaGroup.VEHICLE and cd.get('requires_plate'):
 			raise forms.ValidationError(_("Nú. plaka ba veíkulu de'it."))
 		return cd

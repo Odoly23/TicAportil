@@ -60,6 +60,12 @@ Teks sumber = Tetun. Tambah di `scripts/translations.py`, lalu `python scripts/b
   **Bonus (gratis)** untuk pejabat pemerintah: pembayaran "Bonus", wajib referensi surat/ministerium, hanya
   penumpang, tetap memakai kursi, harga normal tersimpan untuk laporan (jumlah & nilai bonus), tidak bisa
   di-refund; butuh izin `issue_complimentary`. Kedua izin hanya dimiliki admin sampai diberikan per orang.
+- Fase 6c: **charter sebagian atau penuh** — kategori bertanda *blok* menyewa sebagian kursi / slot kendaraan / ruang
+  muatan (jumlah dan harga per satuan bisa dinegosiasi, tanpa data penumpang, tidak mengunci kapal); *Aluga ró* tetap
+  untuk sewa penuh (mengunci kapal). Keduanya butuh izin `issue_charter` dan saling mengecualikan.
+  **Batas bonus** (menu Jestaun → Batas Bonus): maksimal per orang per bulan (berdasarkan nomor dokumen) dan batas per
+  pelayaran (nilai awal untuk pelayaran baru, bisa diubah per pelayaran); kosong = tanpa batas. Dicek di form dan sekali
+  lagi di dalam transaksi berkunci; bonus yang dibatalkan melepas jatahnya.
 - Berikut: deploy (gunicorn, nginx, PostgreSQL, HTTPS, backup) menunggu server baru dari APORTIL; WhatsApp.
 
 ### Aturan hitung laporan (USD, hari = hari kalender Asia/Dili)

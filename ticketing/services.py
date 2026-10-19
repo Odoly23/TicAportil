@@ -1,4 +1,6 @@
 """Schedule logic: scoping, moving tickets between sailings, and notifying people."""
+from datetime import timedelta
+
 from django.core import mail
 from django.db import transaction
 from django.db.models import Q
@@ -9,7 +11,7 @@ from users.models import AuditLog, User
 from .messages import render_all
 from custom.models import QuotaGroup
 
-from .models import Announcement, Notification, Sailing, SailingQuota, Ticket
+from .models import Announcement, BonusPolicy, Notification, Sailing, SailingQuota, Ticket
 
 VALID = (Ticket.Status.ISSUED,)
 
@@ -106,3 +108,25 @@ def send_emails(sailing, kind, data, tickets=None):
 	except Exception as e:  # never block a schedule change because SMTP is down
 		AuditLog.record('email_failed', detail=f'sailing={sailing.pk} {type(e).__name__}: {e}'[:500])
 		return 0
+
+
+def valid_bonus_tickets(sailing=None):
+	qs = Ticket.objects.filter(payment_method=Ticket.Payment.COMPLIMENTARY, status__in=[Ticket.Status.ISSUED, Ticket.Status.BOARDED])
+	return qs.filter(sailing=sailing) if sailing is not None else qs
+
+
+def bonus_violation(sailing, doc_type, doc_number):
+	"""None if one more bonus ticket may be issued, else ('sailing'|'person', limit). Used by the form and, under the
+	sailing row lock, by the sell view."""
+	if sailing.bonus_limit is not None and valid_bonus_tickets(sailing).count() >= sailing.bonus_limit:
+		return 'sailing', sailing.bonus_limit
+	cap = BonusPolicy.get().max_per_person_per_month
+	if cap is not None and doc_number:
+		local = timezone.localtime(sailing.departure)
+		start = local.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+		nxt = (start + timedelta(days=32)).replace(day=1)
+		used = valid_bonus_tickets().filter(document_type=doc_type, document_number__iexact=doc_number.strip(),
+			sailing__departure__gte=start, sailing__departure__lt=nxt).count()
+		if used >= cap:
+			return 'person', cap
+	return None

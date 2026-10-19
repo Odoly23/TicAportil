@@ -31,7 +31,7 @@
 		<div><small>{% trans "Bilhete Ró" %}</small></div>
 	</div>
 	<hr>
-	{% if obj.item.quota_group == 'charter' %}<div class="c big">{% trans "ALUGA RÓ / CHARTER" %}</div>{% endif %}
+	{% if obj.item.quota_group == 'charter' %}<div class="c big">{% trans "ALUGA RÓ / CHARTER" %}</div>{% elif obj.item.is_block %}<div class="c big">{% trans "ALUGA PARTE / BLOK" %}</div>{% endif %}
 	{% if obj.payment_method == 'complimentary' %}<div class="c big">{% trans "BONUS — GRATIS" %}</div>{% endif %}
 	<div class="c big">{{ obj.sailing.route.origin }} ➔ {{ obj.sailing.route.destination }}</div>
 	<table>

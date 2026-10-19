@@ -10,6 +10,10 @@ msgid " Fila fali osan: $%(a)s."
 msgstr " Refund: $%(a)s."
 
 #: ticketing/templates/ticketing/print.html
+msgid "ALUGA PARTE / BLOK"
+msgstr "PARTIAL CHARTER / BLOCK"
+
+#: ticketing/templates/ticketing/print.html
 msgid "ALUGA RÓ / CHARTER"
 msgstr "VESSEL CHARTER"
 
@@ -33,9 +37,25 @@ msgstr "Access denied"
 msgid "Aluga ona (charter)"
 msgstr "Chartered"
 
+#: custom/forms.py
+msgid "Aluga parte (blok): ema ida aluga kursi / veíkulu / sasán balu de'it"
+msgstr ""
+"Partial charter (block): one party rents only some seats / vehicle slots / "
+"cargo space"
+
+#: custom/models.py
+msgid "Aluga parte: blok kursi / veíkulu / sasán ba ema ida"
+msgstr "Partial charter: a block of seats / vehicles / cargo for one party"
+
 #: custom/models.py
 msgid "Aluga ró (charter)"
 msgstr "Vessel charter"
+
+#: custom/forms.py
+msgid "Aluga ró tomak la presiza blok. Hili kuota seluk ba aluga parte."
+msgstr ""
+"A full vessel charter does not use blocks. Pick another quota for a partial "
+"charter."
 
 #: main/context_processors.py
 msgid "Anúnsiu"
@@ -96,6 +116,30 @@ msgstr "COMPLIMENTARY — FREE"
 #: custom/forms.py
 msgid "Ba"
 msgstr "To"
+
+#: main/context_processors.py
+msgid "Batas Bonus"
+msgstr "Bonus limits"
+
+#: ticketing/forms_sched.py
+msgid "Batas bonus (gratis) ba viajen ne'e — husik mamuk = la limita"
+msgstr "Complimentary limit for this sailing — empty = no limit"
+
+#: ticketing/forms_sched.py
+msgid "Batas bonus ba ema ida iha fulan ida (husik mamuk = la limita)"
+msgstr "Complimentary limit per person per month (empty = no limit)"
+
+#: ticketing/forms_sched.py
+msgid "Batas bonus ba viajen foun (husik mamuk = la limita)"
+msgstr "Complimentary limit for new sailings (empty = no limit)"
+
+#: ticketing/forms.py
+msgid "Batas bonus ba viajen ne'e to'o ona (%(n)d)."
+msgstr "The complimentary limit for this sailing has been reached (%(n)d)."
+
+#: ticketing/views_sched.py
+msgid "Batas bonus rai ona."
+msgstr "Bonus limits saved."
 
 #: report/exports.py
 msgid "Bazeia kaixa"
@@ -199,6 +243,14 @@ msgstr "Complimentary tickets (free)"
 msgid "Bilhetes vendidos"
 msgstr "Tickets sold"
 
+#: custom/views.py
+msgid "Blok"
+msgstr "Block"
+
+#: custom/forms.py
+msgid "Blok la uza idade, estranjeiru ka plaka."
+msgstr "A block does not use age, foreigner or plate rules."
+
 #: ticketing/models.py
 msgid "Bonus (gratis)"
 msgstr "Complimentary (free)"
@@ -282,6 +334,11 @@ msgstr "Edit"
 #: report/emails.py
 msgid "Em anexo: relatório detalhado em PDF e Excel."
 msgstr "Attached: detailed report as PDF and Excel."
+
+#: ticketing/forms.py
+msgid "Ema ne'e uza ona bonus %(n)d iha fulan ne'e (batas)."
+msgstr ""
+"This person has already used %(n)d complimentary tickets this month (limit)."
 
 #: users/forms.py
 msgid "Email"

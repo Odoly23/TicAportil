@@ -18,6 +18,7 @@ from users.models import AuditLog
 
 from .forms import TicketForm
 from .models import Sailing, SailingQuota, Ticket
+from .services import bonus_violation
 
 
 def _group(request):
@@ -64,10 +65,13 @@ def TicketSell(request, sailing_id):
 					is_charter = item.quota_group == QuotaGroup.CHARTER
 					if q.remaining < cd['quantity'] or (is_charter and valid.exists()) or (not is_charter and locked.is_chartered):
 						raise ValueError('conflict')
+					if cd['payment_method'] == Ticket.Payment.COMPLIMENTARY and bonus_violation(locked, cd.get('document_type'), cd.get('document_number')):
+						raise ValueError('bonus limit')
 					t = form.save(commit=False)
 					t.sailing = sailing
 					fare = form.fares[t.item_id]
-					price = cd['custom_price'] if (is_charter and cd.get('custom_price') is not None) else fare
+					negotiated = is_charter or item.is_block      # full charter or a rented block: the price may be negotiated per unit
+					price = cd['custom_price'] if (negotiated and cd.get('custom_price') is not None) else fare
 					t.list_price = fare
 					t.unit_price = Decimal('0.00') if t.payment_method == Ticket.Payment.COMPLIMENTARY else price
 					t.sold_by = request.user
@@ -75,8 +79,8 @@ def TicketSell(request, sailing_id):
 					AuditLog.record('ticket_sold', user=request.user, request=request, detail=f'{t.serial} ${t.total}')
 					if t.payment_method == Ticket.Payment.COMPLIMENTARY:
 						AuditLog.record('ticket_bonus', user=request.user, request=request, detail=f'{t.serial} value ${fare} ref={t.bonus_reference}')
-					if is_charter:
-						AuditLog.record('charter_sold', user=request.user, request=request,
+					if negotiated:
+						AuditLog.record('charter_sold' if is_charter else 'block_sold', user=request.user, request=request,
 							detail=f'{t.serial} {t.full_name} ${t.unit_price} (tariff ${fare})')
 			except (ValueError, SailingQuota.DoesNotExist):
 				form.add_error(None, _("Kuota la to'o ka viajen muda ona. Tenta fali."))

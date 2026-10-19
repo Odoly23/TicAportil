@@ -10,6 +10,10 @@ msgid " Fila fali osan: $%(a)s."
 msgstr " Dana dikembalikan: $%(a)s."
 
 #: ticketing/templates/ticketing/print.html
+msgid "ALUGA PARTE / BLOK"
+msgstr "SEWA SEBAGIAN / BLOK"
+
+#: ticketing/templates/ticketing/print.html
 msgid "ALUGA RÓ / CHARTER"
 msgstr "SEWA KAPAL / CHARTER"
 
@@ -33,9 +37,23 @@ msgstr "Akses ditolak"
 msgid "Aluga ona (charter)"
 msgstr "Disewa (charter)"
 
+#: custom/forms.py
+msgid "Aluga parte (blok): ema ida aluga kursi / veíkulu / sasán balu de'it"
+msgstr ""
+"Sewa sebagian (blok): satu pihak menyewa sebagian kursi / kendaraan / muatan"
+
+#: custom/models.py
+msgid "Aluga parte: blok kursi / veíkulu / sasán ba ema ida"
+msgstr "Sewa sebagian: blok kursi / kendaraan / muatan untuk satu pihak"
+
 #: custom/models.py
 msgid "Aluga ró (charter)"
 msgstr "Sewa kapal (charter)"
+
+#: custom/forms.py
+msgid "Aluga ró tomak la presiza blok. Hili kuota seluk ba aluga parte."
+msgstr ""
+"Sewa kapal penuh tidak memakai blok. Pilih kuota lain untuk sewa sebagian."
 
 #: main/context_processors.py
 msgid "Anúnsiu"
@@ -96,6 +114,30 @@ msgstr "BONUS — GRATIS"
 #: custom/forms.py
 msgid "Ba"
 msgstr "Ke"
+
+#: main/context_processors.py
+msgid "Batas Bonus"
+msgstr "Batas bonus"
+
+#: ticketing/forms_sched.py
+msgid "Batas bonus (gratis) ba viajen ne'e — husik mamuk = la limita"
+msgstr "Batas bonus (gratis) pelayaran ini — kosong = tanpa batas"
+
+#: ticketing/forms_sched.py
+msgid "Batas bonus ba ema ida iha fulan ida (husik mamuk = la limita)"
+msgstr "Batas bonus per orang per bulan (kosong = tanpa batas)"
+
+#: ticketing/forms_sched.py
+msgid "Batas bonus ba viajen foun (husik mamuk = la limita)"
+msgstr "Batas bonus untuk pelayaran baru (kosong = tanpa batas)"
+
+#: ticketing/forms.py
+msgid "Batas bonus ba viajen ne'e to'o ona (%(n)d)."
+msgstr "Batas bonus pelayaran ini sudah tercapai (%(n)d)."
+
+#: ticketing/views_sched.py
+msgid "Batas bonus rai ona."
+msgstr "Batas bonus disimpan."
 
 #: report/exports.py
 msgid "Bazeia kaixa"
@@ -197,6 +239,14 @@ msgstr "Tiket bonus (gratis)"
 msgid "Bilhetes vendidos"
 msgstr "Tiket terjual"
 
+#: custom/views.py
+msgid "Blok"
+msgstr "Blok"
+
+#: custom/forms.py
+msgid "Blok la uza idade, estranjeiru ka plaka."
+msgstr "Blok tidak memakai aturan usia, orang asing atau plat."
+
 #: ticketing/models.py
 msgid "Bonus (gratis)"
 msgstr "Bonus (gratis)"
@@ -280,6 +330,10 @@ msgstr "Ubah"
 #: report/emails.py
 msgid "Em anexo: relatório detalhado em PDF e Excel."
 msgstr "Terlampir: laporan rinci dalam PDF dan Excel."
+
+#: ticketing/forms.py
+msgid "Ema ne'e uza ona bonus %(n)d iha fulan ne'e (batas)."
+msgstr "Orang ini sudah memakai %(n)d bonus bulan ini (batas)."
 
 #: users/forms.py
 msgid "Email"

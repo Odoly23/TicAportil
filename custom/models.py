@@ -74,6 +74,7 @@ class FareItem(models.Model):
     age_max = models.PositiveSmallIntegerField(null=True, blank=True, help_text=_("Pasajeiru: idade maximu"))
     foreigner_only = models.BooleanField(default=False)
     requires_plate = models.BooleanField(default=False)
+    is_block = models.BooleanField(default=False, help_text=_("Aluga parte: blok kursi / veíkulu / sasán ba ema ida"))
     is_active = models.BooleanField(default=True)
     sort_order = models.PositiveSmallIntegerField(default=0)
 

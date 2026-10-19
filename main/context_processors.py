@@ -30,6 +30,7 @@ MENU = [
 		('port-list', _("Porta"), 'fa-anchor', 'custom.change_port'),
 		('operator-list', _("Operadór"), 'fa-building', 'custom.change_operator'),
 		('vessel-list', _("Ró"), 'fa-ship', 'custom.change_vessel'),
+		('bonus-policy', _("Batas Bonus"), 'fa-gift', 'ticketing.change_bonuspolicy'),
 		('user-list', _("Uza-na'in"), 'fa-users', 'users.change_user'),
 		('audit-list', _("Audit Log"), 'fa-history', 'users.view_auditlog'),
 		('admin:index', _("Django admin"), 'fa-wrench', '__staff__'),

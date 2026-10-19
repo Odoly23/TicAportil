@@ -299,7 +299,7 @@ class ThreeClassTests(SaleBase):
 class SeedClassesTests(TestCase):
 	def test_demo_seed_has_exactly_the_three_passenger_classes(self):
 		call_command('seed_demo', force=True, stdout=StringIO())
-		self.assertEqual(set(FareItem.objects.filter(quota_group='passenger').values_list('name_tet', flat=True)), {'Labarik', 'Adultu', 'Idozu'})
+		self.assertEqual(set(FareItem.objects.filter(quota_group='passenger', is_block=False).values_list('name_tet', flat=True)), {'Labarik', 'Adultu', 'Idozu'})
 		self.assertFalse(FareItem.objects.filter(name_tet__in=['Kiak', 'Riku']).exists())
 		self.assertFalse(FareItem.objects.filter(foreigner_only=True).exists())
 		self.assertEqual(set(FareItem.objects.filter(quota_group='charter').values_list('name_tet', flat=True)), {'Aluga ró'})
@@ -486,3 +486,167 @@ class ReportBonusTests(SaleBase):
 		self.assertEqual((rows['Bonus (gratis)']['tickets'], rows['Bonus (gratis)']['net']), (1, Decimal('0')))
 		drawer = RS.cashier_day(None, day)[0]
 		self.assertEqual((drawer['cash'], drawer['transfer'], drawer['drawer']), (Decimal('4'), Decimal('0'), Decimal('4')))
+
+
+# ------------------------------------------------------------------ partial charter (blocks) and bonus limits
+from datetime import timedelta as _td  # noqa: E402
+
+from .models import BonusPolicy  # noqa: E402
+from .services import bonus_violation  # noqa: E402
+
+
+class BlockCharterTests(SaleBase):
+	def setUp(self):
+		super().setUp()
+		self.block = FareItem.objects.create(name_tet='Aluga kursi (blok)', quota_group='passenger', is_block=True)
+		self.cargo_block = FareItem.objects.create(name_tet='Aluga sasán (blok)', quota_group='goods', is_block=True)
+		self.full = FareItem.objects.create(name_tet='Aluga ró', quota_group='charter')
+		for it, price in ((self.block, '3'), (self.cargo_block, '1'), (self.full, '500')):
+			Fare.objects.create(route=self.route, item=it, price=Decimal(price))
+		SailingQuota.objects.create(sailing=self.sailing, quota_group='charter', capacity=1)
+		self.clerk.user_permissions.add(Permission.objects.get(codename='issue_charter'))
+		self.client.force_login(User.objects.get(pk=self.clerk.pk))
+
+	def rent(self, item=None, **kw):
+		d = {'item': (item or self.block).pk, 'quantity': 2, 'full_name': 'Igreja Dili', 'contact_email': 'igreja@example.com', 'payment_method': 'cash'}
+		d.update(kw)
+		return self.client.post(self.url, d)
+
+	def test_block_takes_seats_without_passenger_data_and_leaves_the_rest_sellable(self):
+		r = self.rent(quantity=2, custom_price='2.50')
+		t = Ticket.objects.get()
+		self.assertRedirects(r, reverse('ticket-print', args=[t.pk]), fetch_redirect_response=False)
+		self.assertEqual((t.quantity, t.unit_price, t.list_price, t.total, t.document_photo.name), (2, Decimal('2.50'), Decimal('3.00'), Decimal('5.00'), ''))
+		self.assertEqual(self.sailing.quotas.get(quota_group='passenger').remaining, 0)   # 2 of 2 seats
+		self.assertFalse(self.sailing.is_chartered)                                       # a block does not lock the vessel
+		self.assertTrue(AuditLog.objects.filter(action='block_sold').exists())
+		self.assertContains(self.client.get(reverse('ticket-print', args=[t.pk])), 'BLOK')
+
+	def test_block_defaults_to_the_tariff_and_respects_the_quota(self):
+		SailingQuota.objects.filter(sailing=self.sailing, quota_group='passenger').update(capacity=10)
+		self.rent(quantity=4)
+		self.assertEqual(Ticket.objects.get().unit_price, Decimal('3.00'))
+		over = self.rent(quantity=7)   # only 6 seats left
+		self.assertEqual(over.status_code, 200); self.assertEqual(Ticket.objects.count(), 1)
+		self.assertContains(over, 'Kuota')
+		self.assertEqual(self.client.post(self.url, self.pax()).status_code, 302)   # ordinary passengers can still buy
+
+	def test_block_needs_hirer_and_contact_and_the_charter_permission(self):
+		self.assertIn('full_name', self.rent(full_name='').context['form'].errors)
+		self.assertIn('contact_whatsapp', self.rent(contact_email='').context['form'].errors)
+		plain = User.objects.create_user('plain', password='x'); plain.groups.add(Group.objects.get(name='resepsionista'))
+		self.client.force_login(plain)
+		self.assertIn('item', self.rent().context['form'].errors)   # not even a valid choice for them
+		self.assertEqual(Ticket.objects.count(), 0)
+
+	def test_a_block_can_cover_cargo_space_too(self):
+		self.rent(item=self.cargo_block, quantity=4)   # the goods quota in this fixture is 5
+		t = Ticket.objects.get()
+		self.assertEqual((t.item, t.quantity, t.total), (self.cargo_block, 4, Decimal('4.00')))
+
+	def test_block_is_never_a_bonus(self):
+		r = self.rent(payment_method='complimentary', bonus_reference='Nota 12345')
+		self.assertIn('payment_method', r.context['form'].errors)
+
+	def test_full_charter_and_blocks_exclude_each_other(self):
+		self.rent()
+		full = self.client.post(self.url, {'item': self.full.pk, 'full_name': 'X', 'contact_whatsapp': '1', 'payment_method': 'cash'})
+		self.assertEqual(full.status_code, 200); self.assertEqual(Ticket.objects.filter(item=self.full).count(), 0)
+		Ticket.objects.all().delete()
+		self.client.post(self.url, {'item': self.full.pk, 'full_name': 'X', 'contact_whatsapp': '1', 'payment_method': 'cash'})
+		self.assertTrue(self.sailing.is_chartered)
+		self.assertEqual(self.rent().status_code, 302)   # redirected away from the sale page of a chartered sailing
+		self.assertEqual(Ticket.objects.count(), 1)
+
+	def test_boarding_scan_works_for_a_block_ticket(self):
+		from .scanning import process_scan
+		self.rent()
+		self.assertEqual(process_scan(self.clerk, self.sailing, Ticket.objects.get().qr_payload)['result'], 'ok')
+
+	def test_block_category_rules_in_the_admin_form(self):
+		from custom.forms import FareItemForm
+		ok = {'name_tet': 'B', 'quota_group': 'goods', 'sort_order': 1, 'is_active': True, 'is_block': True}
+		self.assertTrue(FareItemForm(ok).is_valid())
+		for bad in ({**ok, 'quota_group': 'charter'}, {**ok, 'quota_group': 'passenger', 'age_min': 3}, {**ok, 'quota_group': 'vehicle', 'requires_plate': True}):
+			self.assertFalse(FareItemForm(bad).is_valid(), bad)
+
+	def test_block_appears_as_its_own_row_in_reports_and_pax_counts_its_seats(self):
+		from report import services as RS
+		self.rent(quantity=2)
+		day = timezone.localdate()
+		rows = {r['label']: r for r in RS.by_item(RS.Filters(None, day, day))}
+		self.assertEqual((rows['Aluga kursi (blok)']['tickets'], rows['Aluga kursi (blok)']['gross']), (1, Decimal('6.00')))
+		self.assertEqual(RS.summary(RS.Filters(None, day, day))['pax'], 2)
+
+
+class BonusLimitTests(SaleBase):
+	def setUp(self):
+		super().setUp()
+		SailingQuota.objects.filter(sailing=self.sailing, quota_group='passenger').update(capacity=50)
+		self.officer = User.objects.create_user('officer', password='x'); self.officer.groups.add(Group.objects.get(name='resepsionista'))
+		self.officer.user_permissions.add(Permission.objects.get(codename='issue_complimentary'))
+		self.client.force_login(User.objects.get(pk=self.officer.pk))
+
+	def bonus(self, n, **kw):
+		return self.client.post(self.url, self.pax(payment_method='complimentary', bonus_reference='Nota Gabinete 12/2026',
+			document_number=kw.pop('doc', f'D{n}'), document_photo=photo(), **kw))
+
+	def test_per_sailing_limit_counts_only_valid_bonus_tickets(self):
+		Sailing.objects.filter(pk=self.sailing.pk).update(bonus_limit=2)
+		self.assertEqual((self.bonus(1).status_code, self.bonus(2).status_code), (302, 302))
+		r = self.bonus(3)
+		self.assertEqual(r.status_code, 200); self.assertIn('payment_method', r.context['form'].errors)
+		self.assertContains(r, 'Batas bonus')
+		Ticket.objects.filter(pk=Ticket.objects.filter(payment_method='complimentary').first().pk).update(status='cancelled')
+		self.assertEqual(self.bonus(4).status_code, 302)           # a voided bonus frees its slot
+		self.client.post(self.url, self.pax(document_number='PAID'))  # paying tickets are never limited
+		self.assertEqual(Ticket.objects.filter(payment_method='cash').count(), 1)
+
+	def test_no_limit_by_default(self):
+		for n in range(5):
+			self.assertEqual(self.bonus(n).status_code, 302)
+
+	def test_per_person_monthly_limit(self):
+		BonusPolicy.objects.update_or_create(pk=1, defaults={'max_per_person_per_month': 2})
+		self.assertEqual((self.bonus(1, doc='E-77').status_code, self.bonus(2, doc='e-77').status_code), (302, 302))   # case-insensitive
+		r = self.bonus(3, doc='E-77')
+		self.assertIn('payment_method', r.context['form'].errors)
+		self.assertEqual(self.bonus(4, doc='E-88').status_code, 302)    # another official is unaffected
+		# the same person in a different month is a different allowance
+		later = self.sailing.__class__.objects.create(vessel=self.sailing.vessel, route=self.route,
+			departure=self.sailing.departure + _td(days=40))
+		SailingQuota.objects.create(sailing=later, quota_group='passenger', capacity=5)
+		later_url = reverse('ticket-sell', args=[later.pk])
+		ok = self.client.post(later_url, self.pax(payment_method='complimentary', bonus_reference='Nota 12345', document_number='E-77', document_photo=photo()))
+		self.assertEqual(ok.status_code, 302)
+
+	def test_the_limit_is_rechecked_under_the_lock(self):
+		Sailing.objects.filter(pk=self.sailing.pk).update(bonus_limit=1)
+		self.bonus(1)
+		self.sailing.refresh_from_db()
+		self.assertEqual(bonus_violation(self.sailing, 'eleitoral', 'D9')[0], 'sailing')   # what the view asks inside the transaction
+
+	def test_policy_screen_is_admin_only_audited_and_seeds_new_sailings(self):
+		self.assertEqual(self.client.get(reverse('bonus-policy')).status_code, 403)
+		admin = User.objects.create_user('adm', password='x'); admin.groups.add(Group.objects.get(name='admin'))
+		self.client.force_login(admin)
+		r = self.client.post(reverse('bonus-policy'), {'max_per_person_per_month': '3', 'default_sailing_limit': '5'})
+		self.assertRedirects(r, reverse('bonus-policy'))
+		p = BonusPolicy.get(); self.assertEqual((p.max_per_person_per_month, p.default_sailing_limit), (3, 5))
+		self.assertTrue(AuditLog.objects.filter(action='bonus_policy_changed').exists())
+		from .forms_sched import SailingForm
+		self.assertEqual(SailingForm(user=admin).fields['bonus_limit'].initial, 5)
+		self.client.post(reverse('bonus-policy'), {'max_per_person_per_month': '', 'default_sailing_limit': ''})
+		self.assertIsNone(BonusPolicy.get().max_per_person_per_month)    # blank = no limit
+
+	def test_sailing_limit_cannot_go_below_bonuses_already_issued(self):
+		self.bonus(1); self.bonus(2)
+		admin = User.objects.create_user('adm', password='x'); admin.groups.add(Group.objects.get(name='admin'))
+		self.client.force_login(admin)
+		d = {'vessel': self.sailing.vessel_id, 'route': self.route.pk, 'departure': timezone.localtime(self.sailing.departure).strftime('%Y-%m-%dT%H:%M'),
+			'sales_close_minutes': 60, 'note': '', 'cap_passenger': 50, 'cap_vehicle': 1, 'cap_goods': 1, 'cap_charter': 1, 'bonus_limit': 1}
+		r = self.client.post(reverse('sailing-edit', args=[self.sailing.pk]), d)
+		self.assertIn('bonus_limit', r.context['form'].errors)
+		d['bonus_limit'] = 2
+		self.assertEqual(self.client.post(reverse('sailing-edit', args=[self.sailing.pk]), d).status_code, 302)
+		self.sailing.refresh_from_db(); self.assertEqual(self.sailing.bonus_limit, 2)

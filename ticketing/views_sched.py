@@ -12,8 +12,8 @@ from config.decorators import perm_required
 from custom.models import QuotaGroup
 from users.models import AuditLog
 
-from .forms_sched import AnnouncementForm, CancelForm, DelayForm, MoveForm, SailingForm, TicketCancelForm
-from .models import Announcement, Notification, Sailing, Ticket
+from .forms_sched import AnnouncementForm, BonusPolicyForm, CancelForm, DelayForm, MoveForm, SailingForm, TicketCancelForm
+from .models import Announcement, BonusPolicy, Notification, Sailing, Ticket
 from .services import ShortQuota, is_global, iso, move_tickets, notify_change, scoped_sailings
 
 MANAGE = 'ticketing.manage_schedule'
@@ -282,3 +282,18 @@ def TicketCancel(request, pk):
 		return redirect('ticket-detail', t.pk)
 	return _form_page(request, form, 'Bilhete', f'Kansela Bilhete {t.serial}', back='ticket-detail', extra={'back_pk': t.pk, 'ticket': t},
 		submit=_("Konfirma kansela"))
+
+
+# ----------------------------------------------------------------------------------------- bonus policy
+@login_required
+@perm_required('ticketing.change_bonuspolicy')
+def BonusPolicyView(request):
+	policy = BonusPolicy.get()
+	form = BonusPolicyForm(request.POST or None, instance=policy)
+	if request.method == 'POST' and form.is_valid():
+		form.save()
+		AuditLog.record('bonus_policy_changed', user=request.user, request=request,
+			detail=f'per_person_month={policy.max_per_person_per_month} default_sailing={policy.default_sailing_limit}')
+		messages.success(request, _("Batas bonus rai ona."))
+		return redirect('bonus-policy')
+	return _form_page(request, form, 'Bonus', 'Batas Bonus (gratis)')
