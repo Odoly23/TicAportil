@@ -1,0 +1,55 @@
+{% extends "main/layout.html" %}{% load i18n %}
+{% block content %}
+	<ol class="breadcrumb mb-2 mt-1">
+		<li class="breadcrumb-item"><a href="{% url 'home' %}">VARANDA</a></li>
+		<li class="breadcrumb-item"><a href="{% url 'sailing-list' %}">{% trans "Jadwal" %}</a></li>
+		<li class="breadcrumb-item active" aria-current="page">{{ obj.departure|date:"d/m/Y H:i" }}</li>
+	</ol>
+	<div class="row">
+		<div class="col-lg-8">
+			<div class="card shadow-lg rounded mb-3">
+				<div class="card-header">{{ legend|upper }}
+					<span class="badge badge-{% if obj.status == 'cancelled' %}danger{% elif obj.status == 'delayed' %}warning{% else %}info{% endif %}">{{ obj.get_status_display }}</span></div>
+				<div class="card-body">
+					<table class="table table-sm table-borderless mb-3">
+						<tr><th>{% trans "Partida" %}</th><td><strong>{{ obj.departure|date:"D d/m/Y H:i" }}</strong>{% if obj.original_departure %} <small class="text-muted">({% trans "uluk" %}: <del>{{ obj.original_departure|date:"d/m H:i" }}</del>)</small>{% endif %}</td></tr>
+						<tr><th>{% trans "Ró" %}</th><td>{{ obj.vessel }} · {{ obj.vessel.operator }}</td></tr>
+						<tr><th>{% trans "Taka faan antes (minutu)" %}</th><td>{{ obj.sales_close_minutes }}</td></tr>
+						{% if obj.note %}<tr><th>{% trans "Nota" %}</th><td>{{ obj.note }}</td></tr>{% endif %}
+						{% if obj.replaced_by %}<tr><th>{% trans "Bilhete muda ba" %}</th><td><a href="{% url 'sailing-detail' obj.replaced_by.pk %}">{{ obj.replaced_by }}</a></td></tr>{% endif %}
+					</table>
+					<div class="d-flex flex-wrap" style="gap:.4rem">
+						{% if is_open %}
+							<a class="btn btn-outline-primary" href="{% url 'sailing-edit' obj.pk %}"><i class="fa fa-edit"></i> {% trans "Edita" %}</a>
+							<a class="btn btn-warning" href="{% url 'sailing-delay' obj.pk %}"><i class="fa fa-clock-o"></i> {% trans "Atrazu" %}</a>
+							<a class="btn btn-danger" href="{% url 'sailing-cancel' obj.pk %}"><i class="fa fa-ban"></i> {% trans "Kansela" %}</a>
+							<form method="post" action="{% url 'sailing-status' obj.pk 'depart' %}">{% csrf_token %}<button class="btn btn-info"><i class="fa fa-ship"></i> {% trans "Marka partida ona" %}</button></form>
+						{% endif %}
+						{% if obj.status == 'departed' %}
+							<form method="post" action="{% url 'sailing-status' obj.pk 'complete' %}">{% csrf_token %}<button class="btn btn-success"><i class="fa fa-check"></i> {% trans "Marka remata" %}</button></form>
+						{% endif %}
+						{% if can_move %}<a class="btn btn-warning" href="{% url 'sailing-move' obj.pk %}"><i class="fa fa-exchange"></i> {% trans "Muda bilhete" %} ({{ valid_left }})</a>{% endif %}
+					</div>
+				</div>
+			</div>
+			{% if announcements %}
+			<div class="card shadow-sm mb-3"><div class="card-header">{% trans "Anúnsiu" %}</div><div class="card-body">
+				{% for a in announcements %}<div class="mb-2"><strong>{{ a.display_title }}</strong><br><small>{{ a.display_body }}</small></div>{% endfor %}
+			</div></div>
+			{% endif %}
+		</div>
+		<div class="col-lg-4">
+			<div class="card shadow-sm mb-3"><div class="card-header">{% trans "Kuota" %}</div><div class="card-body">
+				{% for label, q in quotas %}
+					<div class="d-flex justify-content-between"><span>{{ label }}</span>{% if q %}<span><strong>{{ q.sold }}</strong> / {{ q.capacity }}</span>{% else %}<span class="text-muted">—</span>{% endif %}</div>
+				{% endfor %}
+			</div></div>
+			<div class="card shadow-sm mb-3"><div class="card-header">{% trans "Bilhete" %}</div><div class="card-body">
+				<div>{% trans "Emite ona" %}: <strong>{{ by_status.issued|default:0 }}</strong></div>
+				<div>{% trans "Tama ona ro" %}: <strong>{{ by_status.boarded|default:0 }}</strong></div>
+				<div>{% trans "Kansela" %}: <strong>{{ by_status.cancelled|default:0 }}</strong> · {% trans "Fila fali osan" %}: <strong>{{ by_status.refunded|default:0 }}</strong></div>
+				<hr><div>USD: <strong>${{ revenue }}</strong></div>
+			</div></div>
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "main/layout.html" %}{% load i18n %}
+{% block content %}
+	<ol class="breadcrumb mb-2 mt-1">
+		<li class="breadcrumb-item"><a href="{% url 'home' %}">VARANDA</a></li>
+		<li class="breadcrumb-item active" aria-current="page">{{ legend|upper }}</li>
+	</ol>
+	<div class="card shadow-lg pt-0 rounded">
+		<div class="card-header">{{ legend|upper }}</div>
+		<div class="card-body">
+			<a class="btn btn-sm btn-primary mb-2" href="{% url 'announcement-add' %}">{% trans "Aumenta" %} <i class="fa fa-plus"></i></a>
+			<div class="table-responsive">
+			<table class="table table-sm" id="example" width="100%">
+				<thead><tr><th>Nu.</th><th>{% trans "Data" %}</th><th>{% trans "Mensajen" %}</th><th>{% trans "Viajen" %}</th><th>{% trans "Públiku" %}</th><th>#</th></tr></thead>
+				<tbody>
+				{% for a in objects %}
+					<tr>
+						<td>{{ forloop.counter }}</td>
+						<td data-order="{{ a.created_at|date:'c' }}">{{ a.created_at|date:"d/m/Y H:i" }}</td>
+						<td><strong>{{ a.display_title }}</strong><br><small>{{ a.display_body|truncatechars:140 }}</small></td>
+						<td>{% if a.sailing %}<a href="{% url 'sailing-detail' a.sailing.pk %}">{{ a.sailing.route }}</a>{% else %}—{% endif %}</td>
+						<td>{% if a.is_public %}<i class="fa fa-check text-success"></i>{% else %}—{% endif %}</td>
+						<td>{% trans "Hamoos anúnsiu ne'e?" as q %}<form method="post" action="{% url 'announcement-delete' a.pk %}" onsubmit="return confirm('{{ q|escapejs }}')">{% csrf_token %}<button class="btn btn-sm btn-outline-danger"><i class="fa fa-trash"></i></button></form></td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block scripts %}<script>$(document).ready(function () { $('#example').DataTable({order: [[1, 'desc']]}); });</script>{% endblock %}

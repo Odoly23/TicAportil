@@ -1,0 +1,10 @@
+{% extends "main/layout.html" %}{% load i18n %}
+{% block content %}
+	<ol class="breadcrumb mb-2 mt-1">
+		<li class="breadcrumb-item active" aria-current="page">VARANDA</li>
+	</ol>
+	<div class="card shadow-lg rounded">
+		<div class="card-header">{{ user.get_full_name|default:user.username }} <span class="badge badge-info">{{ role|default:"-" }}</span></div>
+		<div class="card-body">{% trans "Módulu sira (venda bilhete, scan, relatóriu) sei iha faze tuir mai." %}</div>
+	</div>
+{% endblock %}

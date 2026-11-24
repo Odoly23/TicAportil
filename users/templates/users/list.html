@@ -1,0 +1,37 @@
+{% extends "main/layout.html" %}{% load i18n %}
+{% block content %}
+	<ol class="breadcrumb mb-2 mt-1">
+		<li class="breadcrumb-item"><a href="{% url 'home' %}">VARANDA</a></li>
+		<li class="breadcrumb-item active" aria-current="page">{{ legend|upper }}</li>
+	</ol>
+	<div class="card shadow-lg pt-0 rounded">
+		<div class="card-header">{{ legend|upper }}</div>
+		<div class="card-body">
+			{% if perms.users.add_user %}<a class="btn btn-sm btn-primary mb-2" href="{% url 'user-add' %}">{% trans "Aumenta" %} <i class="fa fa-plus"></i></a>{% endif %}
+			<div class="table-responsive">
+			<table class="table table-sm" id="example" width="100%">
+				<thead><tr><th>Nu.</th><th>{% trans "Naran uza-na'in" %}</th><th>{% trans "Naran" %}</th><th>{% trans "Papél" %}</th><th>{% trans "Operadór" %}</th><th>{% trans "Ativu" %}</th><th>{% trans "Login ikus" %}</th><th>#</th></tr></thead>
+				<tbody>
+				{% for u in objects %}
+					<tr class="{% if not u.is_active %}text-muted{% endif %}">
+						<td>{{ forloop.counter }}</td>
+						<td>{{ u.username }}{% if not u.has_usable_password %} <span class="badge badge-warning" title="{% trans 'Konvite pendente' %}">{% trans "konvite" %}</span>{% endif %}</td>
+						<td>{{ u.get_full_name|default:"—" }}</td>
+						<td>{% for g in u.groups.all %}{{ g.name }}{% empty %}{% if u.is_superuser %}superuser{% else %}—{% endif %}{% endfor %}</td>
+						<td>{{ u.operator|default:"—" }}</td>
+						<td>{% if u.is_active %}<i class="fa fa-check text-success"></i>{% else %}<i class="fa fa-ban text-danger"></i>{% endif %}</td>
+						<td data-order="{{ u.last_login|date:'c' }}">{{ u.last_login|date:"d/m/Y H:i"|default:"—" }}</td>
+						<td class="text-nowrap">
+							<a class="btn btn-sm btn-success" href="{% url 'user-edit' u.pk %}" title="{% trans 'Edita' %}"><i class="fa fa-edit"></i></a>
+							<a class="btn btn-sm btn-outline-secondary" href="{% url 'user-password' u.pk %}" title="{% trans 'Liafuan-pase' %}"><i class="fa fa-key"></i></a>
+							{% if u.email %}<form method="post" action="{% url 'user-send-link' u.pk %}" class="d-inline">{% csrf_token %}<button class="btn btn-sm btn-outline-info" title="{% trans 'Haruka link define liafuan-pase' %}"><i class="fa fa-envelope"></i></button></form>{% endif %}
+						</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block scripts %}<script>$(document).ready(function () { $('#example').DataTable(); });</script>{% endblock %}

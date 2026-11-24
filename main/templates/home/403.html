@@ -1,0 +1,8 @@
+{% extends "main/layout.html" %}{% load i18n %}
+{% block content %}
+	<div class="text-center py-5">
+		<h1 class="display-3 text-info">403</h1>
+		<p class="lead">{% trans "Aksesu la permite" %}</p>
+		<a class="btn btn-info" href="{% url 'landing' %}">{% trans "Fila ba pájina inisiál" %}</a>
+	</div>
+{% endblock %}

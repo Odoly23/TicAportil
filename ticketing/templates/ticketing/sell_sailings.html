@@ -1,0 +1,40 @@
+{% extends "main/layout.html" %}{% load i18n %}
+{% block content %}
+	<ol class="breadcrumb mb-2 mt-1">
+		<li class="breadcrumb-item"><a href="{% url 'home' %}">VARANDA</a></li>
+		<li class="breadcrumb-item active" aria-current="page">{{ legend|upper }}</li>
+	</ol>
+	<div class="row">
+		{% for r in rows %}
+			{% with s=r.obj %}
+			<div class="col-md-6 col-lg-4 mb-3">
+				<div class="card h-100 shadow-sm">
+					<div class="card-body">
+						<div class="d-flex justify-content-between">
+							<strong>{{ s.route }}</strong>
+							<span class="badge badge-{% if s.status == 'delayed' %}warning{% else %}info{% endif %}">{{ s.get_status_display }}</span>
+						</div>
+						<div>{{ s.vessel }} <small class="text-muted">· {{ s.vessel.operator }}</small></div>
+						<div class="mb-2"><i class="fa fa-clock-o"></i> {{ s.departure|date:"D d/m/Y H:i" }}</div>
+						<ul class="list-unstyled small mb-3">
+							{% for label, q in r.quotas %}
+								<li>{{ label }}: {% if q %}<strong class="{% if q.remaining == 0 %}text-danger{% endif %}">{{ q.remaining }}</strong> / {{ q.capacity }}{% else %}<span class="text-muted">—</span>{% endif %}</li>
+							{% endfor %}
+						</ul>
+						{% if r.chartered %}<div class="mb-2"><span class="badge badge-warning"><i class="fa fa-lock"></i> {% trans "Aluga ona (charter)" %}</span></div>{% endif %}
+						{% if s.sales_open and r.chartered %}
+							<button class="btn btn-secondary btn-block" disabled>{% trans "Aluga ona (charter)" %}</button>
+						{% elif s.sales_open %}
+							<a class="btn btn-info btn-block" href="{% url 'ticket-sell' s.pk %}"><i class="fa fa-ticket"></i> {% trans "Sosa bilhete" %}</a>
+						{% else %}
+							<button class="btn btn-secondary btn-block" disabled>{% trans "Faan taka ona" %}</button>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+			{% endwith %}
+		{% empty %}
+			<div class="col-12"><p class="text-muted">{% trans "Seidauk iha viajen agendadu." %}</p></div>
+		{% endfor %}
+	</div>
+{% endblock %}

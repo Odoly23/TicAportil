@@ -1,0 +1,35 @@
+{% extends "main/layout.html" %}{% load i18n %}
+{% block content %}
+	<ol class="breadcrumb mb-2 mt-1">
+		<li class="breadcrumb-item"><a href="{% url 'home' %}">VARANDA</a></li>
+		<li class="breadcrumb-item"><a href="{% url 'report-dash' %}">{% trans "Relatóriu" %}</a></li>
+		<li class="breadcrumb-item active" aria-current="page">{{ legend|upper }}</li>
+	</ol>
+	<div class="card shadow-lg rounded">
+		<div class="card-header">{{ legend|upper }}</div>
+		<div class="card-body">
+			<form method="get" class="form-inline mb-3">
+				<input type="date" name="start" value="{{ start|date:'Y-m-d' }}" class="form-control mr-2 mb-2">
+				<input type="date" name="end" value="{{ end|date:'Y-m-d' }}" class="form-control mr-2 mb-2">
+				<button class="btn btn-sm btn-info mb-2">{% trans "Buka" %}</button>
+			</form>
+			<div class="table-responsive">
+			<table class="table table-sm" id="example" width="100%">
+				<thead><tr><th>{% trans "Partida" %}</th><th>{% trans "Rota" %}</th><th>{% trans "Ró" %}</th><th>Status</th><th class="text-right">{% trans "Bilhete" %}</th><th class="text-right">{% trans "Tama ona ro" %}</th><th class="text-right">{% trans "La tama" %}</th><th class="text-right">{% trans "Scan problema" %}</th></tr></thead>
+				<tbody>
+				{% for r in rows %}
+					<tr>
+						<td data-order="{{ r.sailing.departure|date:'c' }}"><a href="{% url 'sailing-detail' r.sailing.pk %}">{{ r.sailing.departure|date:"d/m/Y H:i" }}</a></td>
+						<td>{{ r.sailing.route }}</td><td>{{ r.sailing.vessel }}</td><td>{{ r.sailing.get_status_display }}</td>
+						<td class="text-right">{{ r.tickets }}</td><td class="text-right">{{ r.boarded }}</td>
+						<td class="text-right">{% if r.no_show is None %}—{% else %}{{ r.no_show }}{% endif %}</td>
+						<td class="text-right small">{% if r.duplicates or r.invalid or r.wrong %}{% trans "dupl." %} {{ r.duplicates }} · {% trans "falsu" %} {{ r.invalid }} · {% trans "viajen sala" %} {{ r.wrong }}{% else %}—{% endif %}</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block scripts %}<script>$(document).ready(function () { $('#example').DataTable({order: [[0, 'desc']]}); });</script>{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "main/layout.html" %}{% load i18n %}
+{% block content %}
+	<ol class="breadcrumb mb-2 mt-1">
+		<li class="breadcrumb-item"><a href="{% url 'home' %}">VARANDA</a></li>
+		<li class="breadcrumb-item active" aria-current="page">{{ legend|upper }}</li>
+	</ol>
+	<div class="card shadow-lg pt-0 rounded">
+		<div class="card-header">{{ legend|upper }}</div>
+		<div class="card-body">
+			<a class="btn btn-sm btn-primary mb-2" href="{% url 'sailing-add' %}">{% trans "Aumenta" %} <i class="fa fa-plus"></i></a>
+			<a class="btn btn-sm btn-outline-secondary mb-2" href="?all={% if show_all %}0{% else %}1{% endif %}">{% if show_all %}{% trans "Viajen foun deit" %}{% else %}{% trans "Hatudu hotu" %}{% endif %}</a>
+			<div class="table-responsive">
+			<table class="table table-sm" id="example" width="100%" cellspacing="0">
+				<thead><tr><th>Nu.</th><th>{% trans "Partida" %}</th><th>{% trans "Rota" %}</th><th>{% trans "Ró" %}</th><th>Status</th><th>{% trans "Kuota sobra" %}</th><th>#</th></tr></thead>
+				<tbody>
+				{% for r in rows %}{% with s=r.obj %}
+					<tr>
+						<td>{{ forloop.counter }}</td>
+						<td data-order="{{ s.departure|date:'c' }}">{{ s.departure|date:"d/m/Y H:i" }}{% if s.original_departure %} <small class="text-muted"><del>{{ s.original_departure|date:"d/m H:i" }}</del></small>{% endif %}</td>
+						<td>{{ s.route }}</td>
+						<td>{{ s.vessel }} <small class="text-muted">{{ s.vessel.operator }}</small></td>
+						<td><span class="badge badge-{% if s.status == 'cancelled' %}danger{% elif s.status == 'delayed' %}warning{% else %}info{% endif %}">{{ s.get_status_display }}</span></td>
+						<td class="small">{% for label, q in r.q %}{% if q %}{{ q.remaining }}/{{ q.capacity }}{% else %}—{% endif %}{% if not forloop.last %} · {% endif %}{% endfor %}</td>
+						<td><a class="btn btn-sm btn-success" href="{% url 'sailing-detail' s.pk %}"><i class="fa fa-list"></i></a></td>
+					</tr>
+				{% endwith %}{% endfor %}
+				</tbody>
+			</table>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block scripts %}<script>$(document).ready(function () { $('#example').DataTable({order: [[1, 'asc']]}); });</script>{% endblock %}
